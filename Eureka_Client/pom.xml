@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <artifactId>Common</artifactId>
+            <artifactId>common</artifactId>
             <groupId>com.example</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
