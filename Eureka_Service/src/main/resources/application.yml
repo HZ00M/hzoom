@@ -1,0 +1,9 @@
+security:
+  basic:
+    enabled: true
+  user:
+    name: root
+    password: 123
+spring:
+  profiles:
+    active: peer1
