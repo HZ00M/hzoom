@@ -1,10 +1,7 @@
-security:
-  basic:
-    enabled: true
-  user:
-    name: root
-    password: 123
 spring:
   profiles:
     active: peer1
-
+  security:
+    user:
+      name: root
+      password: 123

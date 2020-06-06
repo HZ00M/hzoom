@@ -10,4 +10,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://root:123@127.0.0.1:8080/eureka/
+      defaultZone: http://root:123@106.52.151.187:8080/eureka/
