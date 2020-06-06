@@ -7,3 +7,5 @@ security:
 spring:
   profiles:
     active: peer1
+logging:
+  config: Eureka_Service/src/main/resources/logback.xml
