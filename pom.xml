@@ -9,7 +9,7 @@
 		<module>Eureka_Consumer</module>
 		<module>Zuul_Gateway</module>
         <module>common</module>
-        <module>my_config</module>
+        <module>Config_Server</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
