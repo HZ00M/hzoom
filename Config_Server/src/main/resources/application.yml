@@ -1,0 +1,29 @@
+server:
+  port: 12580
+
+spring:
+  application:
+    name: config-server
+  security:
+    user:
+      name: root
+      password: 123
+  cloud:
+    config:
+      server:
+        git:
+          uri: xxx
+          username: xxx
+          password: xxx
+          search-paths: '{application}'
+          clone-on-start: true
+  rabbitmq:
+    host: 106.52.151.187
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:123@106.52.151.187:8080/eureka/
