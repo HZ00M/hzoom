@@ -9,7 +9,7 @@
 		<module>Eureka_Consumer</module>
 		<module>Zuul_Gateway</module>
         <module>common</module>
-        <module>Config_Server</module>
+        <module>Config_Server</module> 
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -18,7 +18,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>myCloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>

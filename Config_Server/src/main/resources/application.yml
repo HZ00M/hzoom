@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: config-server
+    name: Config_Server
   security:
     user:
       name: root
@@ -12,18 +12,25 @@ spring:
     config:
       server:
         git:
-          uri: xxx
-          username: xxx
-          password: xxx
-          search-paths: '{application}'
+          uri: https://github.com/HZ00M/config.git
+          username: HZ00M
+          password: hzm2373678
+          search-paths: ${spring.application.name}
           clone-on-start: true
   rabbitmq:
     host: 106.52.151.187
     port: 5672
     username: guest
     password: guest
+#使用bus需要配置的
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://root:123@106.52.151.187:8080/eureka/
+
