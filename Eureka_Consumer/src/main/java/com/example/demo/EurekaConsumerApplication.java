@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Bean;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
-public class DemoApplication {
+public class EurekaConsumerApplication {
     @Bean
     Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
     }
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(EurekaConsumerApplication.class, args);
     }
 }

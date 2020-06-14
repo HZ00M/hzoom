@@ -15,8 +15,11 @@ spring:
           uri: https://github.com/HZ00M/config.git
           username: HZ00M
           password: hzm2373678
-          search-paths: ${spring.application.name}
+#          search-paths:
+#            - 'Config_Client'
+#            - 'Config_Server'
           clone-on-start: true
+          force-pull: true
   rabbitmq:
     host: 106.52.151.187
     port: 5672
@@ -27,7 +30,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: 'bus-refresh'
 
 eureka:
   client:

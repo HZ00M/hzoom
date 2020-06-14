@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableDiscoveryClient
 @SpringBootApplication
 @RestController
-public class DemoApplication {
+public class ZuulGatewayApplication {
     @GetMapping("/test/hello")
     public String hello() {
         return "hello zuul";
     }
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(ZuulGatewayApplication.class, args);
     }
 }
