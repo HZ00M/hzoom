@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @author MrBird
- */
+
 @Component
 public class UserServiceFallback implements UserService {
     private Logger log = LoggerFactory.getLogger(this.getClass());

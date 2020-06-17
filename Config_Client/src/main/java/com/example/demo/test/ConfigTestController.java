@@ -13,7 +13,7 @@ public class ConfigTestController {
 
     private String message;
 
-    @GetMapping("/message")
+        @GetMapping("/message")
     public String getMessage() {
         return this.message;
     }

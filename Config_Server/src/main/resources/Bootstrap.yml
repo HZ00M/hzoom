@@ -15,9 +15,8 @@ spring:
           uri: https://github.com/HZ00M/config.git
           username: HZ00M
           password: hzm2373678
-#          search-paths:
-#            - 'Config_Client'
-#            - 'Config_Server'
+          search-paths:
+            - '/*'
           clone-on-start: true
           force-pull: true
   rabbitmq:

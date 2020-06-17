@@ -1,8 +1,8 @@
 spring:
   application:
-    name: Zuul-Gateway
+    name: Zuul_Gateway
 server:
-  port: 12580
+  port: 9998
 
 eureka:
   client:

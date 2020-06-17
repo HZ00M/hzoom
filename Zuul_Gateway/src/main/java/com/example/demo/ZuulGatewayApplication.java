@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class ZuulGatewayApplication {
-    @GetMapping("/test/hello")
-    public String hello() {
-        return "hello zuul";
-    }
     public static void main(String[] args) {
         SpringApplication.run(ZuulGatewayApplication.class, args);
     }
