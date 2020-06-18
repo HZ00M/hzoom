@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: Config_Client
-  cloud:
-    config:
-      name: ConfigClient-application # 配置文件的名字application-dev.yml的base
-      profile: dev
-      label: master # 分支
-      uri: http://root:123@127.0.0.1:12580
