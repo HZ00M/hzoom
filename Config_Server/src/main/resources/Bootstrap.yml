@@ -17,6 +17,7 @@ spring:
           password: hzm2373678
           search-paths:
             - '/*'
+            - '/Config_Server'
           clone-on-start: true
           force-pull: true
   rabbitmq:
