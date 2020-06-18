@@ -1,4 +1,4 @@
-package com.example.demo.jasypt;
+package com.example.jasypt;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.junit.Assert;
