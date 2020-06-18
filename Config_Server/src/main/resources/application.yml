@@ -12,12 +12,11 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/HZ00M/config.git
-          username: HZ00M
-          password: hzm2373678
+          uri: ENC(X/srgivpKoVLuwHHLJ537GjK1YTMPmVqHQ4+X/ue3ruU2fl61HWc1ZLcuenJQpDx)
+          username: ENC(44a/TH12S5VeFVfVjt9SYQ==)
+          password: ENC(fXSfMb9nOk0rS9jwXZ1VP32rlnQu7aFx)
           search-paths:
             - '/*'
-            - '/Config_Server'
           clone-on-start: true
           force-pull: true
   rabbitmq:
@@ -36,4 +35,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://root:123@106.52.151.187:8080/eureka/
+
+#jasypt加密的密匙
+jasypt:
+  encryptor:
+    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
+
 
