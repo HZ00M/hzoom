@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: Server-Provider
-  security:
-    user:
-      name: root
-      password: 123
+#  security:
+#    user:
+#      name: root
+#      password: 123
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@106.52.151.187:8080/eureka/
+      defaultZone: http://root:123@106.52.151.187:8080/eureka/
