@@ -4,7 +4,10 @@ server:
 spring:
   application:
     name: Eureka_Consumer
-
+  security:
+    user:
+      name: root
+      password: 123
 eureka:
   client:
     serviceUrl:

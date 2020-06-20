@@ -1,6 +1,10 @@
 spring:
   application:
     name: Zuul_Gateway
+  security:
+    user:
+      name: root
+      password: 123
 server:
   port: 9998
 

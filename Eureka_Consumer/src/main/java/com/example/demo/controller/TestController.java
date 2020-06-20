@@ -2,12 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class TestController {
 
     @Autowired
@@ -15,6 +17,7 @@ public class TestController {
 
     @GetMapping("user/{id}")
     public User getUser(@PathVariable Long id) {
+        log.info("测试sleuth");
         return userService.get(id);
     }
 
