@@ -16,13 +16,13 @@ zuul:
   routes:
     provider:
       path: /provider/**
-      serviceId: server-provider
+      serviceId: Server-Provider
     consumer:
       path: /consumer/**
-      serviceId: server-consumer
+      serviceId: Eureka_Consumer
     test:
       path: /test/**
       url: forward:/test
-  ignored-services: server-consumer
+#  ignored-services: Eureka_Consumer
   sensitive-headers:
   add-host-header: true
