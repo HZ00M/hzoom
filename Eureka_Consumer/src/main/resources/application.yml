@@ -8,6 +8,7 @@ spring:
     user:
       name: root
       password: 123
+
 eureka:
   client:
     serviceUrl:
