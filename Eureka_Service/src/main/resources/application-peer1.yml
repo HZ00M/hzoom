@@ -8,6 +8,8 @@ spring:
 eureka:
   instance:
     hostname: peer1
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
   client:
     serviceUrl:
       defaultZone: http://root:123@peer2:8081/eureka/
@@ -15,3 +17,4 @@ eureka:
     fetchRegistry: false   # false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
   server:
     enable-self-preservation: false
+
