@@ -32,7 +32,7 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
+            <pattern>${SLEUTH_LOG_PATTERN}</pattern>
         </encoder>
     </appender>
     <!-- project default level -->
