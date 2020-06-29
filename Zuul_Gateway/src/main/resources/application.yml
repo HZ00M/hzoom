@@ -5,6 +5,12 @@ spring:
     user:
       name: root
       password: 123
+  sleuth:
+    web:
+      client:
+        enabled: true
+  zipkin:
+    base-url: http://localhost:9411/ # 指定了 Zipkin 服务器的地址
 server:
   port: 9998
 
