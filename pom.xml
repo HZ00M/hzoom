@@ -11,7 +11,7 @@
         <module>common</module>
         <module>Config_Server</module>
         <module>Config_Client</module>
-    </modules>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

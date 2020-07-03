@@ -26,3 +26,13 @@ eureka:
     prefer-ip-address: true
     ip-address: 106.52.151.187 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
     instance-id: ${eureka.instance.ip-address}:${server.port}
+xxl:
+  job:
+    admin:
+      addresses: http://106.52.151.187:9056/xxl-job-admin
+    executor:
+      appname: 'xxl-job-executor-spring'
+      logretentiondays: 30
+      logpath: /data/applogs/xxl-job/jobhandler
+#      ip: 192.168.1.30
+#      port: 9999
