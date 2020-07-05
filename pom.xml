@@ -11,6 +11,7 @@
         <module>common</module>
         <module>Config_Server</module>
         <module>Config_Client</module>
+		<module>Cloud_Core</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -31,6 +32,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+
+		<lombok.version>1.16.10</lombok.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,7 +59,6 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
