@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration
+//@Configuration
 @Slf4j
 public class XxlConfig {
     @Value("${xxl.job.admin.addresses}")
