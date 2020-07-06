@@ -41,5 +41,5 @@ management:
     enabled-by-default: true
 cloud:
   filter:
-    enable: true
+    enable: false
 

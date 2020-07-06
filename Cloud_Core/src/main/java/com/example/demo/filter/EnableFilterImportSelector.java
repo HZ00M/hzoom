@@ -1,19 +1,20 @@
-package com.example.demo.config;
+package com.example.demo.filter;
 
-import com.example.demo.annotation.EnableFilter;
+import com.example.demo.filter.annotation.EnableFilter;
+import com.example.demo.filter.enums.FilterAutoConfigurationEnum;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.ImportSelector;
+import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class EnableFilterImportSelector implements ImportSelector, BeanClassLoaderAware, EnvironmentAware {
+public class EnableFilterImportSelector implements DeferredImportSelector, BeanClassLoaderAware, EnvironmentAware {
 
     private ClassLoader classLoader;
     private Environment environment;
@@ -39,12 +40,15 @@ public class EnableFilterImportSelector implements ImportSelector, BeanClassLoad
         AnnotationAttributes attributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(this.annotationClass.getName(), true));
         Assert.notNull(attributes, "can not be null ..");
         //从spring.factories中获取所有通过EnableFilter注解引入的自动配置类，并进行去重操作;
-        ArrayList<String> factories = new ArrayList<>(new LinkedHashSet<>(SpringFactoriesLoader.loadFactoryNames(this.annotationClass, this.classLoader)));
+        List<String> factories = SpringFactoriesLoader.loadFactoryNames(this.annotationClass, this.classLoader)
+                .stream().distinct().collect(Collectors.toList());
         if (factories.isEmpty()) {
             throw new IllegalStateException("factories is empty ..");
         }
-        factories.stream().forEach(filter -> System.out.println("starting  " + filter));
-        return factories.toArray(new String[factories.size()]);
+        Map<String, String> enableMap = Arrays
+                .stream(((FilterAutoConfigurationEnum[]) attributes.get("value")))
+                .collect(Collectors.toMap(e -> e.getFilterName(), e -> e.getFilterName()));
+        return factories.stream().filter(e -> enableMap.get(e) != null).collect(Collectors.toList()).toArray(new String[]{});
     }
 
     private boolean isEnable() {

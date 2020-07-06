@@ -1,7 +1,7 @@
-package com.example.demo.annotation;
+package com.example.demo.filter.annotation;
 
-import com.example.demo.config.EnableFilterImportSelector;
-import com.example.demo.enums.FilterEnum;
+import com.example.demo.filter.EnableFilterImportSelector;
+import com.example.demo.filter.enums.FilterAutoConfigurationEnum;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(EnableFilterImportSelector.class)
 public @interface EnableFilter {
-    FilterEnum[] value();
+    FilterAutoConfigurationEnum[] value();
 }
