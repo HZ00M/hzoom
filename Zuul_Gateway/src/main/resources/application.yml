@@ -1,3 +1,5 @@
+server:
+  port: 9998
 spring:
   application:
     name: Zuul_Gateway
@@ -13,8 +15,6 @@ spring:
       probability: 1.0
   zipkin:
     base-url: http://106.52.151.187:9411/ # 指定了 Zipkin 服务器的地址
-server:
-  port: 9998
 
 eureka:
   client:
