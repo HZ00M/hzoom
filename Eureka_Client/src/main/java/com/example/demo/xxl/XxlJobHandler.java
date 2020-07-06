@@ -5,7 +5,7 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
 
 public class XxlJobHandler {
-    @XxlJob(value = "demoJobHandler")
+//    @XxlJob(value = "demoJobHandler")
     public ReturnT<String> execute(String s) throws Exception {
         XxlJobLogger.log("XXL-JOB, testJobHandler.");
         System.out.println("XXL-JOB测试");
