@@ -1,7 +1,6 @@
 package com.example.demo.xxl;
 
 import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.handler.annotation.XxlJob;
 import com.xxl.job.core.log.XxlJobLogger;
 
 public class XxlJobHandler {

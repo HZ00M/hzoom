@@ -1,4 +1,4 @@
 #登记spring扩展点，让spring读取zookeeper中的配置信息
-com.example.demo.filter.annotation.EnableFilter=\
-  com.example.demo.filter.autoconfig.LogFilterAutoConfiguration,\
-  com.example.demo.filter.autoconfig.AuthFilterAutoConfiguration
+com.example.core.filter.annotation.EnableFilter=\
+  com.example.core.filter.autoconfig.LogFilterAutoConfiguration,\
+  com.example.core.filter.autoconfig.AuthFilterAutoConfiguration

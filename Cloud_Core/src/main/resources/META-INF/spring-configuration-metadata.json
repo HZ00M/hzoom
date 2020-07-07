@@ -1,0 +1,14 @@
+{
+  "groups": [
+    {
+      "name": "core"
+    }
+  ],
+  "properties": [
+    {
+      "name": "core.filter.enable",
+      "type": "java.lang.Boolean"
+    }
+  ],
+  "hints": []
+}

@@ -39,7 +39,6 @@ xxl:
 management:
   endpoints:
     enabled-by-default: true
-cloud:
+core:
   filter:
-    enable: false
-
+    enable: true
