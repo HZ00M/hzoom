@@ -1,0 +1,49 @@
+server:
+  port: 8082
+  
+spring:
+  application:
+    name: Server-Provider
+  datasource:
+    url: jdbc:mysql://106.52.151.187:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  security:
+    user:
+      name: root
+      password: 123
+  sleuth:
+    web:
+      client:
+        enabled: true
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://106.52.151.187:9411/ # 指定了 Zipkin 服务器的地址
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://root:123@106.52.151.187:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 106.52.151.187 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+xxl:
+  job:
+    admin:
+      addresses: http://106.52.151.187:9056/xxl-job-admin
+    executor:
+      appname: 'xxl-job-executor-spring'
+      logretentiondays: 30
+      logpath: /data/applogs/xxl-job/jobhandler
+#      ip: 192.168.1.30
+#      port: 9999
+management:
+  endpoints:
+    enabled-by-default: true
+core:
+  filter:
+    enable: true

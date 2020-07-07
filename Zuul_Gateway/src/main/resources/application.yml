@@ -1,36 +1,3 @@
-server:
-  port: 9998
 spring:
-  application:
-    name: Zuul_Gateway
-  security:
-    user:
-      name: root
-      password: 123
-  sleuth:
-    web:
-      client:
-        enabled: true
-    sampler:
-      probability: 1.0
-  zipkin:
-    base-url: http://106.52.151.187:9411/ # 指定了 Zipkin 服务器的地址
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://root:123@106.52.151.187:8080/eureka/
-zuul:
-  routes:
-    provider:
-      path: /provider/**
-      serviceId: Server-Provider
-    consumer:
-      path: /consumer/**
-      serviceId: Eureka_Consumer
-    test:
-      path: /test/**
-      url: forward:/test
-#  ignored-services: Eureka_Consumer
-  sensitive-headers:
-  add-host-header: true
+  profiles:
+    active: dev
