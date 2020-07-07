@@ -7,7 +7,9 @@
   "properties": [
     {
       "name": "core.filter.enable",
-      "type": "java.lang.Boolean"
+      "type": "java.lang.Boolean",
+      "description": "Whether core filter is enabled.",
+      "defaultValue": true
     }
   ],
   "hints": []
