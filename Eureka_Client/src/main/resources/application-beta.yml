@@ -1,6 +1,6 @@
 server:
   port: 8082
-  
+
 spring:
   application:
     name: Server-Provider
@@ -34,7 +34,7 @@ eureka:
 xxl:
   job:
     admin:
-      addresses: http://106.52.151.187:9056/xxl-job-admin
+      addresses: http://106.52.151.187:8888/xxl-job-admin
     executor:
       appname: 'xxl-job-executor-spring'
       logretentiondays: 30
