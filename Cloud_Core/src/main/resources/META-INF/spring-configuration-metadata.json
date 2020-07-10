@@ -10,6 +10,13 @@
       "type": "java.lang.Boolean",
       "description": "Whether core filter is enabled.",
       "defaultValue": true
+    },
+    {
+      "name": "xxl.job.admin.addresses",
+      "type": "java.lang.String",
+      "description": "xxl-job-admin addresses",
+      "sourceType": "com.example.core.xxl.autoconfig.XxlProperties",
+      "defaultValue": "http://127.0.0.1:9056/xxl-job-admin"
     }
   ],
   "hints": []

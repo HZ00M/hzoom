@@ -14,11 +14,11 @@ public class XxlProperties {
         private String addresses = "http://127.0.0.1:9056/xxl-job-admin";;
     }
     @Data
-    class Executor{
+    public class Executor{
         private String appName;
         private int logRetentionDays;
         private String logPath;
-        private String ip = "localhost";
-        private int port = 9999;
+        private String ip;
+        private int port;
     }
 }

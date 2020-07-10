@@ -7,6 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Optional;
+
 @Configuration
 @ConditionalOnClass({XxlProperties.class})
 @ConditionalOnProperty(
@@ -29,8 +31,8 @@ public class XxlAutoConfiguration {
         xxlJobSpringExecutor.setAppname(xxlProperties.getExecutor().getAppName());
         xxlJobSpringExecutor.setLogRetentionDays(xxlProperties.getExecutor().getLogRetentionDays());
         xxlJobSpringExecutor.setLogPath(xxlProperties.getExecutor().getLogPath());
-        xxlJobSpringExecutor.setIp(xxlProperties.getExecutor().getIp());
-        xxlJobSpringExecutor.setPort(xxlProperties.getExecutor().getPort());
+        Optional.ofNullable(xxlProperties.getExecutor().getIp()).ifPresent(ip->xxlJobSpringExecutor.setIp(ip));
+        Optional.ofNullable(xxlProperties.getExecutor().getPort()).ifPresent(port->xxlJobSpringExecutor.setPort(port));
         return xxlJobSpringExecutor;
     }
 }
