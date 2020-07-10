@@ -52,6 +52,6 @@ public class EnableFilterImportSelector implements DeferredImportSelector, BeanC
     }
 
     private boolean isEnable() {
-        return environment.getProperty("cloud.filter.enable", Boolean.class, Boolean.TRUE);
+        return environment.getProperty("core.filter.enabled", Boolean.class, Boolean.TRUE);
     }
 }

@@ -11,20 +11,21 @@ import java.util.Optional;
 
 @Configuration
 @ConditionalOnClass({XxlProperties.class})
-@ConditionalOnProperty(
-        prefix = "xxl.job",
-        name = {"enabled"},
-        havingValue = "true",
-        matchIfMissing = true
-)
 @EnableConfigurationProperties({XxlProperties.class})
 public class XxlAutoConfiguration {
+
     private final XxlProperties xxlProperties;
     public XxlAutoConfiguration(XxlProperties xxlProperties){
         this.xxlProperties = xxlProperties;
     }
 
     @Bean
+    @ConditionalOnProperty(
+            prefix = "xxl.job",
+            name = {"enabled"},
+            havingValue = "true",
+            matchIfMissing = true
+    )
     public XxlJobSpringExecutor xxlJobSpringExecutor(){
         XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
         xxlJobSpringExecutor.setAdminAddresses(xxlProperties.getAdmin().getAddresses());

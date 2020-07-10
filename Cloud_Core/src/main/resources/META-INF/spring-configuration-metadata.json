@@ -6,9 +6,15 @@
   ],
   "properties": [
     {
-      "name": "core.filter.enable",
+      "name": "core.filter.enabled",
       "type": "java.lang.Boolean",
       "description": "Whether core filter is enabled.",
+      "defaultValue": true
+    },
+    {
+      "name": "xxl.job.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether xxl job is enabled.",
       "defaultValue": true
     },
     {
