@@ -5,28 +5,10 @@ spring:
   application:
     name: Server-Provider
   datasource:
-    url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://106.52.151.187:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    #    数据源其他配置
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validaionQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    #    配置监控统计拦截的filters 去掉后监控界面sql无法统计，‘wall’用于防火墙
-    filters: stat,wall
-    maxPoolPreparedStatementPerConnectionSize: 20
-    useGlobalDataSourceStat: true
-    connectionProperties: druid.stat.mergeSql=true,druid.stat.slowSqlMills=500
   security:
     user:
       name: root
@@ -39,11 +21,6 @@ spring:
       probability: 1.0
   zipkin:
     base-url: http://106.52.151.187:9411/ # 指定了 Zipkin 服务器的地址
-  activiti:
-    check-process-definitions: true #自动检查、部署流程定义文件
-    database-schema-update: true  #自动更新数据库结构
-    process-definition-location-prefix: /processes
-
 eureka:
   client:
     register-with-eureka: true
@@ -53,7 +30,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
-    instance-id: ${eureka.instance.ip-address}:${server.port}
+    instance-id: ${eureka.instance.ip-address}:${server.port}:${random.value}
 
 xxl:
   job:
@@ -63,13 +40,11 @@ xxl:
       appname: 'xxl-job-executor-spring'
       logretentiondays: 30
       logpath: /data/applogs/xxl-job/jobhandler
-    enabled: false
+#      ip: 192.168.1.30
+#      port: 9999
 management:
   endpoints:
     enabled-by-default: true
-    web:
-      exposure:
-        include: '*'
 core:
   filter:
-    enabled: false
+    enable: true

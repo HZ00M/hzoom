@@ -23,7 +23,7 @@ eureka:
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
-    instance-id: ${eureka.instance.ip-address}:${server.port}
+    instance-id: ${eureka.instance.ip-address}:${server.port}:${random.value}
 
 feign:
   hystrix:
