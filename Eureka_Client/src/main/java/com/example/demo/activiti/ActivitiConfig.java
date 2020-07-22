@@ -37,11 +37,11 @@ public class ActivitiConfig {
         return processEngineConfiguration;
     }
 
-    /* @Bean
-     public ProcessEngine processEngine() {
-         return processEngineConfiguration().buildProcessEngine();
-     }
-     */
+//    @Bean
+//    public ProcessEngine processEngine() {
+//        return processEngineConfiguration().buildProcessEngine();
+//    }
+
     @Bean
     public RepositoryService repositoryService() {
         return processEngineConfiguration().buildProcessEngine().getRepositoryService();

@@ -48,7 +48,7 @@ public class ActivitiController {
 
         // 部署流程
         Deployment deployment = repositoryService.createDeployment()
-                .addClasspathResource("processes/simple.bpmn")
+                .addClasspathResource("processes/ask_leave.bpmn")
 //                .name("test inspect")
 //                .key("shOffice")
                 .deploy();
