@@ -5,79 +5,48 @@ import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.logging.LogMDC;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.activiti.engine.test.ActivitiRule;
-import org.junit.Rule;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = EurekaClientApplication.class)
 @Slf4j
 public class AskLeaveTest {
     @Autowired
-    ProcessEngineConfiguration processEngineConfiguration;
-
-//    @Rule
-//    public ActivitiRule activitiRule =new ActivitiRule("processes/simple.bpmn");
-//
-//    @Test
-//    public void activitiRuleTest(){
-//        String name = activitiRule.getProcessEngine().getName();
-//        System.out.println(name);
-//    }
-
-    @Test
-    public void deplaymentTest() {
-        RepositoryService repositoryService = processEngineConfiguration.buildProcessEngine().getRepositoryService();
-        RuntimeService runtimeService = processEngineConfiguration.buildProcessEngine().getRuntimeService();
-        TaskService taskService = processEngineConfiguration.buildProcessEngine().getTaskService();
-
-        Deployment deploy = repositoryService.createDeployment().addClasspathResource("processes/ask_leave.bpmn").deploy();
-        log.info("deploy : {}", deploy.getName());
-
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).singleResult();
-        log.info("processDefinition : {}", processDefinition.getName());
-
-        ProcessInstance instance = runtimeService.startProcessInstanceById(processDefinition.getId());
-        log.info("instance : {}", instance.getName());
-        List<Task> tasks = taskService.createTaskQuery().listPage(0, 100);
-        for (Task task : tasks) {
-            log.info("task : {}", task.getName());
-            taskService.complete(task.getId());
-        }
-    }
+    ProcessEngine processEngine;
 
     @Test
     public void test() {
-        RepositoryService repositoryService = processEngineConfiguration.buildProcessEngine().getRepositoryService();
-        RuntimeService runtimeService = processEngineConfiguration.buildProcessEngine().getRuntimeService();
-        TaskService taskService = processEngineConfiguration.buildProcessEngine().getTaskService();
-        FormService formService = processEngineConfiguration.buildProcessEngine().getFormService();
-        HistoryService historyService = processEngineConfiguration.buildProcessEngine().getHistoryService();
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        TaskService taskService = processEngine.getTaskService();
+        FormService formService = processEngine.getFormService();
+        HistoryService historyService = processEngine.getHistoryService();
 
-        Deployment deploy = repositoryService.createDeployment().addClasspathResource("processes/test.bpmn").deploy();
-        log.info("deploy : {}", deploy.getName());
+        Deployment deploy = repositoryService.createDeployment().addClasspathResource("processes/ask_leave.bpmn").deploy();
+        log.info("deploy : {}", deploy.getId());
 
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().deploymentId(deploy.getId()).singleResult();
-        log.info("processDefinition : {}", processDefinition.getName());
+        log.info("processDefinition : {}", processDefinition.getId());
 
         ProcessInstance instance = runtimeService.startProcessInstanceById(processDefinition.getId());
-        log.info("instance : {}", instance.getName());
-        Scanner scanner = new Scanner(System.in);
-        while (!instance.isEnded()) {
-            List<Task> tasks = taskService.createTaskQuery().active().listPage(0, 100);
+        log.info("instance : {}", instance.getId());
+        List<Task> tasks = taskService.createTaskQuery().active().listPage(0, 100);
+        while (!tasks.isEmpty()) {
             for (Task task : tasks) {
                 if (task.getName().equals("主管审批")){
                     TaskFormData taskFormData = formService.getTaskFormData(task.getId());
@@ -107,8 +76,9 @@ public class AskLeaveTest {
                     formService.submitTaskFormData(task.getId(), fromValues);
                 }
              }
+            tasks = taskService.createTaskQuery().active().listPage(0, 100);
         }
-        log.info("instance {} 结束",instance.getName());
+        log.info("instance {} 结束",instance.getId());
     }
 
 }
