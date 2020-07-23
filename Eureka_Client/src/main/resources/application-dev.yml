@@ -5,7 +5,7 @@ spring:
   application:
     name: Server-Provider
   datasource:
-    url: jdbc:mysql://106.52.151.187:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
     username: root
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver

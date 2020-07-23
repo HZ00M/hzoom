@@ -1,18 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.example.demo.service.UserService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
+@Slf4j
 public class UserController {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    UserService userService;
 
     @GetMapping("/{id:\\d+}")
     public User get(@PathVariable Long id) {
@@ -29,19 +32,19 @@ public class UserController {
         return list;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void add(@RequestBody User user) {
-        log.info("新增用户成功 " + user);
+        userService.add(user);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public void update(@RequestBody User user) {
-        log.info("更新用户成功 " + user);
+        userService.update(user);
     }
 
     @DeleteMapping("/{id:\\d+}")
     public void delete(@PathVariable Long id) {
-        log.info("删除用户成功 " + id);
+        userService.delete(id);
     }
 
 }

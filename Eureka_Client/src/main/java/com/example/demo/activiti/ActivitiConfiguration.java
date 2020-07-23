@@ -7,19 +7,19 @@ import com.example.demo.activiti.listener.ProcessEventListener;
 import org.activiti.engine.*;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
 import org.activiti.engine.impl.history.HistoryLevel;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
-import org.activiti.engine.impl.interceptor.CommandInvoker;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Configuration
+@AutoConfigureAfter({DataSourceAutoConfiguration.class})
 public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
     @Value("${spring.datasource.url}")
     private String url;
@@ -33,7 +33,7 @@ public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
     @Value("${spring.datasource.driver-class-name}")
     private String driver;
 
-    @Bean(value = "myProcessEngine")
+    @Bean
     public ProcessEngine getProcessEngine() {
         buildDataSource();
         buildCommandInvoker();
@@ -53,7 +53,7 @@ public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
         this.setJdbcUrl(url);
         this.setJdbcUsername(userName);
         this.setJdbcPassword(password);
-        this.setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE);
+        this.setDatabaseSchemaUpdate("true");
         this.setAsyncExecutorActivate(false);
         this.setHistoryLevel(HistoryLevel.FULL);
     }
@@ -68,10 +68,10 @@ public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
         this.setCustomPreCommandInterceptors(interceptors);
     }
 
-
     @Override
     public CommandInterceptor createTransactionInterceptor() {
         return null;
     }
+
 }
 

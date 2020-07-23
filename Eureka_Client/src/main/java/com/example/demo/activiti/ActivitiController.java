@@ -20,7 +20,7 @@ import java.util.List;
 public class ActivitiController {
 
 
-    @Resource(name = "myProcessEngine")
+    @Resource
     private ProcessEngine processEngine;
 
     /**
