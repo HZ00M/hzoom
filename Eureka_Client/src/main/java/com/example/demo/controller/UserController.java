@@ -9,41 +9,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
-@Slf4j
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @GetMapping("/{id:\\d+}")
-    public User get(@PathVariable Long id) {
+    public User get(@PathVariable Integer id) {
         log.info("获取用户id为 " + id + "的信息");
-        return new User(id, "mrbird", "123456");
+        return new User(id, null,null,null);
     }
 
     @GetMapping
     public List<User> get() {
-        List<User> list = new ArrayList<>();
-        list.add(new User(1L, "mrbird", "123456"));
-        list.add(new User(2L, "scott", "123456"));
-        log.info("获取用户信息 " + list);
-        return list;
+        return userService.select();
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody User user) {
-        userService.add(user);
+    public int add(User user) {
+       return userService.add(user);
     }
 
-    @PutMapping("/update")
-    public void update(@RequestBody User user) {
+    @PostMapping("/update")
+    public void update(User user) {
         userService.update(user);
     }
 
     @DeleteMapping("/{id:\\d+}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Integer id) {
         userService.delete(id);
     }
 

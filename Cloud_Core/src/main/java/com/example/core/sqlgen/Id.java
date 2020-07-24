@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
-public @interface SearchFiled {
-    String[] value() default "*";
+@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})
+public @interface Id {
+    String value() default "id";
 }

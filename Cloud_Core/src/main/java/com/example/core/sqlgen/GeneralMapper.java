@@ -12,7 +12,7 @@ import java.util.List;
 public interface GeneralMapper<T>{
     @InsertProvider(type = SQLGen.class,method = "insert")
     @Options(useGeneratedKeys = true,keyProperty = "id")
-    int save(T t);
+    int add(T t);
 
     @DeleteProvider(type = SQLGen.class,method = "delete")
     int del(T t);
@@ -21,5 +21,5 @@ public interface GeneralMapper<T>{
     int update(T t);
 
     @SelectProvider(type = SQLGen.class,method = "select")
-    List<T> list(T t);
+    List<T> select(T t);
 }
