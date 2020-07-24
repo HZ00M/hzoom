@@ -1,5 +1,8 @@
 package com.example.core.sqlgen;
 
+import com.example.core.sqlgen.annotation.Id;
+import com.example.core.sqlgen.annotation.TableField;
+import com.example.core.sqlgen.annotation.TableName;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.lang.annotation.Annotation;
@@ -104,7 +107,7 @@ public class SQLGen<T> {
 
                 Annotation[] annotations = obj.getClass().getAnnotations();
                 for (Annotation annotation : annotations) {
-                    if (annotation instanceof com.example.core.sqlgen.TableName) {
+                    if (annotation instanceof TableName) {
                         tableName = ((TableName) annotation).value();
                     }
                 }

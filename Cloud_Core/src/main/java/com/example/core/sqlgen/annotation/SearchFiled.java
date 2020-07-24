@@ -1,4 +1,4 @@
-package com.example.core.sqlgen;
+package com.example.core.sqlgen.annotation;
 
 import java.lang.annotation.*;
 

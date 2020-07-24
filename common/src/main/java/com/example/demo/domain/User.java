@@ -1,7 +1,7 @@
 package com.example.demo.domain;
 
-import com.example.core.sqlgen.Id;
-import com.example.core.sqlgen.TableName;
+import com.example.core.sqlgen.annotation.Id;
+import com.example.core.sqlgen.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
