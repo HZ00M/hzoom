@@ -17,16 +17,25 @@
             <groupId>com.example</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <artifactId>Cloud_Core</artifactId>
-            <groupId>com.example</groupId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
         <dependency>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
             <groupId>org.activiti</groupId>
             <version>6.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
