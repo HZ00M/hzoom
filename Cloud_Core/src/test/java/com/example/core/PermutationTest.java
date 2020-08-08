@@ -5,18 +5,27 @@ import org.junit.Test;
 public class PermutationTest {
     @Test
     public void test(){
-        char[] arr = new char[]{'a', 'b', 'c'};
+        char[] arr = new char[]{'1', '2', '3'};
         Permutation(arr);
     }
     public static void Permutation(char[] c){
 
         for(int i=1;i<(Math.pow(2,c.length));i++){
             for(int j=0;j<c.length;j++){
+
                 if((i&(1<<j))>0){//判断每一位是否有
                     System.out.print(c[j]);
+                }else {
+                    System.out.print(0);
                 }
             }
             System.out.println();
         }
     }
 }
+/**
+ *   位图
+ *   判断数字是否存在、判断数字是否重复的问题，位图法是一种非常高效的方法。
+ *   i&(1<<j)  1<<j 分别为 001,010,100 然后与按位&可以判断该位是否存在
+ *   判断数字是否存在、判断数字是否重复的问题，位图法是一种非常高效的方法。
+ */
