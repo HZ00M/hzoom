@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.User;
+import com.example.demo.interceptor.PageParam;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,11 @@ public class UserController {
         return new User(id, null,null,null);
     }
 
-    @GetMapping
+    @PostMapping
     public List<User> get() {
+        PageParam pageParam = new PageParam();
+        pageParam.setPageSize(10);
+        pageParam.setPage(1);
         return userService.select();
     }
 
@@ -43,4 +48,8 @@ public class UserController {
         userService.delete(id);
     }
 
+    @PostMapping("/selectWithPage")
+    public List<User> selectWithPage(PageParam pageParam) {
+        return userService.select();
+    }
 }

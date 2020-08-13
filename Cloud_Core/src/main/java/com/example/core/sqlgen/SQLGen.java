@@ -37,21 +37,21 @@ public class SQLGen<T> {
                         //进行字段映射处理
                         String fieldName = SQLUtil.humpToLine(field.getName());
                         String entityFieldName = field.getName();
-                        searchFileds.add(fieldName + " as " + entityFieldName);
 
-                        if (v != null) {
-                            Annotation[] fieldAnnotions = field.getAnnotations();
-                            for (Annotation annotation : fieldAnnotions) {
-                                if (annotation instanceof TableField) {
-                                    fieldName = ((TableField) annotation).value();
-                                }
+                        Annotation[] fieldAnnotions = field.getAnnotations();
+                        for (Annotation annotation : fieldAnnotions) {
+                            if (annotation instanceof TableField) {
+                                fieldName = ((TableField) annotation).value();
                             }
+                        }
+                        if (v != null) {
                             if (v instanceof String && ((String) v).contains("%")) {
                                 WHERE(fieldName + " like '" + v + "'");
                             } else {
                                 WHERE(fieldName + "=#{" + entityFieldName + "}");
                             }
                         }
+                        searchFileds.add(fieldName + " as " + entityFieldName);
                     }
                     SELECT(searchFileds.stream().collect(Collectors.joining(",")));
                 } catch (Exception e) {
