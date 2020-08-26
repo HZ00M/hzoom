@@ -1,4 +1,4 @@
-package com.example.core.token;
+package com.example.demo.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface GeneralMapper<T>{
     @InsertProvider(type = SQLGen.class,method = "insert")
-    @Options(useGeneratedKeys = true,keyProperty = "id")
     int add(T t);
 
     @DeleteProvider(type = SQLGen.class,method = "delete")

@@ -1,4 +1,4 @@
-package com.example.core.token;
+package com.example.demo.token;
 
 import org.springframework.web.method.HandlerMethod;
 

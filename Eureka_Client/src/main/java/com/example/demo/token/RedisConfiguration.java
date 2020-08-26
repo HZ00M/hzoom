@@ -1,4 +1,4 @@
-package com.example.core.token;
+package com.example.demo.token;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
-@Configuration
+//@Configuration
 public class RedisConfiguration {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {

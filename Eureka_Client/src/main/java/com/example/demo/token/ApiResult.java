@@ -1,4 +1,4 @@
-package com.example.core.token;
+package com.example.demo.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

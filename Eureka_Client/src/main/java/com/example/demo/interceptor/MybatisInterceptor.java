@@ -28,7 +28,7 @@ import java.util.Set;
 /**
  * mybatis分页插件
  */
-@Component
+//@Component
 @Slf4j
 @Intercepts(@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}))
 public class MybatisInterceptor implements Interceptor{

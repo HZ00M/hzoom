@@ -13,13 +13,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @TableName("t_user")
 public class User implements Serializable {
+    @Id("id")
     private Integer id;
 
     private String username;
 
     private String password;
 
-    @Id("nick_name")
     private String nickName;
 
 }

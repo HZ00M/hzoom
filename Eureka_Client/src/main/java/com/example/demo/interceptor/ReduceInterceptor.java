@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 /**
  * mybatis 排序、限制插件
  */
-@Component
+//@Component
 @Slf4j
 @Intercepts(@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class}))
 public class ReduceInterceptor implements Interceptor {

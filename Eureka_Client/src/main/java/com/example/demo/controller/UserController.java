@@ -1,14 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.datasource.DataSource;
+import com.example.demo.datasource.DynamicDataSourceGlobal;
 import com.example.demo.domain.User;
 import com.example.demo.interceptor.PageParam;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -34,12 +34,13 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public int add(User user) {
+    @DataSource(DynamicDataSourceGlobal.CLOUD1)
+    public int add(@RequestBody User user) {
        return userService.add(user);
     }
 
     @PostMapping("/update")
-    public void update(User user) {
+    public void update(@RequestBody User user) {
         userService.update(user);
     }
 
