@@ -16,7 +16,7 @@ public class DynamicDataSourceContextHolder {
      * 设置数据源的名称
      */
     public static void putDataSourceName(DataSourceEnum dataSource) {
-        log.info("切换到{}数据源", dataSource);
+        log.info("切换到{}数据源名称", dataSource);
         NAME_CONTEXT_HOLDER.set(dataSource);
     }
 
@@ -24,7 +24,7 @@ public class DynamicDataSourceContextHolder {
      * 设置数据源的类型
      */
     public static void putDataSourceType(DataSourceEnum.Type dynamicDataSourceType) {
-        log.info("切换到{}数据源", dynamicDataSourceType);
+        log.info("切换到{}数据源类型", dynamicDataSourceType);
         TYPE_CONTEXT_HOLDER.set(dynamicDataSourceType);
     }
 

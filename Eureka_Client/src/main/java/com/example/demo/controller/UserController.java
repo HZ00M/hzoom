@@ -8,6 +8,7 @@ import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -75,6 +76,13 @@ public class UserController {
     @PostMapping("/selectCloud2")
     @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.READ)
     public List<User> selectCloud2() {
+        return userService.select();
+    }
+
+    @PostMapping("/selectTransactional")
+    @Transactional
+    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.READ)
+    public List<User> selectTransactional() {
         return userService.select();
     }
 
