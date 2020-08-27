@@ -33,9 +33,9 @@ public class DataSouceConfig {
          */
         //配置多数据源
         Map<Object, Object> datasouces = new HashMap<>();
-        datasouces.put(DynamicDataSourceName.CLOUD + "" + DynamicDataSourceType.WRITE, masterCloudDataSource(druidProperties));
-        datasouces.put(DynamicDataSourceName.CLOUD1 + "" + DynamicDataSourceType.WRITE, masterCloud1DataSource(druidProperties));
-        datasouces.put(DynamicDataSourceName.CLOUD + "" + DynamicDataSourceType.READ, slaveCloud2DataSource(druidProperties));
+        datasouces.put(DataSourceEnum.CLOUD.withType(DataSourceEnum.Type.WRITE), masterCloudDataSource(druidProperties));
+        datasouces.put(DataSourceEnum.CLOUD1.withType(DataSourceEnum.Type.WRITE), masterCloud1DataSource(druidProperties));
+        datasouces.put(DataSourceEnum.CLOUD.withType(DataSourceEnum.Type.READ), slaveCloud2DataSource(druidProperties));
         DynamicDataSource dynamicDataSource = new DynamicDataSource(masterCloudDataSource(druidProperties), datasouces);
         return dynamicDataSource;
     }

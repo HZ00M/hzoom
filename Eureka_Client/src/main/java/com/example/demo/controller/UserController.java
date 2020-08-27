@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.datasource.DataSource;
-import com.example.demo.datasource.DynamicDataSourceName;
+import com.example.demo.datasource.DataSourceEnum;
 import com.example.demo.domain.User;
 import com.example.demo.interceptor.PageParam;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,13 +35,13 @@ public class UserController {
     }
 
     @PostMapping("/add1")
-    @DataSource(DynamicDataSourceName.CLOUD1)
+    @DataSource(DataSourceEnum.CLOUD1)
     public int add1(@RequestBody User user) {
        return userService.add(user);
     }
 
     @PostMapping("/add2")
-    @DataSource(DynamicDataSourceName.CLOUD)
+    @DataSource(DataSourceEnum.CLOUD)
     public int add2(@RequestBody User user) {
         return userService.add(user);
     }
@@ -55,8 +56,26 @@ public class UserController {
         userService.delete(id);
     }
 
-    @PostMapping("/selectWithPage")
-    public List<User> selectWithPage() {
+    @PostMapping("/selectCloudAuto")
+    public List<User> selectCloudAuto() {
         return userService.select();
     }
+
+    @PostMapping("/selectCloud")
+    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.WRITE)
+    public List<User> selectCloud() {
+        return userService.select();
+    }
+    @PostMapping("/selectCloud1")
+    @DataSource(value = DataSourceEnum.CLOUD1,type = DataSourceEnum.Type.WRITE)
+    public List<User> selectCloud1() {
+        return userService.select();
+    }
+
+    @PostMapping("/selectCloud2")
+    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.READ)
+    public List<User> selectCloud2() {
+        return userService.select();
+    }
+
 }

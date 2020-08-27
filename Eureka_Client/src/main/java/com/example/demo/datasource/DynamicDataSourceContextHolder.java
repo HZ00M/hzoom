@@ -8,14 +8,14 @@ public class DynamicDataSourceContextHolder {
      * 使用ThreadLocal维护变量，ThreadLocal为每个使用该变量的线程提供独立的变量副本，
      * 所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
      */
-    private static final ThreadLocal<DynamicDataSourceName> NAME_CONTEXT_HOLDER = new ThreadLocal<>();
-    private static final ThreadLocal<DynamicDataSourceType> TYPE_CONTEXT_HOLDER = new ThreadLocal<>();
-    private static final DynamicDataSourceName DEFAULT_DB_NAME = DynamicDataSourceName.CLOUD;
+    private static final ThreadLocal<DataSourceEnum> NAME_CONTEXT_HOLDER = new ThreadLocal<>();
+    private static final ThreadLocal<DataSourceEnum.Type> TYPE_CONTEXT_HOLDER = new ThreadLocal<>();
+    private static final DataSourceEnum DEFAULT_DB_NAME = DataSourceEnum.CLOUD;
 
     /**
      * 设置数据源的名称
      */
-    public static void putDataSourceName(DynamicDataSourceName dataSource) {
+    public static void putDataSourceName(DataSourceEnum dataSource) {
         log.info("切换到{}数据源", dataSource);
         NAME_CONTEXT_HOLDER.set(dataSource);
     }
@@ -23,7 +23,7 @@ public class DynamicDataSourceContextHolder {
     /**
      * 设置数据源的类型
      */
-    public static void putDataSourceType(DynamicDataSourceType dynamicDataSourceType) {
+    public static void putDataSourceType(DataSourceEnum.Type dynamicDataSourceType) {
         log.info("切换到{}数据源", dynamicDataSourceType);
         TYPE_CONTEXT_HOLDER.set(dynamicDataSourceType);
     }
@@ -31,14 +31,14 @@ public class DynamicDataSourceContextHolder {
     /**
      * 获得数据源的名称
      */
-    public static DynamicDataSourceName getDataSourceName() {
+    public static DataSourceEnum getDataSourceName() {
         return NAME_CONTEXT_HOLDER.get();
     }
 
     /**
      * 获得数据源的类型
      */
-    public static DynamicDataSourceType getDataSourceType() {
+    public static DataSourceEnum.Type getDataSourceType() {
         return TYPE_CONTEXT_HOLDER.get();
     }
 
@@ -57,14 +57,23 @@ public class DynamicDataSourceContextHolder {
     }
 
     /**
+     * 情况数据源
+     */
+    public static void clearDataSource(){
+        clearDataSourceName();
+        clearDataSourceType();
+    }
+
+
+    /**
      * 获取数据库源变量
      *
      * @return
      */
     public static String getDataSource() {
         if (null == getDataSourceName()) {
-            return DEFAULT_DB_NAME + "" + getDataSourceType();
+            return DEFAULT_DB_NAME.withType(getDataSourceType());
         }
-        return getDataSourceName() + "" + getDataSourceType();
+        return getDataSourceName().withType(getDataSourceType());
     }
 }

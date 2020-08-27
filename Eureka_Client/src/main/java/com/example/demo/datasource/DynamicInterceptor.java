@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class DynamicInterceptor implements Interceptor {
     private static final String REGEX = ".*insert\\u0020.*|.*delete\\u0020.*|.*update\\u0020.*";
-    private static final Map<String, DynamicDataSourceType> cacheMap = new ConcurrentHashMap<>();
+    private static final Map<String, DataSourceEnum.Type> cacheMap = new ConcurrentHashMap<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -39,24 +39,24 @@ public class DynamicInterceptor implements Interceptor {
         if (!synchronizationActive) {
             Object[] objects = invocation.getArgs();
             MappedStatement ms = (MappedStatement) objects[0];
-            DynamicDataSourceType dynamicDataSourceType = DynamicDataSourceContextHolder.getDataSourceType();
-            if (dynamicDataSourceType ==null && (dynamicDataSourceType = cacheMap.get(ms.getId())) == null) {
+            DataSourceEnum.Type dynamicDataSourceType = DynamicDataSourceContextHolder.getDataSourceType();
+            if ((dynamicDataSourceType ==null || dynamicDataSourceType.equals(DataSourceEnum.Type.AUTO)) && (dynamicDataSourceType = cacheMap.get(ms.getId())) == null) {
                 //读方法
                 if (ms.getSqlCommandType().equals(SqlCommandType.SELECT)) {
                     //!selectKey 为自增id查询主键(SELECT LAST_INSERT_ID() )方法，使用主库
                     if (ms.getId().contains(SelectKeyGenerator.SELECT_KEY_SUFFIX)) {
-                        dynamicDataSourceType = DynamicDataSourceType.WRITE;
+                        dynamicDataSourceType = DataSourceEnum.Type.WRITE;
                     } else {
                         BoundSql boundSql = ms.getSqlSource().getBoundSql(objects[1]);
                         String sql = boundSql.getSql().toLowerCase(Locale.CHINA).replaceAll("[\\t\\n\\r]", " ");
                         if (sql.matches(REGEX)) {
-                            dynamicDataSourceType = DynamicDataSourceType.WRITE;
+                            dynamicDataSourceType = DataSourceEnum.Type.WRITE;
                         } else {
-                            dynamicDataSourceType = DynamicDataSourceType.READ;
+                            dynamicDataSourceType = DataSourceEnum.Type.READ;
                         }
                     }
                 } else {
-                    dynamicDataSourceType = DynamicDataSourceType.WRITE;
+                    dynamicDataSourceType = DataSourceEnum.Type.WRITE;
                 }
                 log.warn("设置方法[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceType.name(), ms.getSqlCommandType().name());
                 cacheMap.put(ms.getId(), dynamicDataSourceType);

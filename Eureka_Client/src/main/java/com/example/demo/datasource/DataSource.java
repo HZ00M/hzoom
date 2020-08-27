@@ -1,9 +1,9 @@
 package com.example.demo.datasource;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.apache.ibatis.type.Alias;
+import org.springframework.core.annotation.AliasFor;
+
+import java.lang.annotation.*;
 
 /**
  * 自定义多数据源切换注解
@@ -13,8 +13,14 @@ import java.lang.annotation.Target;
 public @interface DataSource
 {
     /**
-     * 切换数据源名称
+     * 数据源名称
      */
-    DynamicDataSourceName value() default DynamicDataSourceName.CLOUD;
+    DataSourceEnum value() default DataSourceEnum.CLOUD;
+
+    /**
+     * 数据源类型
+     * @return
+     */
+    DataSourceEnum.Type type() default DataSourceEnum.Type.AUTO;
 
 }
