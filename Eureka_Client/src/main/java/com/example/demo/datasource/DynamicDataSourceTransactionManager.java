@@ -25,9 +25,9 @@ public class DynamicDataSourceTransactionManager extends DataSourceTransactionMa
         //设置数据源
         boolean readOnly = definition.isReadOnly();
         if(readOnly) {
-            DynamicDataSourceContextHolder.putDataSource(DynamicDataSourceGlobal.WRITE);
+            DynamicDataSourceContextHolder.putDataSourceType(DynamicDataSourceType.READ);
         } else {
-            DynamicDataSourceContextHolder.putDataSource(DynamicDataSourceGlobal.READ);
+            DynamicDataSourceContextHolder.putDataSourceType(DynamicDataSourceType.WRITE);
         }
         super.doBegin(transaction, definition);
     }
@@ -39,6 +39,6 @@ public class DynamicDataSourceTransactionManager extends DataSourceTransactionMa
     @Override
     protected void doCleanupAfterCompletion(Object transaction) {
         super.doCleanupAfterCompletion(transaction);
-        DynamicDataSourceContextHolder.clearDataSource();
+        DynamicDataSourceContextHolder.clearDataSourceType();
     }
 }

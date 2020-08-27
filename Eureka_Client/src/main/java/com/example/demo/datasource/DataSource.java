@@ -15,6 +15,6 @@ public @interface DataSource
     /**
      * 切换数据源名称
      */
-    DynamicDataSourceGlobal value() default DynamicDataSourceGlobal.WRITE;
+    DynamicDataSourceName value() default DynamicDataSourceName.CLOUD;
 
 }

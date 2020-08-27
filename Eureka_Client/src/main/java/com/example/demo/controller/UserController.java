@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.datasource.DataSource;
-import com.example.demo.datasource.DynamicDataSourceGlobal;
+import com.example.demo.datasource.DynamicDataSourceName;
 import com.example.demo.domain.User;
 import com.example.demo.interceptor.PageParam;
 import com.example.demo.service.UserService;
@@ -33,10 +33,16 @@ public class UserController {
         return userService.select();
     }
 
-    @PostMapping("/add")
-    @DataSource(DynamicDataSourceGlobal.CLOUD1)
-    public int add(@RequestBody User user) {
+    @PostMapping("/add1")
+    @DataSource(DynamicDataSourceName.CLOUD1)
+    public int add1(@RequestBody User user) {
        return userService.add(user);
+    }
+
+    @PostMapping("/add2")
+    @DataSource(DynamicDataSourceName.CLOUD)
+    public int add2(@RequestBody User user) {
+        return userService.add(user);
     }
 
     @PostMapping("/update")
@@ -50,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/selectWithPage")
-    public List<User> selectWithPage(PageParam pageParam) {
+    public List<User> selectWithPage() {
         return userService.select();
     }
 }

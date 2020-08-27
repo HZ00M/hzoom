@@ -21,6 +21,7 @@ public class DataSouceConfig {
 
     /**
      * 主数据源
+     *
      * @return
      */
     @Primary
@@ -32,25 +33,23 @@ public class DataSouceConfig {
          */
         //配置多数据源
         Map<Object, Object> datasouces = new HashMap<>();
-        datasouces.put(DynamicDataSourceGlobal.WRITE, masterCloudDataSource(druidProperties));
-        datasouces.put(DynamicDataSourceGlobal.CLOUD1, masterCloud1DataSource(druidProperties));
-        datasouces.put(DynamicDataSourceGlobal.READ,slaveCloud2DataSource(druidProperties));
-        DynamicDataSource dynamicDataSource = new DynamicDataSource(masterCloudDataSource(druidProperties),datasouces);
+        datasouces.put(DynamicDataSourceName.CLOUD + "" + DynamicDataSourceType.WRITE, masterCloudDataSource(druidProperties));
+        datasouces.put(DynamicDataSourceName.CLOUD1 + "" + DynamicDataSourceType.WRITE, masterCloud1DataSource(druidProperties));
+        datasouces.put(DynamicDataSourceName.CLOUD + "" + DynamicDataSourceType.READ, slaveCloud2DataSource(druidProperties));
+        DynamicDataSource dynamicDataSource = new DynamicDataSource(masterCloudDataSource(druidProperties), datasouces);
         return dynamicDataSource;
     }
 
     @Bean(name = "master_cloud")
     @ConfigurationProperties("spring.datasource.druid.master.cloud")
-    public DataSource masterCloudDataSource(DruidProperties druidProperties)
-    {
+    public DataSource masterCloudDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
     }
 
     @Bean(name = "master_cloud1")
     @ConfigurationProperties("spring.datasource.druid.master.cloud1")
-    public DataSource masterCloud1DataSource(DruidProperties druidProperties)
-    {
+    public DataSource masterCloud1DataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
     }
@@ -58,14 +57,13 @@ public class DataSouceConfig {
 
     @Bean(name = "slave_cloud2")
     @ConfigurationProperties("spring.datasource.druid.slave.cloud2")
-    public DataSource slaveCloud2DataSource(DruidProperties druidProperties)
-    {
+    public DataSource slaveCloud2DataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(){
+    public PlatformTransactionManager transactionManager() {
         return new DynamicDataSourceTransactionManager(defaultDatasource());
     }
 }

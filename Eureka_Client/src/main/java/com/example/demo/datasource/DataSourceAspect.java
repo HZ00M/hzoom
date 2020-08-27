@@ -21,38 +21,24 @@ import java.lang.reflect.Method;
 @Component
 public class DataSourceAspect {
     @Pointcut("@annotation(com.example.demo.datasource.DataSource)")
-    public void dsPointCut()
-    {
-
+    public void dsPointCut() {
     }
 
     @Around("dsPointCut()")
-    public Object around(ProceedingJoinPoint point) throws Throwable
-    {
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         MethodSignature signature = (MethodSignature) point.getSignature();
 
         Method method = signature.getMethod();
 
-        String fullClassName = signature.getDeclaringTypeName();
-        if (fullClassName.contains("mapper1")){
-            DynamicDataSourceContextHolder.putDataSource(DynamicDataSourceGlobal.WRITE);
-        }else if (fullClassName.contains("mapper2")){
-            DynamicDataSourceContextHolder.putDataSource(DynamicDataSourceGlobal.CLOUD1);
-        }
-
         DataSource dataSource = method.getAnnotation(DataSource.class);
         if (dataSource!=null) {
-            DynamicDataSourceContextHolder.putDataSource(dataSource.value());
+            DynamicDataSourceContextHolder.putDataSourceName(dataSource.value());
         }
-
-        try
-        {
+        try {
             return point.proceed();
-        }
-        finally
-        {
+        } finally {
             // 销毁数据源 在执行方法之后
-            DynamicDataSourceContextHolder.clearDataSource();
+            DynamicDataSourceContextHolder.clearDataSourceName();
         }
     }
 }

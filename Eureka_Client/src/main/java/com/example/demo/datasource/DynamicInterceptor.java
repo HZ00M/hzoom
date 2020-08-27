@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class DynamicInterceptor implements Interceptor {
     private static final String REGEX = ".*insert\\u0020.*|.*delete\\u0020.*|.*update\\u0020.*";
-    private static final Map<String, DynamicDataSourceGlobal> cacheMap = new ConcurrentHashMap<>();
+    private static final Map<String, DynamicDataSourceType> cacheMap = new ConcurrentHashMap<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -39,29 +39,29 @@ public class DynamicInterceptor implements Interceptor {
         if (!synchronizationActive) {
             Object[] objects = invocation.getArgs();
             MappedStatement ms = (MappedStatement) objects[0];
-            DynamicDataSourceGlobal dynamicDataSourceGlobal = DynamicDataSourceContextHolder.getDataSource();;
-            if (dynamicDataSourceGlobal==null && (dynamicDataSourceGlobal = cacheMap.get(ms.getId())) == null) {
+            DynamicDataSourceType dynamicDataSourceType = DynamicDataSourceContextHolder.getDataSourceType();
+            if (dynamicDataSourceType ==null && (dynamicDataSourceType = cacheMap.get(ms.getId())) == null) {
                 //读方法
                 if (ms.getSqlCommandType().equals(SqlCommandType.SELECT)) {
                     //!selectKey 为自增id查询主键(SELECT LAST_INSERT_ID() )方法，使用主库
                     if (ms.getId().contains(SelectKeyGenerator.SELECT_KEY_SUFFIX)) {
-                        dynamicDataSourceGlobal = DynamicDataSourceGlobal.WRITE;
+                        dynamicDataSourceType = DynamicDataSourceType.WRITE;
                     } else {
                         BoundSql boundSql = ms.getSqlSource().getBoundSql(objects[1]);
                         String sql = boundSql.getSql().toLowerCase(Locale.CHINA).replaceAll("[\\t\\n\\r]", " ");
                         if (sql.matches(REGEX)) {
-                            dynamicDataSourceGlobal = DynamicDataSourceGlobal.WRITE;
+                            dynamicDataSourceType = DynamicDataSourceType.WRITE;
                         } else {
-                            dynamicDataSourceGlobal = DynamicDataSourceGlobal.READ;
+                            dynamicDataSourceType = DynamicDataSourceType.READ;
                         }
                     }
                 } else {
-                    dynamicDataSourceGlobal = DynamicDataSourceGlobal.WRITE;
+                    dynamicDataSourceType = DynamicDataSourceType.WRITE;
                 }
-                log.warn("设置方法[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceGlobal.name(), ms.getSqlCommandType().name());
-                cacheMap.put(ms.getId(), dynamicDataSourceGlobal);
+                log.warn("设置方法[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceType.name(), ms.getSqlCommandType().name());
+                cacheMap.put(ms.getId(), dynamicDataSourceType);
             }
-            DynamicDataSourceContextHolder.putDataSource(dynamicDataSourceGlobal);
+            DynamicDataSourceContextHolder.putDataSourceType(dynamicDataSourceType);
         }
         return invocation.proceed();
     }
