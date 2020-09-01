@@ -1,4 +1,6 @@
-#µÇ¼ÇspringÀ©Õ¹µã£¬ÈÃspring¶ÁÈ¡zookeeperÖÐµÄÅäÖÃÐÅÏ¢
+#ï¿½Ç¼ï¿½springï¿½ï¿½Õ¹ï¿½ã£¬ï¿½ï¿½springï¿½ï¿½È¡zookeeperï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 com.example.core.filter.annotation.EnableFilter=\
   com.example.core.filter.autoconfig.LogFilterAutoConfiguration,\
   com.example.core.filter.autoconfig.AuthFilterAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.core.redisLock.RedissonClientAutoConfigure

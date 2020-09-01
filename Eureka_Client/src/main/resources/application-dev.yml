@@ -58,6 +58,9 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+  redis:
+    host: 106.52.151.187
+    port: 6379
   security:
     user:
       name: root
