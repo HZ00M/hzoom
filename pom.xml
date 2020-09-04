@@ -34,6 +34,7 @@
 		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
 
 		<lombok.version>1.16.10</lombok.version>
+		<jedis.version>2.10.2</jedis.version>
 	</properties>
 
 	<dependencyManagement>
@@ -45,6 +46,7 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
