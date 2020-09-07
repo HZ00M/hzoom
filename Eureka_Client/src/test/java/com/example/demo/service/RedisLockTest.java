@@ -35,7 +35,7 @@ public class RedisLockTest extends BaseTest {
             thread.start();
         }
 
-        Thread.sleep(4000);
+        Thread.sleep(20000);
         System.out.println(testService.redisNum);
     }
 

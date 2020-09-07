@@ -85,6 +85,7 @@ public class RedisDistributedAspect {
                     Thread.sleep(retryWait);
                     if (lock.tryLock(waitTime, leaseTime, TimeUnit.MILLISECONDS)) {
                         // 执行主逻辑
+                        log.info("start retry lock :{}",lockStr);
                         return point.proceed();
                     } else {
                         log.info("{} had been lock, retrying[{}/{}],retry interval{} milliseconds", lockStr, failCount, retryNum,

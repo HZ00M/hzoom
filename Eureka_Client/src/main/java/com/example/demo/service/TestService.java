@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class TestService {
-    public int redisNum = 0;
+    public static int redisNum ;
 
-//    @RedisDistributedLock(lockPreString = "test")
+    @RedisDistributedLock(lockPreString = "test",retryNum = 3)
     public void redisNumIncrease(String key){
         redisNum++;
     }
