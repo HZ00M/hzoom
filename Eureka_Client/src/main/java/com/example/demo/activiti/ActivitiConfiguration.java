@@ -21,13 +21,13 @@ import java.util.List;
 @Configuration
 @AutoConfigureAfter({DataSourceAutoConfiguration.class})
 public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
-    @Value("${spring.datasource.druid.master.cloud.url}")
+    @Value("${spring.datasource.druid.master.cloud0.url}")
     private String url;
 
-    @Value("${spring.datasource.druid.master.cloud.username}")
+    @Value("${spring.datasource.druid.master.cloud0.username}")
     private String userName;
 
-    @Value("${spring.datasource.druid.master.cloud.password}")
+    @Value("${spring.datasource.druid.master.cloud0.password}")
     private String password;
 
     @Value("${spring.datasource.driver-class-name}")

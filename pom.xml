@@ -35,6 +35,8 @@
 
 		<lombok.version>1.16.10</lombok.version>
 		<jedis.version>2.10.2</jedis.version>
+		<shardingsphere.version>4.0.1</shardingsphere.version>
+		<druid.version>1.1.20</druid.version>
 	</properties>
 
 	<dependencyManagement>

@@ -4,12 +4,57 @@ server:
 spring:
   application:
     name: Server-Provider
+  shardingsphere:
+    datasource:
+      names: cloud0,cloud1,cloud2
+    sharding:
+      # 默认分表策略
+      default-database-strategy:
+        inline:
+          sharding-column: id
+          algorithm-expression: cloud$->{id%2}
+      # 默认分布式id生成器
+      default-key-generator:
+        type: SEQ
+        column: id
+      # 主从节点配置
+      master-slave-rules:
+        cloud0:
+          # maser数据源
+          master-data-source-name: cloud0
+          # slave数据源
+          slave-data-source-names: cloud2
+        cloud1:
+          # maser数据源
+          master-data-source-name: cloud1
+          # slave数据源
+          slave-data-source-names: cloud2
+      tables:
+        # hc_question_reply_record 分库分表配置
+        hc_question_reply_record:
+          # 真实数据节点  hc_question_reply_record_2020_q1
+          actual-data-nodes: cloud$->{0..1}.hc_question_reply_record_$->{2020..2025}_q$->{0..1}
+          # 表分片策略
+          table-strategy:
+            standard:
+              # 分片键
+              sharding-column: reply_wheel_time
+              # 精确分片算法
+              preciseAlgorithmClassName: com.example.demo.sharding.QuestionRecordPreciseShardingAlgorithm
+              # 范围分片算法，用于BETWEEN，可选。。该类需实现RangeShardingAlgorithm接口并提供无参数的构造器
+              rangeAlgorithmClassName: com.example.demo.sharding.QuestionRecordRangeShardingAlgorithm
+          default-database-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: cloud$->{[0,1]} #数据节点,均匀分布
+
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       master:
-        cloud:
+        cloud0:
           url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
           username: root
           password: 123
@@ -63,6 +108,7 @@ spring:
     host: 106.52.151.187
     port: 6379
     timeout: 3000
+    autoConfigurable: true
     jedis.pool:
       max-active: 50
       max-wait: 3000
@@ -105,6 +151,9 @@ xxl:
 management:
   endpoints:
     enabled-by-default: true
+    web:
+      exposure:
+        include: health,info,beans
 core:
   filter:
     enable: true

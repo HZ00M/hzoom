@@ -15,7 +15,7 @@ public @interface DataSource
     /**
      * 数据源名称
      */
-    DataSourceEnum value() default DataSourceEnum.CLOUD;
+    DataSourceEnum value() default DataSourceEnum.CLOUD0;
 
     /**
      * 数据源类型

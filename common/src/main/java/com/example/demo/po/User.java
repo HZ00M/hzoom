@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.example.demo.po;
 
 import com.example.core.sqlgen.annotation.Id;
 import com.example.core.sqlgen.annotation.TableName;

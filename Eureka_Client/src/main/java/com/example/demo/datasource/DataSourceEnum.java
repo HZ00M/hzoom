@@ -1,10 +1,10 @@
 package com.example.demo.datasource;
 
 public enum DataSourceEnum {
-    CLOUD, CLOUD1;
+    CLOUD0, CLOUD1;
 
     public String withType(Type type) {
-        return this + "" + type;
+        return this + "_" + type;
     }
 
     public enum Type {

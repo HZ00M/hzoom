@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

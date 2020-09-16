@@ -2,12 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.datasource.DataSource;
 import com.example.demo.datasource.DataSourceEnum;
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import com.example.demo.interceptor.PageParam;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 

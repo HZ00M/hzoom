@@ -2,7 +2,7 @@ package com.example.demo.mapper;
 
 
 import com.example.core.sqlgen.GeneralMapper;
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

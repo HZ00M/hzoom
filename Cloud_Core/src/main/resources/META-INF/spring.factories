@@ -1,4 +1,3 @@
-#�Ǽ�spring��չ�㣬��spring��ȡzookeeper�е�������Ϣ
 com.example.core.filter.annotation.EnableFilter=\
   com.example.core.filter.autoconfig.LogFilterAutoConfiguration,\
   com.example.core.filter.autoconfig.AuthFilterAutoConfiguration

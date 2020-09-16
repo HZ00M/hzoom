@@ -1,6 +1,6 @@
 package com.example.jasypt;
 
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.junit.Test;

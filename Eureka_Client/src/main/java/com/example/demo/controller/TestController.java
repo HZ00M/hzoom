@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private DiscoveryClient client;

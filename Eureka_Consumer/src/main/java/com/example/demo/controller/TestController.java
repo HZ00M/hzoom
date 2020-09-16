@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import com.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

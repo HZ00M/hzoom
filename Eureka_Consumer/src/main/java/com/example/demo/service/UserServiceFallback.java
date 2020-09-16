@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

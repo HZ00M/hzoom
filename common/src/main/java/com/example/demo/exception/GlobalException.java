@@ -42,3 +42,4 @@ public class GlobalException extends Exception {
         return throwable;
     }
 }
+

@@ -10,7 +10,7 @@ public class DynamicDataSourceContextHolder {
      */
     private static final ThreadLocal<DataSourceEnum> NAME_CONTEXT_HOLDER = new ThreadLocal<>();
     private static final ThreadLocal<DataSourceEnum.Type> TYPE_CONTEXT_HOLDER = new ThreadLocal<>();
-    private static final DataSourceEnum DEFAULT_DB_NAME = DataSourceEnum.CLOUD;
+    private static final DataSourceEnum DEFAULT_DB_NAME = DataSourceEnum.CLOUD0;
 
     /**
      * 设置数据源的名称

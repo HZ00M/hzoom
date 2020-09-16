@@ -1,6 +1,6 @@
 package com.example.demo.activiti;
 
-import com.example.demo.domain.User;
+import com.example.demo.po.User;
 import com.example.demo.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.builder.ToStringBuilder;
