@@ -1,4 +1,4 @@
-package com.example.core.redisLock;
+package com.example.core.redis;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class RedisDistributedAspect {
     @Autowired
     private RedissonClient redissonClient;
 
-    @Pointcut("@annotation(com.example.core.redisLock.RedisDistributedLock)")
+    @Pointcut("@annotation(com.example.core.redis.RedisDistributedLock)")
     private void pointcut() {
     }
 

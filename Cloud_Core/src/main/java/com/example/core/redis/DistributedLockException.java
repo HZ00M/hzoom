@@ -1,4 +1,4 @@
-package com.example.core.redisLock;
+package com.example.core.redis;
 
 public class DistributedLockException extends Exception {
     private String methodName;

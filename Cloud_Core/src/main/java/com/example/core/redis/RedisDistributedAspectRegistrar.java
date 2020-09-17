@@ -1,4 +1,4 @@
-package com.example.core.redisLock;
+package com.example.core.redis;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
