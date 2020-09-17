@@ -6,7 +6,7 @@ import org.apache.shardingsphere.api.sharding.standard.RangeShardingValue;
 import java.util.Collection;
 import java.util.Date;
 
-public class QuestionRecordRangeShardingAlgorithm implements RangeShardingAlgorithm<Date> {
+public class DateRangeShardingAlgorithm implements RangeShardingAlgorithm<Date> {
     /**
      * Sharding.
      *

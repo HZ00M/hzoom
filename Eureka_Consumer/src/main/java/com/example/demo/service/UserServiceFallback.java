@@ -14,7 +14,7 @@ public class UserServiceFallback implements UserService {
 
     @Override
     public User get(Long id) {
-        return new User(-1L, "default", "123456");
+        return new User(-1, "default", "123456",null);
     }
 
     @Override

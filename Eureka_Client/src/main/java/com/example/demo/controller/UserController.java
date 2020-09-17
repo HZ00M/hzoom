@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/add2")
-    @DataSource(DataSourceEnum.CLOUD)
+    @DataSource(DataSourceEnum.CLOUD0)
     public int add2(@RequestBody User user) {
         return userService.add(user);
     }
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/selectCloud")
-    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.WRITE)
+    @DataSource(value = DataSourceEnum.CLOUD0,type = DataSourceEnum.Type.WRITE)
     public List<User> selectCloud() {
         return userService.select();
     }
@@ -73,14 +73,14 @@ public class UserController {
     }
 
     @PostMapping("/selectCloud2")
-    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.READ)
+    @DataSource(value = DataSourceEnum.CLOUD0,type = DataSourceEnum.Type.READ)
     public List<User> selectCloud2() {
         return userService.select();
     }
 
     @PostMapping("/selectTransactional")
     @Transactional
-    @DataSource(value = DataSourceEnum.CLOUD,type = DataSourceEnum.Type.READ)
+    @DataSource(value = DataSourceEnum.CLOUD0,type = DataSourceEnum.Type.READ)
     public List<User> selectTransactional() {
         return userService.select();
     }

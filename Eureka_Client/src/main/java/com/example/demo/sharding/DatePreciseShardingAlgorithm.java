@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentMap;
  * 精确分片算法
  */
 @Component
-public class QuestionRecordPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
+public class DatePreciseShardingAlgorithm implements PreciseShardingAlgorithm<Date> {
 //    public static final String CREATE_TABLE_SQL = "show create table ";
 //    public static ConcurrentMap createSqlMap = new ConcurrentHashMap();
 //    @Autowired

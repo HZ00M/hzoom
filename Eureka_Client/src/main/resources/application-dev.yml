@@ -40,9 +40,9 @@ spring:
               # 分片键
               sharding-column: reply_wheel_time
               # 精确分片算法
-              preciseAlgorithmClassName: com.example.demo.sharding.QuestionRecordPreciseShardingAlgorithm
+              preciseAlgorithmClassName: com.example.demo.sharding.DatePreciseShardingAlgorithm
               # 范围分片算法，用于BETWEEN，可选。。该类需实现RangeShardingAlgorithm接口并提供无参数的构造器
-              rangeAlgorithmClassName: com.example.demo.sharding.QuestionRecordRangeShardingAlgorithm
+              rangeAlgorithmClassName: com.example.demo.sharding.DateRangeShardingAlgorithm
           default-database-strategy:
             inline:
               sharding-column: id

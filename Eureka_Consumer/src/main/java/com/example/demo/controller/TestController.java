@@ -28,13 +28,13 @@ public class TestController {
 
     @PostMapping("user")
     public void addUser() {
-        User user = new User(1L, "mrbird", "123456");
+        User user = new User(1, "mrbird", "123456",null);
         userService.add(user);
     }
 
     @PutMapping("user")
     public void updateUser() {
-        User user = new User(1L, "mrbird", "123456");
+        User user = new User(1, "mrbird", "123456",null);
         userService.update(user);
     }
 
