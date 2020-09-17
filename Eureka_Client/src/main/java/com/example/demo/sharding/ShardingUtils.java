@@ -32,7 +32,7 @@ public class ShardingUtils {
      * @param shardingValue 分片值
      * @return
      */
-    public static String quarterPreciseSharding(Collection<String> availableTargetNames, PreciseShardingValue<Date> shardingValue) {
+    public  String quarterPreciseSharding(Collection<String> availableTargetNames, PreciseShardingValue<Date> shardingValue) {
         // 这里就是根据等值查询条件，计算出匹配的真实表
         Random random = new Random();
         Calendar c = Calendar.getInstance();
