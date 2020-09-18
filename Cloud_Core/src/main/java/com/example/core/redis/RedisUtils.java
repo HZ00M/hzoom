@@ -542,10 +542,10 @@ public class RedisUtils {
     }
 
     public Long hset(final String key, final String field, final Object object, final int expireSecond) {
-
-        Long result = execute((JedisAction<Long>) jedis -> {
-            return jedis.hset(key, field, JSON.toJSONString(object, features));
-        });
+        String lua = "local num = redis.call('hset', KEYS[1],KEYS[2],ARGV[1]) if tonumber(num) ==1 then  redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end";
+        Long result = execute((JedisAction<Long>) jedis ->
+             (Long) jedis.evalsha(jedis.scriptLoad(lua),Arrays.asList(key,field),Arrays.asList(JSON.toJSONString(object, features),expireSecond+""))
+        );
 
         return result;
     }
