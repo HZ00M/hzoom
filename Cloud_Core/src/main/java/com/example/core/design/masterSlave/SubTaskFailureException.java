@@ -9,7 +9,7 @@ public class SubTaskFailureException extends Exception {
      */
     public final RetryInfo retryInfo;
 
-    public SubTaskFailureException(RetryInfo retryInfo, Exception caues){
+    public SubTaskFailureException(RetryInfo retryInfo, Exception caues) {
         super(caues);
         this.retryInfo = retryInfo;
     }

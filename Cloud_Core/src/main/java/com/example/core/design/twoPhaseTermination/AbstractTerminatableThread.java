@@ -2,9 +2,9 @@ package com.example.core.design.twoPhaseTermination;
 
 /**
  * 模式角色
- * anstractTerminatableThread
+ * AbstractTerminatableThread
  */
-public abstract class AbstractTerminatableThread extends Thread implements Terminatable{
+public abstract class AbstractTerminatableThread extends Thread implements Terminatable {
 
     /**
      * 模式角色
@@ -12,56 +12,63 @@ public abstract class AbstractTerminatableThread extends Thread implements Termi
      */
     public final TerminationToken terminationToken;
 
-    public AbstractTerminatableThread(){
+    public AbstractTerminatableThread() {
         this(new TerminationToken());
     }
-    public AbstractTerminatableThread(TerminationToken terminationToken){
+
+    public AbstractTerminatableThread(TerminationToken terminationToken) {
         super();
-        this.terminationToken =terminationToken;
+        this.terminationToken = terminationToken;
         terminationToken.register(this);
     }
 
     /**
      * 留给子类，处理的逻辑
      */
-    protected abstract void doRun()throws Exception;
+    protected abstract void doRun() throws Exception;
 
     /**
      * 留给子类实现，用于执行清理操作
      */
-    protected  void doCleanUp(Exception cause){};
+    protected void doCleanUp(Exception cause) {
+    }
+
+    ;
 
     /**
      * 留给子类实现，执行停止线程所需操作
      */
-    protected  void doTerminate(){};
+    protected void doTerminate() {
+    }
+
+    ;
 
 
     @Override
     public void run() {
         Exception e = null;
         try {
-            for (;;){
+            for (; ; ) {
                 //在执行线程前判断线程停止的标志
-                if (terminationToken.isToShutdown()&&terminationToken.reservation.get()<=0){
+                if (terminationToken.isToShutdown() && terminationToken.reservation.get() <= 0) {
                     break;
                 }
                 doRun();
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             //希望线程能够响应interrupt调用而退出
             e = ex;
-        }finally {
+        } finally {
             try {
                 doCleanUp(e);
-            }finally {
+            } finally {
                 terminationToken.notifyThreadTermination(this);
             }
         }
     }
 
     @Override
-    public void interrupt(){
+    public void interrupt() {
         terminate();
     }
 
@@ -73,20 +80,20 @@ public abstract class AbstractTerminatableThread extends Thread implements Termi
         terminationToken.setToShutdown(true);
         try {
             doTerminate();
-        }finally {
+        } finally {
             //若无待处理的任务，则试图强制终止线程
-            if (terminationToken.reservation.get()<=0){
+            if (terminationToken.reservation.get() <= 0) {
                 super.interrupt();
             }
         }
     }
 
-    public void terminate(boolean waitUtilThreadTerminated){
+    public void terminate(boolean waitUtilThreadTerminated) {
         terminate();
-        if (waitUtilThreadTerminated){
+        if (waitUtilThreadTerminated) {
             try {
                 this.join();
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }

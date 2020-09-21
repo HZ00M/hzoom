@@ -1,7 +1,6 @@
 package com.example.core.design.Pipeline;
 
 
-
 import com.example.core.design.twoPhaseTermination.AbstractTerminatableThread;
 import com.example.core.design.twoPhaseTermination.TerminationToken;
 
@@ -13,10 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 基于工作者线程的Pipe实现类   装饰器模式
- *提交到该pipe的任务由指定个数的工作者线程共同处理
- *
+ * 提交到该pipe的任务由指定个数的工作者线程共同处理
  */
-public class WorkerThreadPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
+public class WorkerThreadPipeDecorator<IN, OUT> implements Pipe<IN, OUT> {
     protected final BlockingQueue<IN> workQueue;
     private final Set<AbstractTerminatableThread> workerThreads = new HashSet<AbstractTerminatableThread>();
     private final TerminationToken token = new TerminationToken();
@@ -24,25 +22,25 @@ public class WorkerThreadPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
     /**
      * 委托者模式
      */
-    private final Pipe<IN,OUT> delegate;
+    private final Pipe<IN, OUT> delegate;
 
-    public WorkerThreadPipeDecorator(Pipe<IN,OUT> delegate,int workerCount){
-        this(new SynchronousQueue<IN>(),delegate,workerCount);
+    public WorkerThreadPipeDecorator(Pipe<IN, OUT> delegate, int workerCount) {
+        this(new SynchronousQueue<IN>(), delegate, workerCount);
     }
 
-    public WorkerThreadPipeDecorator(BlockingQueue<IN> workQueue, Pipe<IN,OUT> delegate, int workerCount){
-        if(workerCount<=0){
+    public WorkerThreadPipeDecorator(BlockingQueue<IN> workQueue, Pipe<IN, OUT> delegate, int workerCount) {
+        if (workerCount <= 0) {
             throw new IllegalArgumentException("workerCount should be positive!");
         }
         this.workQueue = workQueue;
         this.delegate = delegate;
-        for (int i = 0 ;i<workerCount;i++){
+        for (int i = 0; i < workerCount; i++) {
             workerThreads.add(new AbstractTerminatableThread(token) {
                 @Override
                 protected void doRun() throws Exception {
                     try {
                         dispatch();
-                    }finally {
+                    } finally {
                         token.reservation.decrementAndGet();
                     }
                 }
@@ -50,7 +48,7 @@ public class WorkerThreadPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
         }
     }
 
-    protected void dispatch()throws InterruptedException {
+    protected void dispatch() throws InterruptedException {
         IN input = workQueue.take();
         delegate.process(input);
     }
@@ -64,22 +62,22 @@ public class WorkerThreadPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
     @Override
     public void init(PipeContext context) {
         delegate.init(context);
-        for (AbstractTerminatableThread thread :workerThreads){
+        for (AbstractTerminatableThread thread : workerThreads) {
             thread.start();
         }
     }
 
     @Override
     public void shutdown(long timeout, TimeUnit unit) {
-        for (AbstractTerminatableThread thread:workerThreads){
+        for (AbstractTerminatableThread thread : workerThreads) {
             thread.terminate();
             try {
-                thread.join(TimeUnit.MILLISECONDS.convert(timeout,unit));
-            }catch (InterruptedException e){
+                thread.join(TimeUnit.MILLISECONDS.convert(timeout, unit));
+            } catch (InterruptedException e) {
 
             }
         }
-        delegate.shutdown(timeout,unit);
+        delegate.shutdown(timeout, unit);
     }
 
     @Override

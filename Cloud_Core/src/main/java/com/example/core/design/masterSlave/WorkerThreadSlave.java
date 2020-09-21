@@ -8,15 +8,15 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 /**
- * 基于工作者线程的简单slavve通用实现
+ * 基于工作者线程的简单slave通用实现
  *
  * @param <T> 子任务类型
  * @param <V> 子任务处理结果
  */
-public abstract class WorkerThreadSlave<T,V> extends AbstractTerminatableThread implements SlaveSpec<T,V>{
+public abstract class WorkerThreadSlave<T, V> extends AbstractTerminatableThread implements SlaveSpec<T, V> {
     private final BlockingQueue<Runnable> taskQueue;
 
-    public WorkerThreadSlave(BlockingQueue<Runnable> taskQueue){
+    public WorkerThreadSlave(BlockingQueue<Runnable> taskQueue) {
         this.taskQueue = taskQueue;
     }
 
@@ -28,8 +28,8 @@ public abstract class WorkerThreadSlave<T,V> extends AbstractTerminatableThread 
                 V result;
                 try {
                     result = doProcess(task);
-                }catch (Exception e){
-                    SubTaskFailureException exp = new SubTaskFailureException(new RetryInfo(task,this::call),e);
+                } catch (Exception e) {
+                    SubTaskFailureException exp = new SubTaskFailureException(new RetryInfo(task, this::call), e);
                     throw exp;
                 }
                 return result;
@@ -41,7 +41,6 @@ public abstract class WorkerThreadSlave<T,V> extends AbstractTerminatableThread 
     }
 
 
-
     @Override
     public void init() {
         start();
@@ -49,7 +48,7 @@ public abstract class WorkerThreadSlave<T,V> extends AbstractTerminatableThread 
 
     @Override
     public void shutdown() {
-      terminate();
+        terminate();
     }
 
     @Override
@@ -57,16 +56,17 @@ public abstract class WorkerThreadSlave<T,V> extends AbstractTerminatableThread 
         try {
             Runnable task = taskQueue.take();
             task.run();
-        }finally {
+        } finally {
             terminationToken.reservation.decrementAndGet();
         }
     }
 
     /**
      * 留给子类实现子任务处理逻辑
+     *
      * @param task 子任务
      * @return 子任务处理结果
      * @throws InterruptedException
      */
-    protected abstract V doProcess(T task)throws InterruptedException;
+    protected abstract V doProcess(T task) throws InterruptedException;
 }

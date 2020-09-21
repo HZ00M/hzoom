@@ -15,7 +15,7 @@ public class SampleActiveObjectImpl implements SampleActiveObject {
         return null;
     }
 
-    public Future<String> doGetA(){
+    public Future<String> doGetA() {
         System.out.println("doGetA");
         return null;
     }

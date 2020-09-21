@@ -14,42 +14,49 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public final class MMSCRouter {
     //实例用volatile修饰，保证多线程环境该变量可见性
     private static volatile MMSCRouter instance = new MMSCRouter();
-    private final Map<String,MMSCInfo> routerMap;
-    public MMSCRouter(){
+    private final Map<String, MMSCInfo> routerMap;
+
+    public MMSCRouter() {
         this.routerMap = MMSCRouter.RouteFromDB();
     }
-    private static Map RouteFromDB(){
-        Map<String,MMSCInfo> map = new HashMap<String, MMSCInfo>();
+
+    private static Map RouteFromDB() {
+        Map<String, MMSCInfo> map = new HashMap<String, MMSCInfo>();
         return map;
     }
-    public MMSCRouter getInstance(){
+
+    public MMSCRouter getInstance() {
         return instance;
     }
-    public MMSCInfo getMMSC(String prefix){
+
+    public MMSCInfo getMMSC(String prefix) {
         return routerMap.get(prefix);
     }
+
     /**
      * 更新新实例对象
      */
-    public static void setInstance(MMSCRouter newInstance){
+    public static void setInstance(MMSCRouter newInstance) {
         instance = newInstance;
     }
 
     /**
      * 深度拷贝
+     *
      * @return
      */
-    private static Map<String,MMSCInfo> deepcopy(Map<String,MMSCInfo> m){
-        Map<String,MMSCInfo> result = new HashMap<String, MMSCInfo>();
-        for (String key:m.keySet()){
-            result.put(key,new MMSCInfo(m.get(key)));
+    private static Map<String, MMSCInfo> deepcopy(Map<String, MMSCInfo> m) {
+        Map<String, MMSCInfo> result = new HashMap<String, MMSCInfo>();
+        for (String key : m.keySet()) {
+            result.put(key, new MMSCInfo(m.get(key)));
         }
         return result;
     }
+
     /**
      * 防御性复制
      */
-    public Map<String,MMSCInfo> getRouterMap(){
+    public Map<String, MMSCInfo> getRouterMap() {
         return Collections.unmodifiableMap(deepcopy(routerMap));
     }
 }
@@ -57,18 +64,20 @@ public final class MMSCRouter {
 /**
  * 彩信信息实体
  */
-final class MMSCInfo{
+final class MMSCInfo {
     private final String deviceID;
     private final String url;
-    public MMSCInfo(String deviceID, String url, CopyOnWriteArrayList copyOnWriteArrayList){
+
+    public MMSCInfo(String deviceID, String url, CopyOnWriteArrayList copyOnWriteArrayList) {
         this.deviceID = deviceID;
         this.url = url;
     }
 
-    public MMSCInfo(MMSCInfo mmscInfo){
+    public MMSCInfo(MMSCInfo mmscInfo) {
         this.deviceID = mmscInfo.deviceID;
         this.url = mmscInfo.url;
     }
+
     public String getDeviceID() {
         return deviceID;
     }

@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 
 public interface Blocker {
     //当保护条件成立时，执行动作否则阻塞当前线程，直到保护条件成立
-    <V> V callWithGuard(GuardedAction<V> guardedAction)throws Exception;
+    <V> V callWithGuard(GuardedAction<V> guardedAction) throws Exception;
 
     void signal() throws Exception;
 

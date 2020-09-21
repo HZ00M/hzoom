@@ -13,7 +13,7 @@ import java.util.concurrent.Future;
  * 主动对象模式
  * 模式角色   proxy参与者的可复用角色
  */
-public  class AbstractObjectProxy {
+public class AbstractObjectProxy {
     private static class DispatchInvocationHandler implements InvocationHandler {
         // 模式角色：ActiveObject.Servant
         private final Object delegate;
@@ -75,7 +75,7 @@ public  class AbstractObjectProxy {
     }
 
     public static void main(String[] args) throws Exception {
-        SampleActiveObject sao = AbstractObjectProxy.newInstance(SampleActiveObject.class,new SampleActiveObjectImpl(), Executors.newCachedThreadPool());
+        SampleActiveObject sao = AbstractObjectProxy.newInstance(SampleActiveObject.class, new SampleActiveObjectImpl(), Executors.newCachedThreadPool());
         Future<String> f = sao.getA();
         Thread.sleep(50);
         System.out.println(f.get());

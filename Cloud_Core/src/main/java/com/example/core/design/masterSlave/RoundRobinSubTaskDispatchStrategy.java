@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
 
-public class RoundRobinSubTaskDispatchStrategy<T,V> implements SubTaskDispatchStrategy<T,V> {
+public class RoundRobinSubTaskDispatchStrategy<T, V> implements SubTaskDispatchStrategy<T, V> {
 
 
     @Override
@@ -17,9 +17,9 @@ public class RoundRobinSubTaskDispatchStrategy<T,V> implements SubTaskDispatchSt
         int i = -1;
         final int slaveCount = arrSlaves.length;
         Future<V> subTaskFuturePromise;
-        while (null!= (subTask = taskDivideStrategy.nextTask())){
-            i=(i+1)%slaveCount;
-            subTaskFuturePromise = ((WorkerThreadSlave<T,V>)arrSlaves[i]).submit(subTask);
+        while (null != (subTask = taskDivideStrategy.nextTask())) {
+            i = (i + 1) % slaveCount;
+            subTaskFuturePromise = ((WorkerThreadSlave<T, V>) arrSlaves[i]).submit(subTask);
             subResult.add(subTaskFuturePromise);
         }
         return subResult.iterator();

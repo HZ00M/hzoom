@@ -1,13 +1,13 @@
 package com.example.core.design.twoPhaseTermination;
 
 public class VolatileTest {
-    public  boolean isShutdown;
+    public boolean isShutdown;
 
-    public boolean getShutdown () {
+    public boolean getShutdown() {
         return isShutdown;
     }
 
-    public void shutdown () {
+    public void shutdown() {
         isShutdown = true;
     }
 
@@ -18,7 +18,8 @@ public class VolatileTest {
                 System.out.println("开始循环");
                 while (!isShutdown) {
 
-                };
+                }
+                ;
                 System.out.println("结束循环");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -34,7 +35,7 @@ public class VolatileTest {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             VolatileTest volatileTest = new VolatileTest();
             volatileTest.new ReaderThread().start();

@@ -18,7 +18,7 @@ public class AlarmAgent {
 
 
     //执行目标行为
-    public void sendAlarm(final String alarmInfo)throws Exception {
+    public void sendAlarm(final String alarmInfo) throws Exception {
         //模式角色 GuardedAction
         GuardedAction<Void> guardedAction = new GuardedAction<Void>(agentConnected) {
             @Override
@@ -31,31 +31,32 @@ public class AlarmAgent {
     }
 
     //目标行为
-    public void doSendAlarm(String alarmInfo){
+    public void doSendAlarm(String alarmInfo) {
         try {
             Thread.sleep(2000);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    public void init(){
+    public void init() {
         Thread connectingThread = new Thread(new ConnectingTask());
         connectingThread.start();
-        heartbeatTimer.schedule(new HeartbeatTask(),60000,2000);
+        heartbeatTimer.schedule(new HeartbeatTask(), 60000, 2000);
     }
 
-    protected void onConnected(){
+    protected void onConnected() {
         try {
-            blocker.signalAfter(()->{
-                    connectedToServer =true;
-                    return Boolean.TRUE;
+            blocker.signalAfter(() -> {
+                connectedToServer = true;
+                return Boolean.TRUE;
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    protected void onDisconnected(){
+
+    protected void onDisconnected() {
         connectedToServer = false;
     }
 
@@ -65,7 +66,7 @@ public class AlarmAgent {
             //模拟连接操作
             try {
                 Thread.sleep(1000);
-            }catch (Exception e){
+            } catch (Exception e) {
                 ;
             }
             onConnected();
@@ -73,12 +74,12 @@ public class AlarmAgent {
     }
 
     //测试连接状态
-    private boolean testConnection(){
+    private boolean testConnection() {
         return true;
     }
 
     //重新连接
-    private void reconnect(){
+    private void reconnect() {
         ConnectingTask connectingTask = new ConnectingTask();
         connectingTask.run();
     }
@@ -88,7 +89,7 @@ public class AlarmAgent {
 
         @Override
         public void run() {
-            if (!testConnection()){
+            if (!testConnection()) {
                 onDisconnected();
                 reconnect();
             }

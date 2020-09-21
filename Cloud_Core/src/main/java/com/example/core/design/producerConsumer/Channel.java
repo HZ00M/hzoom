@@ -7,5 +7,5 @@ package com.example.core.design.producerConsumer;
 public interface Channel<T> {
     T take() throws InterruptedException;
 
-    void put(T t)throws InterruptedException;
+    void put(T t) throws InterruptedException;
 }

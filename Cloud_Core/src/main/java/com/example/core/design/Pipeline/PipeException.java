@@ -16,8 +16,9 @@ public class PipeException extends Exception {
         this.sourcePipe = sourcePipe;
         this.input = input;
     }
+
     public PipeException(Pipe<?, ?> sourcePipe, Object input, String message, Throwable cause) {
-        super(message,cause);
+        super(message, cause);
         this.sourcePipe = sourcePipe;
         this.input = input;
     }

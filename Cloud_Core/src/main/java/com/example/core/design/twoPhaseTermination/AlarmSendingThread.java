@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 模式角色 ConcreteTerminatableThread
  */
-public class AlarmSendingThread extends AbstractTerminatableThread{
+public class AlarmSendingThread extends AbstractTerminatableThread {
 
     private final AlarmAgent alarmAgent = new AlarmAgent();
 
@@ -20,7 +20,7 @@ public class AlarmSendingThread extends AbstractTerminatableThread{
 
     private final ConcurrentMap<String, AtomicInteger> submittedAlarmRegistry;
 
-    public AlarmSendingThread(){
+    public AlarmSendingThread() {
         alarmQueue = new ArrayBlockingQueue<String>(100);
         submittedAlarmRegistry = new ConcurrentHashMap<>();
         alarmAgent.init();
@@ -33,7 +33,7 @@ public class AlarmSendingThread extends AbstractTerminatableThread{
         terminationToken.reservation.decrementAndGet();
         try {
             alarmAgent.sendAlarm(alarmInfo);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -43,22 +43,22 @@ public class AlarmSendingThread extends AbstractTerminatableThread{
 
     }
 
-    public int sendAlarm(final String alarmInfo){
-        if (terminationToken.isToShutdown()){
+    public int sendAlarm(final String alarmInfo) {
+        if (terminationToken.isToShutdown()) {
             return -1;
         }
-        int duplicateSubmissonCounter = 0 ;
+        int duplicateSubmissonCounter = 0;
         try {
             AtomicInteger preSubmittedCounter;
-            preSubmittedCounter = submittedAlarmRegistry.putIfAbsent(alarmInfo,new AtomicInteger());
-            if (null == preSubmittedCounter){
+            preSubmittedCounter = submittedAlarmRegistry.putIfAbsent(alarmInfo, new AtomicInteger());
+            if (null == preSubmittedCounter) {
                 terminationToken.reservation.incrementAndGet();
                 alarmQueue.put(alarmInfo);
-            }else {
+            } else {
                 //故障未恢复。不用重复发送告警信息给服务器，故仅增加计数
                 duplicateSubmissonCounter = preSubmittedCounter.incrementAndGet();
             }
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         return duplicateSubmissonCounter;

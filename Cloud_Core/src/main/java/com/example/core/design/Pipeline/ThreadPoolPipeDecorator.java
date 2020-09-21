@@ -10,14 +10,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * 基于线程池的Pipe实现类
  */
-public class ThreadPoolPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
-    private final Pipe<IN,OUT> delegate;
+public class ThreadPoolPipeDecorator<IN, OUT> implements Pipe<IN, OUT> {
+    private final Pipe<IN, OUT> delegate;
     private final ExecutorService executorService;
 
     private final TerminationToken token;
     private final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-    public ThreadPoolPipeDecorator(Pipe<IN,OUT> delegate, ExecutorService executorService, TerminationToken token){
+    public ThreadPoolPipeDecorator(Pipe<IN, OUT> delegate, ExecutorService executorService, TerminationToken token) {
         this.delegate = delegate;
         this.executorService = executorService;
         this.token = token;
@@ -36,34 +36,31 @@ public class ThreadPoolPipeDecorator<IN,OUT> implements Pipe<IN,OUT> {
     @Override
     public void shutdown(long timeout, TimeUnit unit) {
         token.isToShutdown();
-        if (token.reservation.get()>0){
+        if (token.reservation.get() > 0) {
             try {
-                if (countDownLatch.getCount()>0){
-                    countDownLatch.await(timeout,unit);
+                if (countDownLatch.getCount() > 0) {
+                    countDownLatch.await(timeout, unit);
                 }
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
 
             }
         }
-        delegate.shutdown(timeout,unit);
+        delegate.shutdown(timeout, unit);
     }
 
     @Override
     public void process(IN input) throws InterruptedException {
-        Runnable task = new Runnable() {
-            @Override
-            public void run() {
-                int remainingReservations = -1;
-                try {
-                    delegate.process(input);
-                }catch (InterruptedException e){
+        Runnable task = () -> {
+            int remainingReservations = -1;
+            try {
+                delegate.process(input);
+            } catch (InterruptedException e) {
 
-                }finally {
-                    remainingReservations = token.reservation.decrementAndGet();
-                }
-                if (token.isToShutdown()&&0==remainingReservations){
-                    countDownLatch.countDown();
-                }
+            } finally {
+                remainingReservations = token.reservation.decrementAndGet();
+            }
+            if (token.isToShutdown() && 0 == remainingReservations) {
+                countDownLatch.countDown();
             }
         };
     }

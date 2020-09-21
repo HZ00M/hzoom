@@ -8,7 +8,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 /**
  * 角色模式producer
  */
-public class AttachmentProssor {
+public class AttachmentProcessor {
     private final String DIR = "/home";
 
     /**
@@ -25,29 +25,32 @@ public class AttachmentProssor {
             String file = channel.take();
             try {
                 indecFile(file);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 terminationToken.reservation.decrementAndGet();
             }
         }
     };
 
-    public void init(){
+    public void init() {
         indexingThread.start();
     }
 
-    public void shutdown(){
+    public void shutdown() {
         indexingThread.terminate();
     }
 
-    public void saveAttachment(String file){
+    public void saveAttachment(String file) {
         try {
             channel.put(file);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }indexingThread.terminationToken.reservation.incrementAndGet();
+        }
+        indexingThread.terminationToken.reservation.incrementAndGet();
     }
 
-    private void indecFile(String file){};
+    private void indecFile(String file) {
+    }
+
 }

@@ -8,10 +8,11 @@ public class SemaphoreBaseChannel<T> implements Channel<T> {
     private final BlockingQueue<T> queue;
     private final Semaphore semaphore;
 
-    public SemaphoreBaseChannel(BlockingQueue<T> queue, int limitFlow){
+    public SemaphoreBaseChannel(BlockingQueue<T> queue, int limitFlow) {
         this.queue = queue;
-        this.semaphore =  new Semaphore(limitFlow);
+        this.semaphore = new Semaphore(limitFlow);
     }
+
     @Override
     public T take() throws InterruptedException {
         return queue.take();
@@ -22,7 +23,7 @@ public class SemaphoreBaseChannel<T> implements Channel<T> {
         semaphore.acquire();
         try {
             queue.put(t);
-        }finally {
+        } finally {
             semaphore.release();
         }
     }
