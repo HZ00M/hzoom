@@ -10,11 +10,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
+ * 主动对象模式
  * 模式角色   proxy参与者的可复用角色
  */
-public abstract class AbstractObjectProxy {
+public  class AbstractObjectProxy {
     private static class DispatchInvocationHandler implements InvocationHandler {
+        // 模式角色：ActiveObject.Servant
         private final Object delegate;
+        // 模式角色：ActiveObject.Scheduler
         private final ExecutorService scheduler;
 
         public DispatchInvocationHandler(Object delegate, ExecutorService executorService) {
@@ -37,21 +40,14 @@ public abstract class AbstractObjectProxy {
             if (Future.class.isAssignableFrom(method.getReturnType())) {
                 delegateMethod = delegate.getClass().getMethod(makeDelegateMethodName(method, args), method.getParameterTypes());
                 final ExecutorService scheduler = this.scheduler;
-                Callable<Object> methodRequest = new Callable<Object>() {
-                    @Override
-                    public Object call() throws Exception {
-                        Object rv = null;
-                        try {
-                            rv = delegateMethod.invoke(delegate, args);
-                        } catch (IllegalArgumentException e) {
-                            throw new Exception(e);
-                        } catch (IllegalAccessException e) {
-                            throw new Exception(e);
-                        } catch (InvocationTargetException e) {
-                            throw new Exception(e);
-                        }
-                        return rv;
+                Callable<Object> methodRequest = () -> {
+                    Object rv = null;
+                    try {
+                        rv = delegateMethod.invoke(delegate, args);
+                    } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                        throw new Exception(e);
                     }
+                    return rv;
                 };
                 Future<Object> future = scheduler.submit(methodRequest);
                 returnValue = future;
