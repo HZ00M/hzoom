@@ -32,6 +32,11 @@ public class Result<T> implements Serializable {
         return message;
     }
 
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
     public T getData() {
         return data;
     }
@@ -41,18 +46,32 @@ public class Result<T> implements Serializable {
         this.message = e.getMessage();
     }
 
+
+    public static Result result(ResultCode resultCode){
+        return new Result(resultCode.getCode(),resultCode.getMessage());
+    }
+
     public static Result success(){
         return new Result(HttpStatus.OK.value(),"成功");
     }
 
-    public static Result error(){
-        return new Result(HttpStatus.FORBIDDEN.value(),"服务异常");
+    public static Result success(String message){
+        return new Result(HttpStatus.OK.value(),message);
     }
 
     public Result success(T data){
         return new Result(HttpStatus.OK.value(),"成功",data);
     }
 
+    public static Result error(){
+        return new Result(0,"失败");
+    }
+    public static Result error(String message){
+        return new Result(0,message);
+    }
+    public Result error(T data){
+        return new Result(HttpStatus.OK.value(),"失败",data);
+    }
 
 }
 

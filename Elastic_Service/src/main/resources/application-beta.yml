@@ -1,0 +1,19 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: Elastic_Search
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://root:123@106.52.151.187:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    ip-address: 106.52.151.187 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
+    instance-id: ${eureka.instance.ip-address}:${server.port}:${random.value}
+
+

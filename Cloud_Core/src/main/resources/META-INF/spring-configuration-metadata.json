@@ -2,6 +2,9 @@
   "groups": [
     {
       "name": "core"
+    },
+    {
+      "name": "es"
     }
   ],
   "properties": [
@@ -23,7 +26,45 @@
       "description": "xxl-job-admin addresses",
       "sourceType": "com.example.core.xxl.autoconfig.XxlProperties",
       "defaultValue": "http://127.0.0.1:9056/xxl-job-admin"
+    },
+    {
+      "name": "es.autoConfigurable",
+      "type": "java.lang.Boolean",
+      "description": "Whether es filter is enabled.",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "false"
+    },
+    {
+      "name": "es.host",
+      "type": "java.lang.String",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "localhost"
+    },
+    {
+      "name": "es.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "9200"
+    },
+    {
+      "name": "es.scheme",
+      "type": "java.lang.String",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "http"
+    },
+    {
+      "name": "es.index.numberOfShards",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "1"
+    },
+    {
+      "name": "es.index.numberOfReplicas",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.core.es.config.EsProperties",
+      "defaultValue": "1"
     }
+
   ],
   "hints": []
 }

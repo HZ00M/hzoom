@@ -7,12 +7,13 @@
 		<module>Eureka_Service</module>
 		<module>Eureka_Client</module>
 		<module>Eureka_Consumer</module>
-		<module>Zuul_Gateway</module>
+		<module>Zuul_Service</module>
         <module>common</module>
         <module>Config_Server</module>
         <module>Config_Client</module>
 		<module>Cloud_Core</module>
-	</modules>
+        <module>Elastic_Service</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -37,6 +38,7 @@
 		<jedis.version>2.10.2</jedis.version>
 		<shardingsphere.version>4.0.1</shardingsphere.version>
 		<druid.version>1.1.20</druid.version>
+		<elasticsearch.version>7.6.2</elasticsearch.version>
 	</properties>
 
 	<dependencyManagement>

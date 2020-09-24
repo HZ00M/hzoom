@@ -1,0 +1,39 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+filebeat.inputs:
+  - type: log
+    paths:
+      - "/data/domino/logs/domino_hall/*.log"
+    enabled: true
+    tags: ["domino_hall"]
+    #fields:
+    #index: 'domino_hall-info'
+processors:
+  - add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:es01:9200}'
+  indices:
+    - index: "domino_hall-%{+yyyy.MM.dd}"
+      when.contains:
+        tags: "domino_hall"
+          #fields:
+        # index: 'domino_hall-info'
+setup.template.name: "domino"
+setup.template.pattern: "domino-*"
+setup.template.enabled: true
+#keys_under_root可以让字段位于根节点，默认为false
+json.keys_under_root: true
+#对于同名的key，覆盖原有key值
+json.overwrite_keys: true
+#message_key是用来合并多行json日志使用的，如果配置该项还需要配置multiline的设置，后面会讲
+json.message_key: message
+#将解析错误的消息记录储存在error.message字段中
+json.add_error_key: true

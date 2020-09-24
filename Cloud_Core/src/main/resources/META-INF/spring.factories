@@ -2,4 +2,5 @@ com.example.core.filter.annotation.EnableFilter=\
   com.example.core.filter.autoconfig.LogFilterAutoConfiguration,\
   com.example.core.filter.autoconfig.AuthFilterAutoConfiguration
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.example.core.redis.RedissonClientAutoConfigure
+  com.example.core.redis.RedissonClientAutoConfigure,\
+  com.example.core.es.config.EsAutoConfigure

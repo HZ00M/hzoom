@@ -26,7 +26,7 @@ public class DataSouceConfig  {
      * @return
      */
     @Primary
-    @Bean(name = "default")
+    @Bean(name = "defaultDatasource")
     public DataSource defaultDatasource() {
 
         /**
