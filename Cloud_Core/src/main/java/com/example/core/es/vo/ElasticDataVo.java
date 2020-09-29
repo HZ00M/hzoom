@@ -16,7 +16,7 @@ public class ElasticDataVo<T> {
     /**
      * 索引名
      */
-    private String idxName;
+    private String index;
     /**
      * 数据存储对象
      */

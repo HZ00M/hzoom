@@ -53,13 +53,13 @@
       "defaultValue": "http"
     },
     {
-      "name": "es.index.numberOfShards",
+      "name": "es.index.number-of-shards",
       "type": "java.lang.Integer",
       "sourceType": "com.example.core.es.config.EsProperties",
       "defaultValue": "1"
     },
     {
-      "name": "es.index.numberOfReplicas",
+      "name": "es.index.number-of-replicas",
       "type": "java.lang.Integer",
       "sourceType": "com.example.core.es.config.EsProperties",
       "defaultValue": "1"

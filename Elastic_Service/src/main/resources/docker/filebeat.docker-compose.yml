@@ -13,8 +13,11 @@ filebeat.inputs:
       - "/data/domino/logs/domino_hall/*.log"
     enabled: true
     tags: ["domino_hall"]
-    #fields:
-    #index: 'domino_hall-info'
+  - type: log
+    paths:
+      - "/data/domino/logs/domino_bandar/*.log"
+    enabled: true
+    tags: ["domino_bandar"]
 processors:
   - add_cloud_metadata: ~
 
@@ -24,8 +27,9 @@ output.elasticsearch:
     - index: "domino_hall-%{+yyyy.MM.dd}"
       when.contains:
         tags: "domino_hall"
-          #fields:
-        # index: 'domino_hall-info'
+    - index: "domino_bandar-%{+yyyy.MM.dd}"
+      when.contains:
+        tags: "domino_bandar"
 setup.template.name: "domino"
 setup.template.pattern: "domino-*"
 setup.template.enabled: true
@@ -33,7 +37,7 @@ setup.template.enabled: true
 json.keys_under_root: true
 #对于同名的key，覆盖原有key值
 json.overwrite_keys: true
-#message_key是用来合并多行json日志使用的，如果配置该项还需要配置multiline的设置，后面会讲
+#message_key是用来合并多行json日志使用的，如果配置该项还需要配置multiline的设置
 json.message_key: message
 #将解析错误的消息记录储存在error.message字段中
 json.add_error_key: true
