@@ -5,6 +5,8 @@ import com.example.core.netty.web.enums.ListenerType;
 import com.example.core.netty.web.support.MethodArgumentResolver;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
@@ -50,12 +52,19 @@ public class EndpointMethodMapping {
                 }
             }
         }
+        // If the methods are not on pojoClazz and they are overridden
+        // by a non annotated method in pojoClazz, they should be ignored
+        Method[] finalEndpointClazzMethods = endpointClazzMethods;
+        methodMap.entrySet().stream()
+                .filter(entry -> isOverrideWithoutAnnotation(finalEndpointClazzMethods, entry.getValue().getMethod(), ServerListener.class))
+                .forEach(entry -> entry.getValue().setMethod(null));
+
     }
 
     Object getEndpointInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Object implement = endpointClazz.getDeclaredConstructor().newInstance();
         AutowiredAnnotationBeanPostProcessor postProcessor = applicationContext.getBean(AutowiredAnnotationBeanPostProcessor.class);
-        postProcessor.postProcessPropertyValues(null, null, implement, null);
+        postProcessor.postProcessProperties(null, implement, null);
         return implement;
     }
 
@@ -80,6 +89,22 @@ public class EndpointMethodMapping {
             }
         }
         return false;
+    }
+
+
+    private List<MethodArgumentResolver> getDefaultResolvers() {
+        List<MethodArgumentResolver> resolvers = new ArrayList<>();
+//        resolvers.add(new SessionMethodArgumentResolver());
+//        resolvers.add(new HttpHeadersMethodArgumentResolver());
+//        resolvers.add(new TextMethodArgumentResolver());
+//        resolvers.add(new ThrowableMethodArgumentResolver());
+//        resolvers.add(new ByteMethodArgumentResolver());
+//        resolvers.add(new RequestParamMapMethodArgumentResolver());
+//        resolvers.add(new RequestParamMethodArgumentResolver(beanFactory));
+//        resolvers.add(new PathVariableMapMethodArgumentResolver());
+//        resolvers.add(new PathVariableMethodArgumentResolver(beanFactory));
+//        resolvers.add(new EventMethodArgumentResolver(beanFactory));
+        return resolvers;
     }
 
     @AllArgsConstructor
@@ -127,33 +152,19 @@ public class EndpointMethodMapping {
             return methodArgumentResolvers;
         }
 
-        public Object[] getMethodArgs(Channel channel, FullHttpRequest req) throws Exception {
+        public void setMethod(Method method) {
+            this.method = method;
+        }
+
+        public Object[] getMethodArgs(Channel channel, Object object) throws Exception {
             Object[] objects = new Object[methodParameters.length];
             for (int i = 0; i < methodParameters.length; i++) {
                 MethodParameter parameter = methodParameters[i];
                 MethodArgumentResolver resolver = methodArgumentResolvers[i];
-                Object arg = resolver.resolveArgument(parameter, channel, req);
+                Object arg = resolver.resolveArgument(parameter, channel, object);
                 objects[i] = arg;
             }
             return objects;
-        }
-
-
-
-
-        private List<MethodArgumentResolver> getDefaultResolvers() {
-            List<MethodArgumentResolver> resolvers = new ArrayList<>();
-//        resolvers.add(new SessionMethodArgumentResolver());
-//        resolvers.add(new HttpHeadersMethodArgumentResolver());
-//        resolvers.add(new TextMethodArgumentResolver());
-//        resolvers.add(new ThrowableMethodArgumentResolver());
-//        resolvers.add(new ByteMethodArgumentResolver());
-//        resolvers.add(new RequestParamMapMethodArgumentResolver());
-//        resolvers.add(new RequestParamMethodArgumentResolver(beanFactory));
-//        resolvers.add(new PathVariableMapMethodArgumentResolver());
-//        resolvers.add(new PathVariableMethodArgumentResolver(beanFactory));
-//        resolvers.add(new EventMethodArgumentResolver(beanFactory));
-            return resolvers;
         }
     }
 }
