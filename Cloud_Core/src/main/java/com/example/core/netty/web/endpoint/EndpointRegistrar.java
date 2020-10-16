@@ -47,6 +47,22 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         ApplicationContext context = getApplicationContext();
         String[] endpointBeanNames = context.getBeanNamesForAnnotation(ServerEndpoint.class);
         Arrays.stream(endpointBeanNames).distinct().map(context::getType).forEach(this::registerEndpoint);
+        init();
+    }
+
+    private void init() {
+        for (Map.Entry<InetSocketAddress, WebsocketServer> entry : addressWebsocketServerMap.entrySet()) {
+            WebsocketServer websocketServer = entry.getValue();
+            try {
+                websocketServer.init();
+                EndpointServer endpointServer = websocketServer.getEndpointServer();
+                StringJoiner stringJoiner = new StringJoiner(",");
+                endpointServer.getPathMatcherSet().forEach(pathMatcher -> stringJoiner.add("'" + pathMatcher.getPattern() + "'"));
+                logger.info(String.format("\033[Netty WebSocket started on port: %s with context path(s): %s .\033[", endpointServer.getPort(), stringJoiner.toString()));
+            } catch (InterruptedException e) {
+                logger.error(String.format("websocket [%s] init fail", entry.getKey()), e);
+            }
+        }
     }
 
     private void registerEndpoint(Class<?> endpointClass) {
