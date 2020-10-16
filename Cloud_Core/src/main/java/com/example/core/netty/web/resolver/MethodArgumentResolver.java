@@ -1,4 +1,4 @@
-package com.example.core.netty.web.support;
+package com.example.core.netty.web.resolver;
 
 import io.netty.channel.Channel;
 import org.springframework.core.MethodParameter;

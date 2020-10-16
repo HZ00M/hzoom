@@ -1,12 +1,9 @@
-package com.example.core.netty.web.core;
+package com.example.core.netty.web.endpoint;
 
 import com.example.core.netty.web.annotation.ServerListener;
-import com.example.core.netty.web.enums.ListenerType;
-import com.example.core.netty.web.support.MethodArgumentResolver;
+import com.example.core.netty.web.enums.ListenerTypeEnum;
+import com.example.core.netty.web.resolver.MethodArgumentResolver;
 import io.netty.channel.Channel;
-import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
@@ -28,13 +25,13 @@ public class EndpointMethodMapping {
     private final Class endpointClazz;
     private final ApplicationContext applicationContext;
     private final AbstractBeanFactory beanFactory;
-    private final Map<ListenerType, MethodMapping> methodMap;
+    private final Map<ListenerTypeEnum, MethodMapping> methodMap;
 
     public EndpointMethodMapping(Class<?> endpointClazz, ApplicationContext context, AbstractBeanFactory beanFactory) throws DeploymentException {
         this.applicationContext = context;
         this.endpointClazz = endpointClazz;
         this.beanFactory = beanFactory;
-        methodMap = new HashMap<ListenerType, MethodMapping>();
+        methodMap = new HashMap<ListenerTypeEnum, MethodMapping>();
         Class<?> currentClazz = endpointClazz;
         Method[] endpointClazzMethods = null;
         while (!currentClazz.equals(Object.class)) {
@@ -61,11 +58,20 @@ public class EndpointMethodMapping {
 
     }
 
+
     Object getEndpointInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Object implement = endpointClazz.getDeclaredConstructor().newInstance();
         AutowiredAnnotationBeanPostProcessor postProcessor = applicationContext.getBean(AutowiredAnnotationBeanPostProcessor.class);
         postProcessor.postProcessProperties(null, implement, null);
         return implement;
+    }
+
+    public Map<ListenerTypeEnum, MethodMapping> getMethodMap() {
+        return methodMap;
+    }
+
+    public MethodMapping getMethodMapping(ListenerTypeEnum listenerType){
+        return methodMap.getOrDefault(listenerType,null);
     }
 
     private void checkPublic(Method m) throws DeploymentException {

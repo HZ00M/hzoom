@@ -1,6 +1,6 @@
 package com.example.core.netty.web.annotation;
 
-import com.example.core.netty.web.enums.ListenerType;
+import com.example.core.netty.web.enums.ListenerTypeEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ServerListener {
-    ListenerType value();
+    ListenerTypeEnum value();
+
 }

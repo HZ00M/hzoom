@@ -1,6 +1,7 @@
-package com.example.core.netty.web.core;
+package com.example.core.netty.web.endpoint;
 
 import com.example.core.netty.web.annotation.ServerEndpoint;
+import com.example.core.netty.web.core.WebsocketServer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.TypeConverter;
 import org.springframework.beans.TypeMismatchException;
@@ -19,7 +20,7 @@ import org.springframework.core.env.Environment;
 import java.net.InetSocketAddress;
 import java.util.*;
 
-public class ServerEndpointRegistrar extends ApplicationObjectSupport implements SmartInitializingSingleton, BeanFactoryAware {
+public class EndpointRegistrar extends ApplicationObjectSupport implements SmartInitializingSingleton, BeanFactoryAware {
     @Autowired
     Environment environment;
 
@@ -53,12 +54,12 @@ public class ServerEndpointRegistrar extends ApplicationObjectSupport implements
         if (annotation == null) {
             throw new IllegalStateException("missingAnnotation ServerEndpoint");
         }
-        ServerEndpointConfig serverEndpointConfig = buildConfig(annotation);
+        EndpointConfig endpointConfig = buildConfig(annotation);
         ApplicationContext context = getApplicationContext();
 
     }
 
-    private ServerEndpointConfig buildConfig(ServerEndpoint annotation) {
+    private EndpointConfig buildConfig(ServerEndpoint annotation) {
         String host = resolveAnnotationValue(annotation.host(), String.class, "host");
         int port = resolveAnnotationValue(annotation.port(), Integer.class, "port");
         String path = resolveAnnotationValue(annotation.value(), String.class, "value");
@@ -85,7 +86,7 @@ public class ServerEndpointRegistrar extends ApplicationObjectSupport implements
 
         int maxFramePayloadLength = resolveAnnotationValue(annotation.maxFramePayloadLength(), Integer.class, "maxFramePayloadLength");
 
-        return new ServerEndpointConfig(host, port, path, bossLoopGroupThreads, workerLoopGroupThreads, useCompressionHandler, optionConnectTimeoutMillis, optionSoBacklog, childOptionWriteSpinCount, childOptionWriteBufferHighWaterMark, childOptionWriteBufferLowWaterMark, childOptionSoRcvbuf, childOptionSoSndbuf, childOptionTcpNodelay, childOptionSoKeepalive, childOptionSoLinger, childOptionAllowHalfClosure, readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds, maxFramePayloadLength);
+        return new EndpointConfig(host, port, path, bossLoopGroupThreads, workerLoopGroupThreads, useCompressionHandler, optionConnectTimeoutMillis, optionSoBacklog, childOptionWriteSpinCount, childOptionWriteBufferHighWaterMark, childOptionWriteBufferLowWaterMark, childOptionSoRcvbuf, childOptionSoSndbuf, childOptionTcpNodelay, childOptionSoKeepalive, childOptionSoLinger, childOptionAllowHalfClosure, readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds, maxFramePayloadLength);
     }
 
     private <T> T resolveAnnotationValue(Object value, Class<T> requiredType, String paramName) {

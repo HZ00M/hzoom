@@ -1,4 +1,4 @@
-package com.example.core.netty.web.core;
+package com.example.core.netty.web.endpoint;
 
 import lombok.Data;
 import org.springframework.util.StringUtils;
@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 @Data
-public class ServerEndpointConfig {
+public class EndpointConfig {
     private final String HOST;
     private final int PORT;
     private final int BOSS_LOOP_GROUP_THREADS;
@@ -31,7 +31,7 @@ public class ServerEndpointConfig {
     private final int MAX_FRAME_PAYLOAD_LENGTH;
     private static Integer randomPort;
 
-    public ServerEndpointConfig(String host, int port, String path, int bossLoopGroupThreads, int workerLoopGroupThreads, boolean useCompressionHandler, int connectTimeoutMillis, int soBacklog, int writeSpinCount, int writeBufferHighWaterMark, int writeBufferLowWaterMark, int soRcvbuf, int soSndbuf, boolean tcpNodelay, boolean soKeepalive, int soLinger, boolean allowHalfClosure, int readerIdleTimeSeconds, int writerIdleTimeSeconds, int allIdleTimeSeconds, int maxFramePayloadLength) {
+    public EndpointConfig(String host, int port, String path, int bossLoopGroupThreads, int workerLoopGroupThreads, boolean useCompressionHandler, int connectTimeoutMillis, int soBacklog, int writeSpinCount, int writeBufferHighWaterMark, int writeBufferLowWaterMark, int soRcvbuf, int soSndbuf, boolean tcpNodelay, boolean soKeepalive, int soLinger, boolean allowHalfClosure, int readerIdleTimeSeconds, int writerIdleTimeSeconds, int allIdleTimeSeconds, int maxFramePayloadLength) {
         if (StringUtils.isEmpty(host) || "0.0.0.0".equals(host) || "0.0.0.0/0.0.0.0".equals(host)) {
             this.HOST = "0.0.0.0";
         } else {
