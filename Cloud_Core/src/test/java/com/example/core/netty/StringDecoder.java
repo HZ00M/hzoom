@@ -10,10 +10,6 @@ public class StringDecoder extends ReplayingDecoder<StringDecoder.Status> {
     private int length;
     private byte[] inBytes;
 
-    public StringDecoder() {
-        super(Status.parse_1);
-    }
-
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
         switch (state()) {
@@ -24,12 +20,16 @@ public class StringDecoder extends ReplayingDecoder<StringDecoder.Status> {
                 break;
             case parse_2:
                 in.readBytes(inBytes, 0, length);
-                out.add(inBytes.toString());
+                out.add(new String(inBytes,"UTF-8"));
                 checkpoint(Status.parse_1);
                 break;
             default:
                 break;
         }
+    }
+
+    public StringDecoder() {
+        super(Status.parse_1);
     }
 
 

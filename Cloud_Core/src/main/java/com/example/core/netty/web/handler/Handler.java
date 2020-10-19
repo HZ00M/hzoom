@@ -9,5 +9,4 @@ import java.io.InputStream;
 
 public interface Handler {
     void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) ;
-
 }

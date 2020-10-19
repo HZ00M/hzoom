@@ -11,13 +11,13 @@ import org.junit.Test;
 import java.io.UnsupportedEncodingException;
 
 public class NettyOpenBoxDecoder {
-    static String content = "冯绍峰水电费水电费是";
+    static String content = "测试";
 
     @Test
     public void test(){
         try {
             final LengthFieldBasedFrameDecoder spliter =
-                    new LengthFieldBasedFrameDecoder(1025,0,4,0,4);
+                    new LengthFieldBasedFrameDecoder(1024,0,4,0,0);
             ChannelInitializer initializer = new ChannelInitializer<EmbeddedChannel>() {
                 @Override
                 protected void initChannel(EmbeddedChannel channel) throws Exception {
@@ -30,7 +30,7 @@ public class NettyOpenBoxDecoder {
             for (int j = 0;j<=100;j++){
                 ByteBuf buf = Unpooled.buffer();
                 String s = j + "次发送"+content;
-                byte[] bytes = s.getBytes("UTF8");
+                byte[] bytes = s.getBytes("UTF-8");
                 buf.writeInt(bytes.length);
                 buf.writeBytes(bytes);
                 embeddedChannel.writeInbound(buf);

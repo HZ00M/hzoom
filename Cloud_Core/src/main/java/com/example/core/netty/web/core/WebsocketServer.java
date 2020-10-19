@@ -2,6 +2,7 @@ package com.example.core.netty.web.core;
 
 import com.example.core.netty.web.endpoint.EndpointConfig;
 import com.example.core.netty.web.endpoint.EndpointServer;
+import com.example.core.netty.web.handler.HttpServerHandlerManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -46,7 +47,7 @@ public class WebsocketServer {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new HttpServerCodec());
                         pipeline.addLast(new HttpObjectAggregator(65536));
-
+                        pipeline.addLast(new HttpServerHandlerManager(endpointServer,config));
                     }
                 });
         if (config.getSO_RCVBUF() != -1) {

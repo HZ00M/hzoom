@@ -17,6 +17,7 @@ import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.env.Environment;
 
+import javax.websocket.DeploymentException;
 import java.net.InetSocketAddress;
 import java.util.*;
 
@@ -43,7 +44,6 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
     }
 
     private void registerEndpoints() {
-        Set<Class<?>> endpointClasses = new LinkedHashSet<>();
         ApplicationContext context = getApplicationContext();
         String[] endpointBeanNames = context.getBeanNamesForAnnotation(ServerEndpoint.class);
         Arrays.stream(endpointBeanNames).distinct().map(context::getType).forEach(this::registerEndpoint);
@@ -73,6 +73,24 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         EndpointConfig endpointConfig = buildConfig(annotation);
         ApplicationContext context = getApplicationContext();
 
+        EndpointMethodMapping endpointMethodMapping = null;
+        try {
+            endpointMethodMapping = new EndpointMethodMapping(endpointClass,context,beanFactory);
+        }catch (DeploymentException e){
+            throw new IllegalStateException("Failed to register ServerEndpointConfig: " + endpointConfig, e);
+        }
+
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(endpointConfig.getHOST(),endpointConfig.getPORT());
+        String path = resolveAnnotationValue(annotation.value(), String.class, "path");
+
+        WebsocketServer websocketServer = addressWebsocketServerMap.get(path);
+        if (websocketServer==null){
+            EndpointServer endpointServer = new EndpointServer(endpointMethodMapping,endpointConfig,path);
+            websocketServer = new WebsocketServer(endpointServer,endpointConfig);
+            addressWebsocketServerMap.putIfAbsent(inetSocketAddress,websocketServer);
+        }else{
+            websocketServer.getEndpointServer().addPathPojoMethodMapping(path,endpointMethodMapping);
+        }
     }
 
     private EndpointConfig buildConfig(ServerEndpoint annotation) {
