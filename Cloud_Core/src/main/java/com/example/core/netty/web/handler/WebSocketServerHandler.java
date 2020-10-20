@@ -48,5 +48,8 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocke
             endpointServer.doOnBinary(ctx.channel(), frame);
             return;
         }
+        if (frame instanceof PongWebSocketFrame) {
+            return;
+        }
     }
 }

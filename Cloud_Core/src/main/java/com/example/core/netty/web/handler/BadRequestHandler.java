@@ -20,6 +20,7 @@ public class BadRequestHandler extends AbstractHandler{
             sendHttpResponse(ctx, req, resp);
             return;
         }
+        chain.doFilter(ctx,req,chain);
     }
 
 }

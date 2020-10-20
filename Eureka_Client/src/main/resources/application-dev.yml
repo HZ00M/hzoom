@@ -160,3 +160,8 @@ core:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+netty-websocket:
+  host: 0.0.0.0
+  path: /ws
+  port: 8889

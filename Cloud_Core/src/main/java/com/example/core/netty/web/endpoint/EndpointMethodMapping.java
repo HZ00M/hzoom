@@ -2,7 +2,7 @@ package com.example.core.netty.web.endpoint;
 
 import com.example.core.netty.web.annotation.ServerListener;
 import com.example.core.netty.web.enums.ListenerTypeEnum;
-import com.example.core.netty.web.resolver.MethodArgumentResolver;
+import com.example.core.netty.web.resolver.*;
 import io.netty.channel.Channel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,9 +45,10 @@ public class EndpointMethodMapping {
                     checkPublic(method);
                     MethodMapping methodMapping = new MethodMapping(method);
                     methodMap.putIfAbsent(serverListener.value(), methodMapping);
-                    currentClazz = currentClazz.getSuperclass();
+
                 }
             }
+            currentClazz = currentClazz.getSuperclass();
         }
         // If the methods are not on pojoClazz and they are overridden
         // by a non annotated method in pojoClazz, they should be ignored
@@ -100,16 +101,16 @@ public class EndpointMethodMapping {
 
     private List<MethodArgumentResolver> getDefaultResolvers() {
         List<MethodArgumentResolver> resolvers = new ArrayList<>();
-//        resolvers.add(new SessionMethodArgumentResolver());
-//        resolvers.add(new HttpHeadersMethodArgumentResolver());
-//        resolvers.add(new TextMethodArgumentResolver());
-//        resolvers.add(new ThrowableMethodArgumentResolver());
-//        resolvers.add(new ByteMethodArgumentResolver());
-//        resolvers.add(new RequestParamMapMethodArgumentResolver());
-//        resolvers.add(new RequestParamMethodArgumentResolver(beanFactory));
-//        resolvers.add(new PathVariableMapMethodArgumentResolver());
-//        resolvers.add(new PathVariableMethodArgumentResolver(beanFactory));
-//        resolvers.add(new EventMethodArgumentResolver(beanFactory));
+        resolvers.add(new SessionMethodArgumentResolver());
+        resolvers.add(new HttpHeadersMethodArgumentResolver());
+        resolvers.add(new TextMethodArgumentResolver());
+        resolvers.add(new ThrowableMethodArgumentResolver());
+        resolvers.add(new ByteMethodArgumentResolver());
+        resolvers.add(new RequestParamMapMethodArgumentResolver());
+        resolvers.add(new RequestParamMethodArgumentResolver(beanFactory));
+        resolvers.add(new PathVariableMapMethodArgumentResolver());
+        resolvers.add(new PathVariableMethodArgumentResolver(beanFactory));
+        resolvers.add(new EventMethodArgumentResolver(beanFactory));
         return resolvers;
     }
 

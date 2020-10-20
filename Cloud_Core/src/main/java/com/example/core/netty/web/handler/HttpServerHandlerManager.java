@@ -31,9 +31,10 @@ public class HttpServerHandlerManager extends SimpleChannelInboundHandler<FullHt
         handlerChain.addFilter(new BadRequestHandler())
                 .addFilter(new OnlyGetHandler())
                 .addFilter(new CheckHostHandler())
-                .addFilter(new ResouceHandler())
+                .addFilter(new ResourceHandler())
                 .addFilter(new PathHandler())
-                .addFilter(new UpGradeHandler());
+                .addFilter(new UpGradeHandler())
+                .addFilter(new HandShakerHandler());
     }
 
 }

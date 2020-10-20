@@ -9,7 +9,7 @@ import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class ResouceHandler extends AbstractHandler{
+public class ResourceHandler extends AbstractHandler{
     @Override
     public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
         QueryStringDecoder decoder = new QueryStringDecoder(req.uri());
@@ -23,5 +23,7 @@ public class ResouceHandler extends AbstractHandler{
             sendHttpResponse(ctx, req, resp);
             return;
         }
+
+        chain.doFilter(ctx,req,chain);
     }
 }

@@ -20,5 +20,6 @@ public class OnlyGetHandler extends AbstractHandler{
             sendHttpResponse(ctx, req, resp);
             return;
         }
+        chain.doFilter(ctx,req,chain);
     }
 }

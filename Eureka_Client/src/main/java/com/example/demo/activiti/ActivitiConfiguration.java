@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
-@AutoConfigureAfter({DataSourceAutoConfiguration.class})
+//@Configuration
+//@AutoConfigureAfter({DataSourceAutoConfiguration.class})
 public class ActivitiConfiguration extends ProcessEngineConfigurationImpl {
     @Value("${spring.datasource.druid.master.cloud0.url}")
     private String url;
