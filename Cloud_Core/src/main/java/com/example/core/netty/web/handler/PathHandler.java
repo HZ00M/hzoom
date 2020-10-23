@@ -1,6 +1,6 @@
 package com.example.core.netty.web.handler;
 
-import com.example.core.netty.web.resolver.WsPathMatcher;
+import com.example.core.netty.web.matcher.WsPathMatcher;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;

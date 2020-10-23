@@ -1,16 +1,13 @@
 package com.example.core.netty.web.handler;
 
-import com.example.core.netty.web.resolver.WsPathMatcher;
+import com.example.core.netty.web.matcher.WsPathMatcher;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.QueryStringDecoder;
-import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrameAggregator;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
-import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+import io.netty.handler.codec.http.websocketx.*;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
@@ -58,6 +55,7 @@ public class HandShakerHandler extends AbstractHandler{
                 pipeline.addLast(new WebSocketServerCompressionHandler());
             }
             pipeline.addLast(new WebSocketFrameAggregator(Integer.MAX_VALUE));
+//            pipeline.addLast(new WebSocketServerProtocolHandler(decoder.path(),subProtocols,false,chain.config.getMAX_FRAME_PAYLOAD_LENGTH()));
             pipeline.addLast(new WebSocketServerHandler(chain.endpointServer));
             String finalPattern = pattern;
             handshaker.handshake(channel, req).addListener(future -> {

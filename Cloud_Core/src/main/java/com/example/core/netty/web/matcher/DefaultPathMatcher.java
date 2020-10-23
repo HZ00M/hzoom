@@ -1,4 +1,4 @@
-package com.example.core.netty.web.resolver;
+package com.example.core.netty.web.matcher;
 
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.QueryStringDecoder;

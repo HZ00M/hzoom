@@ -98,8 +98,8 @@ public class EndpointMethodMapping {
     }
 
 
-    private List<MethodArgumentResolver> getDefaultResolvers() {
-        List<MethodArgumentResolver> resolvers = new ArrayList<>();
+    private Set<MethodArgumentResolver> getDefaultResolvers() {
+        Set<MethodArgumentResolver> resolvers = new LinkedHashSet<>();
         resolvers.add(new SessionMethodArgumentResolver());
         resolvers.add(new HttpHeadersMethodArgumentResolver());
         resolvers.add(new TextMethodArgumentResolver());
@@ -110,6 +110,8 @@ public class EndpointMethodMapping {
         resolvers.add(new PathVariableMapMethodArgumentResolver());
         resolvers.add(new PathVariableMethodArgumentResolver(beanFactory));
         resolvers.add(new EventMethodArgumentResolver(beanFactory));
+        Map<String, MethodArgumentResolver> beanResolvers = applicationContext.getBeansOfType(MethodArgumentResolver.class);
+        resolvers.addAll(beanResolvers.values());
         return resolvers;
     }
 
@@ -142,7 +144,7 @@ public class EndpointMethodMapping {
 
         private MethodArgumentResolver[] getResolvers(MethodParameter[] parameters) throws DeploymentException {
             MethodArgumentResolver[] methodArgumentResolvers = new MethodArgumentResolver[parameters.length];
-            List<MethodArgumentResolver> resolvers = getDefaultResolvers();
+            Set<MethodArgumentResolver> resolvers = getDefaultResolvers();
             for (int i = 0; i < parameters.length; i++) {
                 MethodParameter parameter = parameters[i];
                 for (MethodArgumentResolver resolver : resolvers) {

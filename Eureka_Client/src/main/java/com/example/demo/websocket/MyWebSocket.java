@@ -6,6 +6,7 @@ import com.example.core.netty.web.annotation.RequestParam;
 import com.example.core.netty.web.annotation.ServerEndpoint;
 import com.example.core.netty.web.annotation.ServerMethod;
 import com.example.core.netty.web.core.WebSocketChannel;
+import com.example.demo.po.User;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -47,7 +48,7 @@ public class MyWebSocket {
     }
 
     @ServerMethod(ServerMethod.Type.OnMessage)
-    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable String path) {
+    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable String path, User user) {
 
         log.info("receive OnMessage : {}", message);
         System.out.println(message);

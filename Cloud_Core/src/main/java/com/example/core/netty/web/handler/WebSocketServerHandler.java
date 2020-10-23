@@ -8,12 +8,12 @@ import io.netty.handler.codec.http.websocketx.*;
 
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
     private final EndpointServer endpointServer;
-    public WebSocketServerHandler(EndpointServer endpointServer) {
-        this.endpointServer = endpointServer;
-    }
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
         handleWebSocketFrame(ctx,frame);
+    }
+    public WebSocketServerHandler(EndpointServer endpointServer) {
+        this.endpointServer = endpointServer;
     }
 
     @Override

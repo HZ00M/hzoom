@@ -72,7 +72,6 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         }
         EndpointConfig endpointConfig = buildConfig(annotation);
         ApplicationContext context = getApplicationContext();
-
         EndpointMethodMapping endpointMethodMapping = null;
         try {
             endpointMethodMapping = new EndpointMethodMapping(endpointClass,context,beanFactory);

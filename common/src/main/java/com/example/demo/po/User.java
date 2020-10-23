@@ -22,4 +22,8 @@ public class User implements Serializable {
 
     private String nickName;
 
+    public User(Integer id, String username) {
+        this.id = id;
+        this.username = username;
+    }
 }
