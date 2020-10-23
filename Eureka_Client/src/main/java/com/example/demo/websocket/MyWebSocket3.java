@@ -17,18 +17,18 @@ import java.io.UnsupportedEncodingException;
 
 
 @Slf4j
-@ServerEndpoint(host = "${netty-websocket.host}", path = "${netty-websocket.path}", port = "${netty-websocket.port}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
+@ServerEndpoint(host = "${netty-websocket.host}", path = "${netty-websocket.path3}", port = "${netty-websocket.port}", bossLoopGroupThreads = "1", workerLoopGroupThreads = "10")
 @Component
-public class MyWebSocket {
+public class MyWebSocket3 {
 
     @ServerMethod(ServerMethod.Type.BeforeHandshake)
     public void beforeHandshake(WebSocketChannel webSocketChannel, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
-        log.info("receive beforeHandshake : {}",JSONObject.toJSONString(headers));
+        log.info("receive beforeHandshake : {}", JSONObject.toJSONString(headers));
     }
 
     @ServerMethod(ServerMethod.Type.OnOpen)
     public void onOpen(WebSocketChannel webSocketChannel, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
-        log.info("receive OnOpen : {}",JSONObject.toJSONString(headers));
+        log.info("receive OnOpen : {}", JSONObject.toJSONString(headers));
     }
 
     @ServerMethod(ServerMethod.Type.OnClose)
@@ -47,18 +47,16 @@ public class MyWebSocket {
     }
 
     @ServerMethod(ServerMethod.Type.OnMessage)
-    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable String path) {
-
+    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime) {
         log.info("receive OnMessage : {}", message);
         System.out.println(message);
-
-
+        webSocketChannel.sendText("接收到消息：" + message);
     }
 
     @ServerMethod(ServerMethod.Type.OnBinary)
     public void OnBinary(WebSocketChannel webSocketChannel, byte[] message) throws UnsupportedEncodingException {
         String str = new String(message, "UTF-8");
-        log.info("receive OnBinary : {}",str);
+        log.info("receive OnBinary : {}", str);
     }
 
     @ServerMethod(ServerMethod.Type.OnEvent)

@@ -1,11 +1,13 @@
 package com.example.demo.websocket;
 
+
 import com.alibaba.fastjson.JSONObject;
 import com.example.core.netty.web.annotation.PathVariable;
 import com.example.core.netty.web.annotation.RequestParam;
 import com.example.core.netty.web.annotation.ServerEndpoint;
 import com.example.core.netty.web.annotation.ServerMethod;
 import com.example.core.netty.web.core.WebSocketChannel;
+import com.example.core.netty.web.handler.BadRequestHandler;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -15,15 +17,14 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-
 @Slf4j
-@ServerEndpoint(host = "${netty-websocket.host}", path = "${netty-websocket.path}", port = "${netty-websocket.port}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
+@ServerEndpoint(beforeHandlers = {BadRequestHandler.class},host = "${netty-websocket.host}", path = "${netty-websocket.path2}", port = "${netty-websocket.port2}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
 @Component
-public class MyWebSocket {
+public class MyWebSocket2 {
 
     @ServerMethod(ServerMethod.Type.BeforeHandshake)
     public void beforeHandshake(WebSocketChannel webSocketChannel, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
-        log.info("receive beforeHandshake : {}",JSONObject.toJSONString(headers));
+        log.info("receive beforeHandshake : {}", JSONObject.toJSONString(headers));
     }
 
     @ServerMethod(ServerMethod.Type.OnOpen)
@@ -47,12 +48,9 @@ public class MyWebSocket {
     }
 
     @ServerMethod(ServerMethod.Type.OnMessage)
-    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable String path) {
-
+    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable("{0}") String path) {
         log.info("receive OnMessage : {}", message);
         System.out.println(message);
-
-
     }
 
     @ServerMethod(ServerMethod.Type.OnBinary)

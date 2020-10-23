@@ -10,15 +10,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PathVariable {
-    /**
-     * Alias for {@link #name}.
-     */
-    @AliasFor("name")
-    String value() default "";
 
-    /**
-     * The name of the path variable to bind to.
-     */
-    @AliasFor("value")
-    String name() default "";
+    String value() default "{0}";
+
 }

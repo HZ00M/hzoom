@@ -19,13 +19,13 @@ public class RequestParamMapMethodArgumentResolver implements MethodArgumentReso
     public boolean supportsParameter(MethodParameter parameter) {
         RequestParam requestParam = parameter.getParameterAnnotation(RequestParam.class);
         return (requestParam != null && Map.class.isAssignableFrom(parameter.getParameterType()) &&
-                !StringUtils.hasText(requestParam.name()));
+                !StringUtils.hasText(requestParam.value()));
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, Channel channel, Object object) throws Exception {
         RequestParam ann = parameter.getParameterAnnotation(RequestParam.class);
-        String name = ann.name();
+        String name = ann.value();
         if (name.isEmpty()) {
             name = parameter.getParameterName();
             if (name == null) {

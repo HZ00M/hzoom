@@ -1,7 +1,7 @@
 package com.example.core.netty.web.endpoint;
 
+import com.example.core.netty.web.annotation.ServerMethod;
 import com.example.core.netty.web.core.WebSocketChannel;
-import com.example.core.netty.web.enums.ListenerTypeEnum;
 import com.example.core.netty.web.resolver.*;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -10,10 +10,12 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 
 import java.util.*;
 
+@Slf4j
 public class EndpointServer {
     private static final AttributeKey<Object> ENDPOINT_KEY = AttributeKey.valueOf("ENDPOINT_KEY");
 
@@ -32,24 +34,21 @@ public class EndpointServer {
     private Set<WsPathMatcher> pathMatchers = new HashSet<>();
 
     public EndpointServer(EndpointMethodMapping methodMapping, EndpointConfig config, String path) {
-        addPathPojoMethodMapping(path, methodMapping);
+        addPathMethodMapping(path, methodMapping);
         this.config = config;
     }
 
-    public void addPathPojoMethodMapping(String path, EndpointMethodMapping methodMapping) {
+    public void addPathMethodMapping(String path, EndpointMethodMapping methodMapping) {
         pathMethodMappingMap.put(path, methodMapping);
-        for (MethodArgumentResolver resolver : methodMapping.getMethodMap().get(ListenerTypeEnum.OnOpen).getMethodArgumentResolvers()) {
-            if (resolver instanceof PathVariableMethodArgumentResolver || resolver instanceof PathVariableMapMethodArgumentResolver) {
-                pathMatchers.add(new AntPathMatcherWraaper(path));
-                return;
-            }
-        }
-        pathMatchers.add(new DefaultPathMatcher(path));
+        addPathMatcher(new AntPathMatcherWraaper(path));
+    }
+    public void addPathMatcher( WsPathMatcher wsPathMatcher){
+        pathMatchers.add(wsPathMatcher);
     }
 
     public boolean hasBeforeHandshake(Channel channel, String path) {
         EndpointMethodMapping methodMapping = getEndpointMethodMapping(path, channel);
-        return methodMapping.getMethodMap().get(ListenerTypeEnum.BeforeHandshake) != null;
+        return methodMapping.getMethodMap().get(ServerMethod.Type.BeforeHandshake) != null;
     }
 
     public void doBeforeHandshake(Channel channel, FullHttpRequest req, String path) {
@@ -63,14 +62,14 @@ public class EndpointServer {
         channel.attr(ENDPOINT_KEY).set(implement);
         WebSocketChannel wsChannel = new WebSocketChannel(channel);
         channel.attr(CHANNEL_KEY).set(wsChannel);
-        EndpointMethodMapping.MethodMapping beforeHandshake = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.BeforeHandshake);
+        EndpointMethodMapping.MethodMapping beforeHandshake = endpointMethodMapping.getMethodMapping(ServerMethod.Type.BeforeHandshake);
         if (beforeHandshake != null) {
             try {
                 beforeHandshake.getMethod().invoke(implement, beforeHandshake.getMethodArgs(channel, req));
             } catch (TypeMismatchException e) {
                 throw e;
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
@@ -89,49 +88,49 @@ public class EndpointServer {
             channel.attr(CHANNEL_KEY).set(webSocketChannel);
         }
 
-        EndpointMethodMapping.MethodMapping onOpen = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnOpen);
+        EndpointMethodMapping.MethodMapping onOpen = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnOpen);
         if (onOpen != null) {
             try {
                 onOpen.getMethod().invoke(implement, onOpen.getMethodArgs(channel, req));
             } catch (TypeMismatchException e) {
                 throw e;
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
 
     public void doOnMessage(Channel channel, WebSocketFrame frame) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onMessage = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnMessage);
+        EndpointMethodMapping.MethodMapping onMessage = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnMessage);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onMessage != null) {
             TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
             try {
                 onMessage.getMethod().invoke(implement, onMessage.getMethodArgs(channel, textFrame));
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
 
     public void doOnBinary(Channel channel, WebSocketFrame frame) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onBinary = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnBinary);
+        EndpointMethodMapping.MethodMapping onBinary = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnBinary);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onBinary != null) {
             BinaryWebSocketFrame binaryWebSocketFrame = (BinaryWebSocketFrame) frame;
             try {
                 onBinary.getMethod().invoke(implement, onBinary.getMethodArgs(channel, binaryWebSocketFrame));
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
 
     public void doOnEvent(Channel channel, Object evt) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onEvent = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnEvent);
+        EndpointMethodMapping.MethodMapping onEvent = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnEvent);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onEvent != null) {
             if (!channel.hasAttr(CHANNEL_KEY)) {
@@ -140,14 +139,14 @@ public class EndpointServer {
             try {
                 onEvent.getMethod().invoke(implement, onEvent.getMethodArgs(channel, evt));
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
 
     public void doOnClose(Channel channel) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onClose = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnClose);
+        EndpointMethodMapping.MethodMapping onClose = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnClose);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onClose != null) {
             if (!channel.hasAttr(CHANNEL_KEY)) {
@@ -156,14 +155,14 @@ public class EndpointServer {
             try {
                 onClose.getMethod().invoke(implement,onClose.getMethodArgs(channel, null));
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
 
     public void doOnError(Channel channel, Throwable throwable) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onError = endpointMethodMapping.getMethodMapping(ListenerTypeEnum.OnError);
+        EndpointMethodMapping.MethodMapping onError = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnError);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onError != null) {
             if (!channel.hasAttr(CHANNEL_KEY)) {
@@ -172,7 +171,7 @@ public class EndpointServer {
             try {
                 onError.getMethod().invoke(implement,onError.getMethodArgs(channel, throwable));
             } catch (Throwable t) {
-                //todo
+                log.error(t.getMessage());
             }
         }
     }
@@ -187,7 +186,7 @@ public class EndpointServer {
             if (path!=null){
                 attrPath.set(path);
             }
-            methodMapping = pathMethodMappingMap.get(path);
+            methodMapping = pathMethodMappingMap.get(attrPath.get());
             if (methodMapping == null) {
                 throw new RuntimeException("path " + path + " is not in pathMethodMappingMap ");
             }

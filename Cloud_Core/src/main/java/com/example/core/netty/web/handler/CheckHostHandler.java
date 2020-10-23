@@ -1,5 +1,6 @@
 package com.example.core.netty.web.handler;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -11,6 +12,7 @@ import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class CheckHostHandler extends AbstractHandler{
+    protected static ByteBuf forbiddenByteBuf = null;
     @Override
     public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
         HttpHeaders headers = req.headers();

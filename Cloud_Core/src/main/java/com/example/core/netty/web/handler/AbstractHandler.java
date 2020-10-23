@@ -17,31 +17,6 @@ import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
 public abstract class AbstractHandler implements Handler{
     protected FullHttpResponse resp;
-    protected static ByteBuf faviconByteBuf = null;
-    protected static ByteBuf notFoundByteBuf = null;
-    protected static ByteBuf badRequestByteBuf = null;
-    protected static ByteBuf forbiddenByteBuf = null;
-    protected static ByteBuf internalServerErrorByteBuf = null;
-
-    static {
-        faviconByteBuf = buildStaticRes("/favicon.ico");
-        notFoundByteBuf = buildStaticRes("/public/error/404.html");
-        badRequestByteBuf = buildStaticRes("/public/error/400.html");
-        forbiddenByteBuf = buildStaticRes("/public/error/403.html");
-        internalServerErrorByteBuf = buildStaticRes("/public/error/500.html");
-        if (notFoundByteBuf == null) {
-            notFoundByteBuf = buildStaticRes("/public/error/4xx.html");
-        }
-        if (badRequestByteBuf == null) {
-            badRequestByteBuf = buildStaticRes("/public/error/4xx.html");
-        }
-        if (forbiddenByteBuf == null) {
-            forbiddenByteBuf = buildStaticRes("/public/error/4xx.html");
-        }
-        if (internalServerErrorByteBuf == null) {
-            internalServerErrorByteBuf = buildStaticRes("/public/error/5xx.html");
-        }
-    }
 
     static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse resp) {
         // Generate an error page if response getStatus code is not OK (200).
@@ -58,6 +33,7 @@ public abstract class AbstractHandler implements Handler{
         if (!HttpUtil.isKeepAlive(req) || statusCode != 200) {
             f.addListener(ChannelFutureListener.CLOSE);
         }
+
     }
 
     static ByteBuf buildStaticRes(String resPath) {

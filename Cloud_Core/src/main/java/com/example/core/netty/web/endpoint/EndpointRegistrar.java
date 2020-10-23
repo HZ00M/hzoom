@@ -83,13 +83,13 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         InetSocketAddress inetSocketAddress = new InetSocketAddress(endpointConfig.getHOST(),endpointConfig.getPORT());
         String path = resolveAnnotationValue(annotation.value(), String.class, "path");
 
-        WebsocketServer websocketServer = addressWebsocketServerMap.get(path);
+        WebsocketServer websocketServer = addressWebsocketServerMap.get(inetSocketAddress);
         if (websocketServer==null){
             EndpointServer endpointServer = new EndpointServer(endpointMethodMapping,endpointConfig,path);
-            websocketServer = new WebsocketServer(endpointServer,endpointConfig);
+            websocketServer = new WebsocketServer(endpointServer,endpointConfig,annotation.beforeHandlers());
             addressWebsocketServerMap.putIfAbsent(inetSocketAddress,websocketServer);
         }else{
-            websocketServer.getEndpointServer().addPathPojoMethodMapping(path,endpointMethodMapping);
+            websocketServer.getEndpointServer().addPathMethodMapping(path,endpointMethodMapping);
         }
     }
 

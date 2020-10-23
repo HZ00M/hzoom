@@ -26,7 +26,7 @@ public class PathVariableMethodArgumentResolver implements MethodArgumentResolve
     @Override
     public Object resolveArgument(MethodParameter parameter, Channel channel, Object object) throws Exception {
         PathVariable ann = parameter.getParameterAnnotation(PathVariable.class);
-        String name = ann.name();
+        String name = ann.value();
         if (name.isEmpty()) {
             name = parameter.getParameterName();
             if (name == null) {

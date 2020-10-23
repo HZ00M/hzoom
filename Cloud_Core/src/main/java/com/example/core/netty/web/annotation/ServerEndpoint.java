@@ -1,5 +1,6 @@
 package com.example.core.netty.web.annotation;
 
+import com.example.core.netty.web.handler.*;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ServerEndpoint {
+    Class<? extends Handler>[] beforeHandlers() default {BadRequestHandler.class, OnlyGetHandler.class, CheckHostHandler.class, ResourceHandler.class,PathHandler.class,UpGradeHandler.class};
 
     @AliasFor("path")
     String value() default "/";

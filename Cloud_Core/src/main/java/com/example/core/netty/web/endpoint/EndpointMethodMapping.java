@@ -1,7 +1,6 @@
 package com.example.core.netty.web.endpoint;
 
-import com.example.core.netty.web.annotation.ServerListener;
-import com.example.core.netty.web.enums.ListenerTypeEnum;
+import com.example.core.netty.web.annotation.ServerMethod;
 import com.example.core.netty.web.resolver.*;
 import io.netty.channel.Channel;
 import lombok.AllArgsConstructor;
@@ -25,13 +24,13 @@ public class EndpointMethodMapping {
     private final Class endpointClazz;
     private final ApplicationContext applicationContext;
     private final AbstractBeanFactory beanFactory;
-    private final Map<ListenerTypeEnum, MethodMapping> methodMap;
+    private final Map<ServerMethod.Type, MethodMapping> methodMap;
 
     public EndpointMethodMapping(Class<?> endpointClazz, ApplicationContext context, AbstractBeanFactory beanFactory) throws DeploymentException {
         this.applicationContext = context;
         this.endpointClazz = endpointClazz;
         this.beanFactory = beanFactory;
-        methodMap = new HashMap<ListenerTypeEnum, MethodMapping>();
+        methodMap = new HashMap<>();
         Class<?> currentClazz = endpointClazz;
         Method[] endpointClazzMethods = null;
         while (!currentClazz.equals(Object.class)) {
@@ -40,11 +39,11 @@ public class EndpointMethodMapping {
                 endpointClazzMethods = currentClazzMethods;
             }
             for (Method method : currentClazzMethods) {
-                ServerListener serverListener = method.getAnnotation(ServerListener.class);
-                if (serverListener != null) {
+                ServerMethod serverMethod = method.getAnnotation(ServerMethod.class);
+                if (serverMethod != null) {
                     checkPublic(method);
                     MethodMapping methodMapping = new MethodMapping(method);
-                    methodMap.putIfAbsent(serverListener.value(), methodMapping);
+                    methodMap.putIfAbsent(serverMethod.value(), methodMapping);
 
                 }
             }
@@ -54,7 +53,7 @@ public class EndpointMethodMapping {
         // by a non annotated method in pojoClazz, they should be ignored
         Method[] finalEndpointClazzMethods = endpointClazzMethods;
         methodMap.entrySet().stream()
-                .filter(entry -> isOverrideWithoutAnnotation(finalEndpointClazzMethods, entry.getValue().getMethod(), ServerListener.class))
+                .filter(entry -> isOverrideWithoutAnnotation(finalEndpointClazzMethods, entry.getValue().getMethod(), ServerMethod.class))
                 .forEach(entry -> entry.getValue().setMethod(null));
 
     }
@@ -67,12 +66,12 @@ public class EndpointMethodMapping {
         return implement;
     }
 
-    public Map<ListenerTypeEnum, MethodMapping> getMethodMap() {
+    public Map<ServerMethod.Type, MethodMapping> getMethodMap() {
         return methodMap;
     }
 
-    public MethodMapping getMethodMapping(ListenerTypeEnum listenerType){
-        return methodMap.getOrDefault(listenerType,null);
+    public MethodMapping getMethodMapping(ServerMethod.Type type){
+        return methodMap.getOrDefault(type,null);
     }
 
     private void checkPublic(Method m) throws DeploymentException {

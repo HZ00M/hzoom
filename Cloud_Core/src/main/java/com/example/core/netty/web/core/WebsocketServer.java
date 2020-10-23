@@ -2,6 +2,8 @@ package com.example.core.netty.web.core;
 
 import com.example.core.netty.web.endpoint.EndpointConfig;
 import com.example.core.netty.web.endpoint.EndpointServer;
+import com.example.core.netty.web.handler.HandShakerHandler;
+import com.example.core.netty.web.handler.Handler;
 import com.example.core.netty.web.handler.HttpServerHandlerManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -16,14 +18,17 @@ import io.netty.handler.logging.LoggingHandler;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.util.LinkedList;
 
 public class WebsocketServer {
     private final EndpointServer endpointServer;
     private EndpointConfig config;
+    private LinkedList<Handler> beforeHandShakeHandlers = new LinkedList<>();
 
-    public WebsocketServer(EndpointServer endpointServer, EndpointConfig endpointConfig) {
+    public WebsocketServer(EndpointServer endpointServer, EndpointConfig endpointConfig, Class<? extends Handler>[] handlerClazzArr) {
         this.endpointServer = endpointServer;
         this.config = endpointConfig;
+        buildChain(handlerClazzArr);
     }
 
     public void init() throws InterruptedException {
@@ -47,7 +52,7 @@ public class WebsocketServer {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new HttpServerCodec());
                         pipeline.addLast(new HttpObjectAggregator(65536));
-                        pipeline.addLast(new HttpServerHandlerManager(endpointServer,config));
+                        pipeline.addLast(new HttpServerHandlerManager(endpointServer,config,beforeHandShakeHandlers));
                     }
                 });
         if (config.getSO_RCVBUF() != -1) {
@@ -79,6 +84,20 @@ public class WebsocketServer {
             boss.shutdownGracefully();
             worker.shutdownGracefully();
         }));
+    }
+
+    private void buildChain(Class<? extends Handler>[] handlerClazzArr)  {
+        try {
+            for (Class<? extends Handler> handlerClazz : handlerClazzArr) {
+                Handler handler = handlerClazz.newInstance();
+                beforeHandShakeHandlers.addLast(handler);
+            }
+        }catch (IllegalAccessException| InstantiationException e){
+
+        }finally {
+            beforeHandShakeHandlers.addLast(new HandShakerHandler());
+        }
+
     }
 
     public EndpointServer getEndpointServer() {
