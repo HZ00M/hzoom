@@ -13,7 +13,9 @@ public class EndpointConfig {
     private final int PORT;
     private final int BOSS_LOOP_GROUP_THREADS;
     private final int WORKER_LOOP_GROUP_THREADS;
-    private final boolean USE_COMPRESSION_HANDLER;
+    private final boolean USE_DEFAULT_IDLE_STATE_HANDLER;
+    private final boolean USE_DEFAULT_COMPRESSION_HANDLERA;
+    private final boolean USE_DEFAULT_WEBSOCKET_FRAMEAGGREGATOR_HANDLER;
     private final int CONNECT_TIMEOUT_MILLIS;
     private final int SO_BACKLOG;
     private final int WRITE_SPIN_COUNT;
@@ -31,7 +33,7 @@ public class EndpointConfig {
     private final int MAX_FRAME_PAYLOAD_LENGTH;
     private static Integer randomPort;
 
-    public EndpointConfig(String host, int port, String path, int bossLoopGroupThreads, int workerLoopGroupThreads, boolean useCompressionHandler, int connectTimeoutMillis, int soBacklog, int writeSpinCount, int writeBufferHighWaterMark, int writeBufferLowWaterMark, int soRcvbuf, int soSndbuf, boolean tcpNodelay, boolean soKeepalive, int soLinger, boolean allowHalfClosure, int readerIdleTimeSeconds, int writerIdleTimeSeconds, int allIdleTimeSeconds, int maxFramePayloadLength) {
+    public EndpointConfig(String host, int port, String path, int bossLoopGroupThreads, int workerLoopGroupThreads, boolean userIdleStateHandler, boolean useCompressionHandler, boolean useWebSocketFrameAggregator, int connectTimeoutMillis, int soBacklog, int writeSpinCount, int writeBufferHighWaterMark, int writeBufferLowWaterMark, int soRcvbuf, int soSndbuf, boolean tcpNodelay, boolean soKeepalive, int soLinger, boolean allowHalfClosure, int readerIdleTimeSeconds, int writerIdleTimeSeconds, int allIdleTimeSeconds, int maxFramePayloadLength) {
         if (StringUtils.isEmpty(host) || "0.0.0.0".equals(host) || "0.0.0.0/0.0.0.0".equals(host)) {
             this.HOST = "0.0.0.0";
         } else {
@@ -40,7 +42,9 @@ public class EndpointConfig {
         this.PORT = getAvailablePort(port);
         this.BOSS_LOOP_GROUP_THREADS = bossLoopGroupThreads;
         this.WORKER_LOOP_GROUP_THREADS = workerLoopGroupThreads;
-        this.USE_COMPRESSION_HANDLER = useCompressionHandler;
+        this.USE_DEFAULT_IDLE_STATE_HANDLER = userIdleStateHandler;
+        this.USE_DEFAULT_COMPRESSION_HANDLERA = useCompressionHandler;
+        this.USE_DEFAULT_WEBSOCKET_FRAMEAGGREGATOR_HANDLER = useWebSocketFrameAggregator;
         this.CONNECT_TIMEOUT_MILLIS = connectTimeoutMillis;
         this.SO_BACKLOG = soBacklog;
         this.WRITE_SPIN_COUNT = writeSpinCount;

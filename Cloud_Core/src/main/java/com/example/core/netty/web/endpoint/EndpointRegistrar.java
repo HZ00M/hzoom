@@ -1,7 +1,8 @@
 package com.example.core.netty.web.endpoint;
 
 import com.example.core.netty.web.annotation.ServerEndpoint;
-import com.example.core.netty.web.core.WebsocketServer;
+import com.example.core.netty.web.core.WebSocketServer;
+import io.netty.channel.ChannelHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.TypeConverter;
 import org.springframework.beans.TypeMismatchException;
@@ -27,7 +28,7 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
 
     private AbstractBeanFactory beanFactory;
 
-    private final Map<InetSocketAddress, WebsocketServer> addressWebsocketServerMap = new HashMap<>();
+    private final Map<InetSocketAddress, WebSocketServer> addressWebsocketServerMap = new HashMap<>();
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -51,11 +52,11 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
     }
 
     private void init() {
-        for (Map.Entry<InetSocketAddress, WebsocketServer> entry : addressWebsocketServerMap.entrySet()) {
-            WebsocketServer websocketServer = entry.getValue();
+        for (Map.Entry<InetSocketAddress, WebSocketServer> entry : addressWebsocketServerMap.entrySet()) {
+            WebSocketServer webSocketServer = entry.getValue();
             try {
-                websocketServer.init();
-                EndpointServer endpointServer = websocketServer.getEndpointServer();
+                webSocketServer.init();
+                EndpointServer endpointServer = webSocketServer.getEndpointServer();
                 StringJoiner stringJoiner = new StringJoiner(",");
                 endpointServer.getPathMatcherSet().forEach(pathMatcher -> stringJoiner.add("'" + pathMatcher.getPattern() + "'"));
                 logger.info(String.format("\033[Netty WebSocket started on port: %s with context path(s): %s .\033[", endpointServer.getPort(), stringJoiner.toString()));
@@ -74,22 +75,34 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         ApplicationContext context = getApplicationContext();
         EndpointMethodMapping endpointMethodMapping = null;
         try {
-            endpointMethodMapping = new EndpointMethodMapping(endpointClass,context,beanFactory);
-        }catch (DeploymentException e){
+            endpointMethodMapping = new EndpointMethodMapping(endpointClass, context, beanFactory);
+        } catch (DeploymentException e) {
             throw new IllegalStateException("Failed to register ServerEndpointConfig: " + endpointConfig, e);
         }
 
-        InetSocketAddress inetSocketAddress = new InetSocketAddress(endpointConfig.getHOST(),endpointConfig.getPORT());
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(endpointConfig.getHOST(), endpointConfig.getPORT());
         String path = resolveAnnotationValue(annotation.value(), String.class, "path");
-
-        WebsocketServer websocketServer = addressWebsocketServerMap.get(inetSocketAddress);
-        if (websocketServer==null){
-            EndpointServer endpointServer = new EndpointServer(endpointMethodMapping,endpointConfig,path);
-            websocketServer = new WebsocketServer(endpointServer,endpointConfig,annotation.beforeHandlers());
-            addressWebsocketServerMap.putIfAbsent(inetSocketAddress,websocketServer);
-        }else{
-            websocketServer.getEndpointServer().addPathMethodMapping(path,endpointMethodMapping);
+        WebSocketServer webSocketServer = addressWebsocketServerMap.get(inetSocketAddress);
+        if (webSocketServer == null) {
+            EndpointServer endpointServer = new EndpointServer(endpointMethodMapping, endpointConfig, path);
+            webSocketServer = new WebSocketServer(endpointServer, endpointConfig, annotation.beforeHandShakeFilters(), buildBeforeWebSocketHandlers(annotation));
+            addressWebsocketServerMap.putIfAbsent(inetSocketAddress, webSocketServer);
+        } else {
+            webSocketServer.getEndpointServer().addPathMethodMapping(path, endpointMethodMapping);
         }
+    }
+
+    private LinkedList<ChannelHandler> buildBeforeWebSocketHandlers(ServerEndpoint annotation) {
+        LinkedList<ChannelHandler> handlers = new LinkedList<>();
+        ApplicationContext context = getApplicationContext();
+        Class<? extends ChannelHandler>[] handlerClazzs = annotation.beforeWebSocketHandlers();
+        for (Class<? extends ChannelHandler> handlerClazz : handlerClazzs) {
+            ChannelHandler handler = context.getBean(handlerClazz);
+            if (handler != null) {
+                handlers.add(handler);
+            }
+        }
+        return handlers;
     }
 
     private EndpointConfig buildConfig(ServerEndpoint annotation) {
@@ -98,7 +111,10 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
         String path = resolveAnnotationValue(annotation.value(), String.class, "value");
         int bossLoopGroupThreads = resolveAnnotationValue(annotation.bossLoopGroupThreads(), Integer.class, "bossLoopGroupThreads");
         int workerLoopGroupThreads = resolveAnnotationValue(annotation.workerLoopGroupThreads(), Integer.class, "workerLoopGroupThreads");
+
+        boolean userIdleStateHandler = resolveAnnotationValue(annotation.userIdleStateHandler(), Boolean.class, "userIdleStateHandler");
         boolean useCompressionHandler = resolveAnnotationValue(annotation.useCompressionHandler(), Boolean.class, "useCompressionHandler");
+        boolean useWebSocketFrameAggregator = resolveAnnotationValue(annotation.useWebSocketFrameAggregator(), Boolean.class, "useWebSocketFrameAggregator");
 
         int optionConnectTimeoutMillis = resolveAnnotationValue(annotation.optionConnectTimeoutMillis(), Integer.class, "optionConnectTimeoutMillis");
         int optionSoBacklog = resolveAnnotationValue(annotation.optionSoBacklog(), Integer.class, "optionSoBacklog");
@@ -119,7 +135,7 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
 
         int maxFramePayloadLength = resolveAnnotationValue(annotation.maxFramePayloadLength(), Integer.class, "maxFramePayloadLength");
 
-        return new EndpointConfig(host, port, path, bossLoopGroupThreads, workerLoopGroupThreads, useCompressionHandler, optionConnectTimeoutMillis, optionSoBacklog, childOptionWriteSpinCount, childOptionWriteBufferHighWaterMark, childOptionWriteBufferLowWaterMark, childOptionSoRcvbuf, childOptionSoSndbuf, childOptionTcpNodelay, childOptionSoKeepalive, childOptionSoLinger, childOptionAllowHalfClosure, readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds, maxFramePayloadLength);
+        return new EndpointConfig(host, port, path, bossLoopGroupThreads, workerLoopGroupThreads, userIdleStateHandler, useCompressionHandler, useWebSocketFrameAggregator, optionConnectTimeoutMillis, optionSoBacklog, childOptionWriteSpinCount, childOptionWriteBufferHighWaterMark, childOptionWriteBufferLowWaterMark, childOptionSoRcvbuf, childOptionSoSndbuf, childOptionTcpNodelay, childOptionSoKeepalive, childOptionSoLinger, childOptionAllowHalfClosure, readerIdleTimeSeconds, writerIdleTimeSeconds, allIdleTimeSeconds, maxFramePayloadLength);
     }
 
     private <T> T resolveAnnotationValue(Object value, Class<T> requiredType, String paramName) {

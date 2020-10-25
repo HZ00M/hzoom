@@ -1,4 +1,4 @@
-package com.example.core.netty.web.handler;
+package com.example.core.netty.web.filter;
 
 import com.example.core.netty.web.matcher.WsPathMatcher;
 import io.netty.buffer.ByteBuf;
@@ -13,7 +13,7 @@ import java.util.Set;
 import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class PathHandler extends AbstractHandler{
+public class PathFilter extends AbstractFilter {
     protected static ByteBuf notFoundByteBuf = null;
     static {
         notFoundByteBuf = buildStaticRes("/public/error/404.html");
@@ -22,7 +22,7 @@ public class PathHandler extends AbstractHandler{
         }
     }
     @Override
-    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
+    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, FilterChain chain) {
         QueryStringDecoder decoder = new QueryStringDecoder(req.uri());
         Channel channel = ctx.channel();
         String pattern = null;

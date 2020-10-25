@@ -14,9 +14,9 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 
-public class WebSocketChannel {
+public class Session {
     private final Channel channel;
-    public WebSocketChannel(Channel channel){
+    public Session(Channel channel){
         this.channel = channel;
     }
 

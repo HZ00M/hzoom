@@ -2,6 +2,8 @@ package com.example.core.netty.web.handler;
 
 import com.example.core.netty.web.endpoint.EndpointConfig;
 import com.example.core.netty.web.endpoint.EndpointServer;
+import com.example.core.netty.web.filter.Filter;
+import com.example.core.netty.web.filter.FilterChain;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 
@@ -10,10 +12,10 @@ import java.util.List;
 
 public class HttpServerHandlerManager extends SimpleChannelInboundHandler<FullHttpRequest> {
 
-    private HandlerChain handlerChain;
+    private FilterChain handlerChain;
 
-    public HttpServerHandlerManager(EndpointServer endpointServer, EndpointConfig config, List<Handler> beforeHandShakerHandlers) {
-        this.handlerChain = new HandlerChain(endpointServer, config,beforeHandShakerHandlers);
+    public HttpServerHandlerManager(EndpointServer endpointServer, EndpointConfig config, List<Filter> beforeHandShakerFilters, List<ChannelHandler> beforeWebSocketHandlers) {
+        this.handlerChain = new FilterChain(endpointServer, config, beforeHandShakerFilters,beforeWebSocketHandlers);
     }
 
     @Override

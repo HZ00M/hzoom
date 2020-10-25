@@ -6,13 +6,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.*;
 
-public class WebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+public class WebSocketServerManager extends SimpleChannelInboundHandler<WebSocketFrame> {
     private final EndpointServer endpointServer;
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame frame) throws Exception {
         handleWebSocketFrame(ctx,frame);
     }
-    public WebSocketServerHandler(EndpointServer endpointServer) {
+    public WebSocketServerManager(EndpointServer endpointServer) {
         this.endpointServer = endpointServer;
     }
 

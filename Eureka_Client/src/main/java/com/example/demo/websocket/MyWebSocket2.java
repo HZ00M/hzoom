@@ -6,8 +6,8 @@ import com.example.core.netty.web.annotation.PathVariable;
 import com.example.core.netty.web.annotation.RequestParam;
 import com.example.core.netty.web.annotation.ServerEndpoint;
 import com.example.core.netty.web.annotation.ServerMethod;
-import com.example.core.netty.web.core.WebSocketChannel;
-import com.example.core.netty.web.handler.BadRequestHandler;
+import com.example.core.netty.web.core.Session;
+import com.example.core.netty.web.filter.BadRequestFilter;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -18,49 +18,49 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
-@ServerEndpoint(beforeHandlers = {BadRequestHandler.class},host = "${netty-websocket.host}", path = "${netty-websocket.path2}", port = "${netty-websocket.port2}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
+@ServerEndpoint(beforeHandShakeFilters = {BadRequestFilter.class},host = "${netty-websocket.host}", path = "${netty-websocket.path2}", port = "${netty-websocket.port2}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
 @Component
 public class MyWebSocket2 {
 
     @ServerMethod(ServerMethod.Type.BeforeHandshake)
-    public void beforeHandshake(WebSocketChannel webSocketChannel, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
+    public void beforeHandshake(Session session, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
         log.info("receive beforeHandshake : {}", JSONObject.toJSONString(headers));
     }
 
     @ServerMethod(ServerMethod.Type.OnOpen)
-    public void onOpen(WebSocketChannel webSocketChannel, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
+    public void onOpen(Session session, HttpHeaders headers, @RequestParam Long connectTime, @PathVariable String path) {
         log.info("receive OnOpen : {}",JSONObject.toJSONString(headers));
     }
 
     @ServerMethod(ServerMethod.Type.OnClose)
-    public void onClose(WebSocketChannel webSocketChannel) throws IOException, InterruptedException {
-        ChannelFuture close = webSocketChannel.close();
+    public void onClose(Session session) throws IOException, InterruptedException {
+        ChannelFuture close = session.close();
         close.sync();
         log.info("receive OnClose");
     }
 
     @ServerMethod(ServerMethod.Type.OnError)
-    public void onError(WebSocketChannel webSocketChannel, Throwable throwable) {
-        if (webSocketChannel.isOpen()) {
-            webSocketChannel.close();
+    public void onError(Session session, Throwable throwable) {
+        if (session.isOpen()) {
+            session.close();
         }
         log.info("receive OnError : {}", throwable.getMessage());
     }
 
     @ServerMethod(ServerMethod.Type.OnMessage)
-    public void OnMessage(WebSocketChannel webSocketChannel, String message, @RequestParam Long connectTime, @PathVariable("{0}") String path) {
+    public void OnMessage(Session session, String message, @RequestParam Long connectTime, @PathVariable("{0}") String path) {
         log.info("receive OnMessage : {}", message);
         System.out.println(message);
     }
 
     @ServerMethod(ServerMethod.Type.OnBinary)
-    public void OnBinary(WebSocketChannel webSocketChannel, byte[] message) throws UnsupportedEncodingException {
+    public void OnBinary(Session session, byte[] message) throws UnsupportedEncodingException {
         String str = new String(message, "UTF-8");
         log.info("receive OnBinary : {}",str);
     }
 
     @ServerMethod(ServerMethod.Type.OnEvent)
-    public void onEvent(WebSocketChannel webSocketChannel, Object evt) {
+    public void onEvent(Session session, Object evt) {
         log.info("Event monitoring" + JSONObject.toJSONString(evt));
         if (evt instanceof IdleStateEvent) {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;

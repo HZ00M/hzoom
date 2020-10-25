@@ -1,4 +1,4 @@
-package com.example.core.netty.web.handler;
+package com.example.core.netty.web.filter;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,10 +11,10 @@ import org.springframework.util.StringUtils;
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class CheckHostHandler extends AbstractHandler{
+public class CheckHostFilter extends AbstractFilter {
     protected static ByteBuf forbiddenByteBuf = null;
     @Override
-    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
+    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, FilterChain chain) {
         HttpHeaders headers = req.headers();
         String host = headers.get(HttpHeaderNames.HOST);
         if (StringUtils.isEmpty(host)) {

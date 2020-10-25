@@ -1,8 +1,8 @@
 package com.example.core.netty.web.endpoint;
 
 import com.example.core.netty.web.annotation.ServerMethod;
-import com.example.core.netty.web.core.WebSocketChannel;
-import com.example.core.netty.web.matcher.AntPathMatcherWraaper;
+import com.example.core.netty.web.core.Session;
+import com.example.core.netty.web.matcher.AntPathMatcherWrapper;
 import com.example.core.netty.web.matcher.WsPathMatcher;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -20,7 +20,7 @@ import java.util.*;
 public class EndpointServer {
     private static final AttributeKey<Object> ENDPOINT_KEY = AttributeKey.valueOf("ENDPOINT_KEY");
 
-    public static final AttributeKey<WebSocketChannel> CHANNEL_KEY = AttributeKey.valueOf("CHANNEL_KEY");
+    public static final AttributeKey<Session> CHANNEL_KEY = AttributeKey.valueOf("CHANNEL_KEY");
 
     private static final AttributeKey<String> PATH_KEY = AttributeKey.valueOf("PATH_KEY");
 
@@ -41,7 +41,7 @@ public class EndpointServer {
 
     public void addPathMethodMapping(String path, EndpointMethodMapping methodMapping) {
         pathMethodMappingMap.put(path, methodMapping);
-        addPathMatcher(new AntPathMatcherWraaper(path));
+        addPathMatcher(new AntPathMatcherWrapper(path));
     }
     public void addPathMatcher( WsPathMatcher wsPathMatcher){
         pathMatchers.add(wsPathMatcher);
@@ -61,7 +61,7 @@ public class EndpointServer {
             return;
         }
         channel.attr(ENDPOINT_KEY).set(implement);
-        WebSocketChannel wsChannel = new WebSocketChannel(channel);
+        Session wsChannel = new Session(channel);
         channel.attr(CHANNEL_KEY).set(wsChannel);
         EndpointMethodMapping.MethodMapping beforeHandshake = endpointMethodMapping.getMethodMapping(ServerMethod.Type.BeforeHandshake);
         if (beforeHandshake != null) {
@@ -85,8 +85,8 @@ public class EndpointServer {
             } catch (Exception e) {
                 return;
             }
-            WebSocketChannel webSocketChannel = new WebSocketChannel(channel);
-            channel.attr(CHANNEL_KEY).set(webSocketChannel);
+            Session session = new Session(channel);
+            channel.attr(CHANNEL_KEY).set(session);
         }
 
         EndpointMethodMapping.MethodMapping onOpen = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnOpen);

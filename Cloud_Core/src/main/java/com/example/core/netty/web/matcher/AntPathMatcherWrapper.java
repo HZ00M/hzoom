@@ -9,11 +9,11 @@ import java.util.Map;
 
 import static com.example.core.netty.web.endpoint.EndpointServer.URI_TEMPLATE;
 
-public class AntPathMatcherWraaper extends AntPathMatcher implements WsPathMatcher {
+public class AntPathMatcherWrapper extends AntPathMatcher implements WsPathMatcher {
 
     private String pattern;
 
-    public AntPathMatcherWraaper(String pattern) {
+    public AntPathMatcherWrapper(String pattern) {
         this.pattern = pattern;
     }
 

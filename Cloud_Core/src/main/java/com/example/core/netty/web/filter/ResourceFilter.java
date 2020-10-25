@@ -1,4 +1,4 @@
-package com.example.core.netty.web.handler;
+package com.example.core.netty.web.filter;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -10,13 +10,13 @@ import static io.netty.handler.codec.http.HttpResponseStatus.NOT_FOUND;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class ResourceHandler extends AbstractHandler{
+public class ResourceFilter extends AbstractFilter {
     protected static ByteBuf faviconByteBuf = null;
     static {
         faviconByteBuf = buildStaticRes("/favicon.ico");
     }
     @Override
-    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
+    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, FilterChain chain) {
         QueryStringDecoder decoder = new QueryStringDecoder(req.uri());
         String path = decoder.path();
         if ("/favicon.ico".equals(path)) {

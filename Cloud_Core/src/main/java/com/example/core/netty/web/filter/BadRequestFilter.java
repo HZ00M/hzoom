@@ -1,4 +1,4 @@
-package com.example.core.netty.web.handler;
+package com.example.core.netty.web.filter;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,7 +8,7 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
-public class BadRequestHandler extends AbstractHandler{
+public class BadRequestFilter extends AbstractFilter {
     protected static ByteBuf badRequestByteBuf = null;
     static {
         badRequestByteBuf = buildStaticRes("/public/error/400.html");
@@ -18,7 +18,7 @@ public class BadRequestHandler extends AbstractHandler{
     }
 
     @Override
-    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, HandlerChain chain) {
+    public void doFilter(ChannelHandlerContext ctx, FullHttpRequest req, FilterChain chain) {
         if (!req.decoderResult().isSuccess()) {
             if (badRequestByteBuf != null) {
                 resp = new DefaultFullHttpResponse(HTTP_1_1, BAD_REQUEST, badRequestByteBuf.retainedDuplicate());

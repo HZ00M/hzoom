@@ -1,5 +1,6 @@
-package com.example.core.netty.web.handler;
+package com.example.core.netty.web.filter;
 
+import com.example.core.netty.web.handler.HttpServerHandlerManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.buffer.Unpooled;
@@ -15,7 +16,7 @@ import java.io.InputStream;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
-public abstract class AbstractHandler implements Handler{
+public abstract class AbstractFilter implements Filter {
     protected FullHttpResponse resp;
 
     static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse resp) {

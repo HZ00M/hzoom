@@ -104,6 +104,7 @@ public class EndpointMethodMapping {
         resolvers.add(new HttpHeadersMethodArgumentResolver());
         resolvers.add(new TextMethodArgumentResolver());
         resolvers.add(new ThrowableMethodArgumentResolver());
+        resolvers.add(new JsonParamResolver());
         resolvers.add(new ByteMethodArgumentResolver());
         resolvers.add(new RequestParamMapMethodArgumentResolver());
         resolvers.add(new RequestParamMethodArgumentResolver(beanFactory));

@@ -2,8 +2,8 @@ package com.example.core.netty.web.core;
 
 import com.example.core.netty.web.endpoint.EndpointConfig;
 import com.example.core.netty.web.endpoint.EndpointServer;
-import com.example.core.netty.web.handler.HandShakerHandler;
-import com.example.core.netty.web.handler.Handler;
+import com.example.core.netty.web.filter.HandShakeFilter;
+import com.example.core.netty.web.filter.Filter;
 import com.example.core.netty.web.handler.HttpServerHandlerManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -19,16 +19,18 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
+import java.util.List;
 
-public class WebsocketServer {
+public class WebSocketServer {
     private final EndpointServer endpointServer;
     private EndpointConfig config;
-    private LinkedList<Handler> beforeHandShakeHandlers = new LinkedList<>();
-
-    public WebsocketServer(EndpointServer endpointServer, EndpointConfig endpointConfig, Class<? extends Handler>[] handlerClazzArr) {
+    private List<Filter> beforeHandShakeFilters ;
+    private List<ChannelHandler> beforeWebSocketHandlers;
+    public WebSocketServer(EndpointServer endpointServer, EndpointConfig endpointConfig, Class<? extends Filter>[] handlerClazzArr,LinkedList<ChannelHandler> beforeWebSocketHandlers) {
         this.endpointServer = endpointServer;
         this.config = endpointConfig;
-        buildChain(handlerClazzArr);
+        beforeHandShakeFilters = buildChain(handlerClazzArr);
+        this.beforeWebSocketHandlers = beforeWebSocketHandlers;
     }
 
     public void init() throws InterruptedException {
@@ -51,8 +53,8 @@ public class WebsocketServer {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new HttpServerCodec());
-                        pipeline.addLast(new HttpObjectAggregator(65536));
-                        pipeline.addLast(new HttpServerHandlerManager(endpointServer,config,beforeHandShakeHandlers));
+                        pipeline.addLast(new HttpObjectAggregator(config.getMAX_FRAME_PAYLOAD_LENGTH()));
+                        pipeline.addLast(new HttpServerHandlerManager(endpointServer,config, beforeHandShakeFilters,beforeWebSocketHandlers));
                     }
                 });
         if (config.getSO_RCVBUF() != -1) {
@@ -86,18 +88,19 @@ public class WebsocketServer {
         }));
     }
 
-    private void buildChain(Class<? extends Handler>[] handlerClazzArr)  {
+    private List<Filter> buildChain(Class<? extends Filter>[] handlerClazzArr)  {
+        LinkedList<Filter> filters = new LinkedList();
         try {
-            for (Class<? extends Handler> handlerClazz : handlerClazzArr) {
-                Handler handler = handlerClazz.newInstance();
-                beforeHandShakeHandlers.addLast(handler);
+            for (Class<? extends Filter> handlerClazz : handlerClazzArr) {
+                Filter filter = handlerClazz.newInstance();
+                filters.addLast(filter);
             }
         }catch (IllegalAccessException| InstantiationException e){
 
         }finally {
-            beforeHandShakeHandlers.addLast(new HandShakerHandler());
+            filters.addLast(new HandShakeFilter());
         }
-
+        return filters;
     }
 
     public EndpointServer getEndpointServer() {

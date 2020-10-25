@@ -1,6 +1,7 @@
 package com.example.demo.jsonTest;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.po.User;
 import org.junit.Test;
 
@@ -11,5 +12,6 @@ public class JsonTest {
         user.setId(1);
         user.setUsername("test");
         String s = JSON.toJSONString(user);
+        User user1 = JSONObject.parseObject(s, User.class);
     }
 }

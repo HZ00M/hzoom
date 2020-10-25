@@ -1,6 +1,7 @@
 package com.example.core.netty.web.annotation;
 
-import com.example.core.netty.web.handler.*;
+import com.example.core.netty.web.filter.*;
+import io.netty.channel.ChannelHandler;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface ServerEndpoint {
-    Class<? extends Handler>[] beforeHandlers() default {BadRequestHandler.class, OnlyGetHandler.class, CheckHostHandler.class, ResourceHandler.class,PathHandler.class,UpGradeHandler.class};
+    Class<? extends Filter>[] beforeHandShakeFilters() default {BadRequestFilter.class, OnlyGetFilter.class, CheckHostFilter.class, ResourceFilter.class,PathFilter.class,UpGradeFilter.class};
+
+    Class<? extends ChannelHandler>[] beforeWebSocketHandlers() default {};
 
     @AliasFor("path")
     String value() default "/";
@@ -29,7 +32,13 @@ public @interface ServerEndpoint {
 
     String workerLoopGroupThreads() default "0";
 
+    //------------------------- handler -------------------------
+
+    String userIdleStateHandler() default "true";
+
     String useCompressionHandler() default "false";
+
+    String useWebSocketFrameAggregator() default "true";
 
     //------------------------- option -------------------------
 
