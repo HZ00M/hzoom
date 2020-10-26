@@ -1,15 +1,13 @@
 package com.example.demo.websocket;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.core.netty.web.resolver.MethodArgumentResolver;
 import com.example.demo.po.User;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.core.MethodParameter;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class UserResolver implements MethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {

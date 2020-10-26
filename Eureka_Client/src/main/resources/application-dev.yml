@@ -163,8 +163,11 @@ mybatis:
 
 netty-websocket:
   host: 0.0.0.0
-  path: /ws/**
+
+  path: /ws/*
   port: 8889
+
   path2: /test
   port2: 9999
+
   path3: /wstest

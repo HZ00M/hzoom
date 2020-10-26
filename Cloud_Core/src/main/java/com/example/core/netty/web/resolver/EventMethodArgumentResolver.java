@@ -17,7 +17,7 @@ public class EventMethodArgumentResolver implements MethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getMethod().isAnnotationPresent(ServerMethod.class)&& parameter.getMethodAnnotation(ServerMethod.class).value().equals(ServerMethod.Type.OnEvent);
+        return parameter.getMethod().isAnnotationPresent(ServerMethod.class)&& parameter.getMethodAnnotation(ServerMethod.class).value().equals(ServerMethod.Type.OnIdleEvent);
     }
 
     @Override

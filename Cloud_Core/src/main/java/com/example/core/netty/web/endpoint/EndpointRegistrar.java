@@ -3,6 +3,7 @@ package com.example.core.netty.web.endpoint;
 import com.example.core.netty.web.annotation.ServerEndpoint;
 import com.example.core.netty.web.core.WebSocketServer;
 import io.netty.channel.ChannelHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.TypeConverter;
 import org.springframework.beans.TypeMismatchException;
@@ -22,6 +23,7 @@ import javax.websocket.DeploymentException;
 import java.net.InetSocketAddress;
 import java.util.*;
 
+@Slf4j
 public class EndpointRegistrar extends ApplicationObjectSupport implements SmartInitializingSingleton, BeanFactoryAware {
     @Autowired
     Environment environment;
@@ -29,6 +31,8 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
     private AbstractBeanFactory beanFactory;
 
     private final Map<InetSocketAddress, WebSocketServer> addressWebsocketServerMap = new HashMap<>();
+
+    private Map<Class<? extends ChannelHandler>, ChannelHandler> sharableWebSocketHandlersMap = new HashMap<>();
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -95,11 +99,15 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
     private LinkedList<ChannelHandler> buildBeforeWebSocketHandlers(ServerEndpoint annotation) {
         LinkedList<ChannelHandler> handlers = new LinkedList<>();
         ApplicationContext context = getApplicationContext();
+
         Class<? extends ChannelHandler>[] handlerClazzs = annotation.beforeWebSocketHandlers();
         for (Class<? extends ChannelHandler> handlerClazz : handlerClazzs) {
-            ChannelHandler handler = context.getBean(handlerClazz);
-            if (handler != null) {
+
+            try {
+                ChannelHandler handler = context.getBean(handlerClazz);
                 handlers.add(handler);
+            } catch (BeansException e) {
+                e.printStackTrace();
             }
         }
         return handlers;

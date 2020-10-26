@@ -18,6 +18,7 @@ public class WebSocketServerManager extends SimpleChannelInboundHandler<WebSocke
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        cause.printStackTrace();
         endpointServer.doOnError(ctx.channel(), cause);
     }
 

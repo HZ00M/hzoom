@@ -13,6 +13,6 @@ public @interface ServerMethod {
     Type value();
 
     enum Type {
-        BeforeHandshake,OnClose,OnError,OnEvent,OnMessage,OnOpen,OnBinary
+        BeforeHandshake,OnClose,OnError, OnIdleEvent,OnMessage,OnOpen,OnBinary
     }
 }

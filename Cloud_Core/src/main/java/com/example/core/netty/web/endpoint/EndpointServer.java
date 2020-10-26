@@ -131,7 +131,7 @@ public class EndpointServer {
 
     public void doOnEvent(Channel channel, Object evt) {
         EndpointMethodMapping endpointMethodMapping = getEndpointMethodMapping(null, channel);
-        EndpointMethodMapping.MethodMapping onEvent = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnEvent);
+        EndpointMethodMapping.MethodMapping onEvent = endpointMethodMapping.getMethodMapping(ServerMethod.Type.OnIdleEvent);
         Object implement = channel.attr(ENDPOINT_KEY).get();
         if (onEvent != null) {
             if (!channel.hasAttr(CHANNEL_KEY)) {

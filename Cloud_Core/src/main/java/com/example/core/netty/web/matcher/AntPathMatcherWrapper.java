@@ -25,7 +25,7 @@ public class AntPathMatcherWrapper extends AntPathMatcher implements WsPathMatch
     @Override
     public boolean matchAndExtract(QueryStringDecoder decoder, Channel channel) {
         Map<String, String> variables = new LinkedHashMap<>();
-        boolean result = doMatch(pattern, decoder.path(), false, variables);
+        boolean result = doMatch(pattern, decoder.path(), true, variables);
         if (result) {
             String[] pathDirs = this.tokenizePath(decoder.path());
             for (int i = 0; i < pathDirs.length; i++) {

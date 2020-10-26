@@ -59,7 +59,7 @@ public class MyWebSocket3 {
         log.info("receive OnBinary : {}", str);
     }
 
-    @ServerMethod(ServerMethod.Type.OnEvent)
+    @ServerMethod(ServerMethod.Type.OnIdleEvent)
     public void onEvent(Session session, Object evt) {
         log.info("Event monitoring" + JSONObject.toJSONString(evt));
         if (evt instanceof IdleStateEvent) {

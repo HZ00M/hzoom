@@ -1,10 +1,7 @@
 package com.example.demo.websocket;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.core.netty.web.annotation.PathVariable;
-import com.example.core.netty.web.annotation.RequestParam;
-import com.example.core.netty.web.annotation.ServerEndpoint;
-import com.example.core.netty.web.annotation.ServerMethod;
+import com.example.core.netty.web.annotation.*;
 import com.example.core.netty.web.core.Session;
 import com.example.demo.po.User;
 import io.netty.channel.ChannelFuture;
@@ -18,7 +15,8 @@ import java.io.UnsupportedEncodingException;
 
 
 @Slf4j
-@ServerEndpoint(host = "${netty-websocket.host}", path = "${netty-websocket.path}", port = "${netty-websocket.port}",bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
+@ServerEndpoint(host = "${netty-websocket.host}", path = "${netty-websocket.path}", port = "${netty-websocket.port}",
+        bossLoopGroupThreads = "1",workerLoopGroupThreads = "10")
 @Component
 public class MyWebSocket {
 
@@ -48,7 +46,7 @@ public class MyWebSocket {
     }
 
     @ServerMethod(ServerMethod.Type.OnMessage)
-    public void OnMessage(Session session, String message, @RequestParam Long connectTime, @PathVariable String path, User user) {
+    public void OnMessage(Session session, String message, @RequestParam Long connectTime, @PathVariable String path,@JsonParam(User.class) User user) {
 
         log.info("receive OnMessage : {}", message);
         System.out.println(message);
@@ -62,7 +60,7 @@ public class MyWebSocket {
         log.info("receive OnBinary : {}",str);
     }
 
-    @ServerMethod(ServerMethod.Type.OnEvent)
+    @ServerMethod(ServerMethod.Type.OnIdleEvent)
     public void onEvent(Session session, Object evt) {
         log.info("Event monitoring" + JSONObject.toJSONString(evt));
         if (evt instanceof IdleStateEvent) {
