@@ -51,7 +51,9 @@ public class ZKAutoConfigure implements ApplicationContextAware {
         // 获取 CuratorFramework 实例的最简单的方式
         // 第一个参数：zk的连接地址
         // 第二个参数：重试策略
-        return CuratorFrameworkFactory.newClient(zkProperties.getConnectionString(), retryPolicy);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(zkProperties.getConnectionString(), retryPolicy);
+        client.start();
+        return client;
     }
 
     @Override

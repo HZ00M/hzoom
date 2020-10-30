@@ -23,8 +23,6 @@ public class ImLoadBalance {
     private ZKUtils zkUtils;
 
 
-    //Zk客户端
-    private CuratorFramework client = null;
     private String managerPath = ServerConstants.MANAGE_PATH;
 
 
@@ -73,10 +71,10 @@ public class ImLoadBalance {
     protected List<ImNode> getWorkers() {
 
         List<ImNode> workers = new ArrayList<ImNode>();
-
+        CuratorFramework client = zkUtils.getClient();
         List<String> children = null;
         try {
-            children = client.getChildren().forPath(managerPath);
+            children = client.getChildren().forPath(ServerConstants.MANAGE_PATH);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -86,7 +84,7 @@ public class ImLoadBalance {
             log.info("child:", child);
             byte[] payload = null;
             try {
-                payload = client.getData().forPath(managerPath+"/"+child);
+                payload = zkUtils.getData().forPath(managerPath+"/"+child);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +105,7 @@ public class ImLoadBalance {
 
 
         try {
-            client.delete().deletingChildrenIfNeeded().forPath(managerPath);
+            zkUtils.delete().deletingChildrenIfNeeded().forPath(managerPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
