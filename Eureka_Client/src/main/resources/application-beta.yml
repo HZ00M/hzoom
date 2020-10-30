@@ -9,10 +9,6 @@ spring:
     username: root
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
-  security:
-    user:
-      name: root
-      password: 123
   sleuth:
     web:
       client:
@@ -26,7 +22,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://root:123@106.52.151.187:8080/eureka/
+      defaultZone: http://106.52.151.187:8083/eureka/
   instance:
     prefer-ip-address: true
     ip-address: 106.52.151.187 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP

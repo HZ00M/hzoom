@@ -4,4 +4,5 @@ com.example.core.filter.annotation.EnableFilter=\
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.example.core.redis.RedissonClientAutoConfigure,\
   com.example.core.es.config.EsAutoConfigure,\
-  com.example.core.netty.web.autoconfigure.NettyWebSocketAutoConfigure
+  com.example.core.netty.web.autoconfigure.NettyWebSocketAutoConfigure,\
+  com.example.core.zookeeper.ZKAutoConfigure

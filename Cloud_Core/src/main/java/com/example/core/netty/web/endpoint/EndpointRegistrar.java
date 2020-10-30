@@ -105,7 +105,9 @@ public class EndpointRegistrar extends ApplicationObjectSupport implements Smart
 
             try {
                 ChannelHandler handler = context.getBean(handlerClazz);
-                handlers.add(handler);
+                if (null!=handler){
+                    handlers.add(handler);
+                }
             } catch (BeansException e) {
                 e.printStackTrace();
             }
