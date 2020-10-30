@@ -1,7 +1,5 @@
 package com.example.core.zookeeper;
 
-import com.example.core.redis.RedisDistributedAspectRegistrar;
-import com.example.core.redis.RedisUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -15,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 
 

@@ -105,7 +105,7 @@ spring:
             multi-statement-allow: true
   redis:
     database: 0
-      host: 106.52.151.187
+    host: 106.52.151.187
     port: 6379
     timeout: 3000
     autoConfigurable: true
@@ -167,3 +167,5 @@ netty-websocket:
   port2: 9999
 
   path3: /wstest
+es:
+  autoConfigurable: false
