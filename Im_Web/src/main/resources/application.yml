@@ -1,0 +1,5 @@
+server:
+  port: 8800
+zk:
+  autoConfigurable: true
+  connectionString: "106.52.151.187:2181"

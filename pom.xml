@@ -13,7 +13,9 @@
         <module>Config_Client</module>
 		<module>Cloud_Core</module>
         <module>Elastic_Service</module>
-    </modules>
+		<module>Im_Common</module>
+		<module>Im_Web</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -23,7 +25,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>myCloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>myCloud</name>
 	<description>Demo project for Spring Boot</description>
 
 	<!-- 全局版本配置 -->
@@ -33,12 +35,16 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
-
 		<lombok.version>1.16.10</lombok.version>
 		<jedis.version>2.10.2</jedis.version>
 		<shardingsphere.version>4.0.1</shardingsphere.version>
 		<druid.version>1.1.20</druid.version>
 		<elasticsearch.version>7.6.2</elasticsearch.version>
+		<guava.version>17.0</guava.version>
+		<grpc.version>1.6.1</grpc.version>
+		<protobuf.version>3.3.0</protobuf.version>
+		<curator.version>4.0.0</curator.version>
+		<zookeeper.version>3.4.8</zookeeper.version>
 	</properties>
 
 	<dependencyManagement>

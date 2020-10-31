@@ -115,10 +115,6 @@ spring:
       max-idle: 50
       min-idle: 10
 
-  security:
-    user:
-      name: root
-      password: 123
   sleuth:
     web:
       client:
@@ -132,7 +128,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://root:123@127.0.0.1:8080/eureka/
+      defaultZone: http://127.0.0.1:8083/eureka/
   instance:
     prefer-ip-address: true
     ip-address: 127.0.0.1 #eureka和应用A在同一个局域网内，那么eureka默认暴露的是应用A在内网的地址。你需要在A应用注册eureka时配置使用外网IP
@@ -171,3 +167,5 @@ netty-websocket:
   port2: 9999
 
   path3: /wstest
+es:
+  autoConfigurable: false

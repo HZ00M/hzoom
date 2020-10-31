@@ -1,7 +1,4 @@
 spring:
   profiles:
     active: peer1
-  security:
-    user:
-      name: root
-      password: 123
+

@@ -22,11 +22,12 @@ public class JsonParamResolver implements MethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, Channel channel, Object object) throws Exception {
         JsonParam ann = parameter.getParameterAnnotation(JsonParam.class);
-        Class clazz = ann.value();
+        Class<?> clazz = ann.value();
         TextWebSocketFrame textFrame = (TextWebSocketFrame) object;
         String jsonStr = textFrame.text();
-        if (StringUtils.isBlank(jsonStr))
+        if (StringUtils.isBlank(jsonStr)){
             return null;
+        }
         try {
             return JSONObject.parseObject(jsonStr,clazz);
         } catch (Exception e) {

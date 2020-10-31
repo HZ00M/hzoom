@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8083
 
 spring:
   application:
@@ -12,7 +12,7 @@ eureka:
     lease-expiration-duration-in-seconds: 2
   client:
     serviceUrl:
-      defaultZone: http://root:123@peer2:8081/eureka/
+      defaultZone: http://peer2:8082/eureka/
     registerWithEureka: false # false表示不向注册中心注册自己
     fetchRegistry: false   # false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
   server:
