@@ -1,0 +1,6 @@
+server:
+  port: 8800
+
+zk:
+  enable: true
+  connectionString: "106.52.151.187:2181"

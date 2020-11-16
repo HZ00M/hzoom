@@ -1,6 +1,6 @@
 package com.hzoom.im.balance;
 
-import com.example.core.zookeeper.ZKUtils;
+import com.hzoom.core.zookeeper.ZKUtils;
 import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.utils.JsonUtil;
@@ -21,10 +21,6 @@ public class ImLoadBalance {
 
     @Autowired
     private ZKUtils zkUtils;
-
-
-    private String managerPath = ServerConstants.MANAGE_PATH;
-
 
     /**
      * 获取负载最小的IM节点
@@ -84,7 +80,7 @@ public class ImLoadBalance {
             log.info("child:", child);
             byte[] payload = null;
             try {
-                payload = zkUtils.getData().forPath(managerPath+"/"+child);
+                payload = zkUtils.getData().forPath(ServerConstants.MANAGE_PATH+"/"+child);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -102,10 +98,8 @@ public class ImLoadBalance {
      * 从zookeeper中删除所有IM节点
      */
     public void removeWorkers() {
-
-
         try {
-            zkUtils.delete().deletingChildrenIfNeeded().forPath(managerPath);
+            zkUtils.delete().deletingChildrenIfNeeded().forPath(ServerConstants.MANAGE_PATH);
         } catch (Exception e) {
             e.printStackTrace();
         }

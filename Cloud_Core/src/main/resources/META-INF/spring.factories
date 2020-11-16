@@ -1,8 +1,8 @@
-com.example.core.filter.annotation.EnableFilter=\
-  com.example.core.filter.autoconfig.LogFilterAutoConfiguration,\
-  com.example.core.filter.autoconfig.AuthFilterAutoConfiguration
+com.hzoom.core.filter.annotation.EnableFilter=\
+  com.hzoom.core.filter.autoconfig.LogFilterAutoConfiguration,\
+  com.hzoom.core.filter.autoconfig.AuthFilterAutoConfiguration
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.example.core.redis.RedissonClientAutoConfigure,\
-  com.example.core.es.config.EsAutoConfigure,\
-  com.example.core.netty.web.autoconfigure.NettyWebSocketAutoConfigure,\
-  com.example.core.zookeeper.ZKAutoConfigure
+  com.hzoom.core.redis.RedissonClientAutoConfigure,\
+  com.hzoom.core.es.config.EsAutoConfigure,\
+  com.hzoom.core.netty.web.autoconfigure.NettyWebSocketAutoConfigure,\
+  com.hzoom.core.zookeeper.ZKAutoConfigure

@@ -1,0 +1,17 @@
+server:
+  port: 7000
+zk:
+  enable: true
+  connectionString: "106.52.151.187:2181"
+spring:
+  redis:
+    database: 0
+    host: 106.52.151.187
+    port: 6379
+    timeout: 3000
+    enable: true
+    jedis.pool:
+      max-active: 50
+      max-wait: 3000
+      max-idle: 50
+      min-idle: 10

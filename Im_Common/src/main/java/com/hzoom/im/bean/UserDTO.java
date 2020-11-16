@@ -1,6 +1,6 @@
 package com.hzoom.im.bean;
 
-import com.hzoom.im.proto.ProtoMsgOuterClass;
+import com.hzoom.im.proto.ProtoMsg;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,7 @@ public class UserDTO {
                 '}';
     }
 
-    public static UserDTO fromMsg(ProtoMsgOuterClass.ProtoMsg.LoginRequest info) {
+    public static UserDTO fromMsg(ProtoMsg.LoginRequest info) {
         UserDTO user = new UserDTO();
         user.userId = new String(info.getUid());
         user.devId = new String(info.getDeviceId());

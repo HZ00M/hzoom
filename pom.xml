@@ -13,16 +13,18 @@
         <module>Config_Client</module>
 		<module>Cloud_Core</module>
         <module>Elastic_Service</module>
+
 		<module>Im_Common</module>
 		<module>Im_Web</module>
-	</modules>
+        <module>Im_Server</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.6.RELEASE</version>
+		<version>2.1.7.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.hzoom</groupId>
 	<artifactId>myCloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>myCloud</name>
@@ -45,6 +47,7 @@
 		<protobuf.version>3.3.0</protobuf.version>
 		<curator.version>4.0.0</curator.version>
 		<zookeeper.version>3.4.8</zookeeper.version>
+		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
 	</properties>
 
 	<dependencyManagement>

@@ -17,7 +17,7 @@ es:
   host: 192.168.1.201
   port: 9200
   scheme: http
-  autoConfigurable: true
+  enable: true
   index:
     number-of-replicas: 1
     number-of-shards: 1

@@ -3,13 +3,13 @@ package com.hzoom.im.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.net.InetSocketAddress;
 import java.util.Objects;
 
 @Data
 public class ImNode implements Comparable<ImNode>, Serializable {
 
     private static final long serialVersionUID = -499010884211304846L;
-
 
     //worker 的Id,zookeeper负责生成
     private long id;
@@ -24,6 +24,10 @@ public class ImNode implements Comparable<ImNode>, Serializable {
     private Integer port;
 
     public ImNode() {
+    }
+
+    public ImNode(InetSocketAddress address){
+        this(address.getHostString(),address.getPort());
     }
 
     public ImNode(String host, Integer port) {
@@ -69,7 +73,6 @@ public class ImNode implements Comparable<ImNode>, Serializable {
         }
         return 0;
     }
-
 
     public void incrementBalance() {
         balance++;

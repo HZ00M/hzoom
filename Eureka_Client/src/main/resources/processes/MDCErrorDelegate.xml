@@ -3,7 +3,7 @@
   <process id="PROCESS_2" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false"/>
     <endEvent id="_11" name="End Event"/>
-    <serviceTask activiti:exclusive="true" id="_3" name="Delegate服务" activiti:class="com.example.demo.activiti.delegate.MDCErrorDelegate"/>
+    <serviceTask activiti:exclusive="true" id="_3" name="Delegate服务" activiti:class="com.hzoom.demo.activiti.delegate.MDCErrorDelegate"/>
     <sequenceFlow id="_4" sourceRef="_2" targetRef="_3"/>
     <sequenceFlow id="_5" sourceRef="_3" targetRef="_11"/>
   </process>

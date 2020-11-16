@@ -24,47 +24,59 @@
       "name": "xxl.job.admin.addresses",
       "type": "java.lang.String",
       "description": "xxl-job-admin addresses",
-      "sourceType": "com.example.core.xxl.autoconfig.XxlProperties",
+      "sourceType": "com.hzoom.core.xxl.autoconfig.XxlProperties",
       "defaultValue": "http://127.0.0.1:9056/xxl-job-admin"
     },
     {
-      "name": "es.autoConfigurable",
+      "name": "es.enable",
       "type": "java.lang.Boolean",
       "description": "Whether es filter is enabled.",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "false"
     },
     {
       "name": "es.host",
       "type": "java.lang.String",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "localhost"
     },
     {
       "name": "es.port",
       "type": "java.lang.Integer",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "9200"
     },
     {
       "name": "es.scheme",
       "type": "java.lang.String",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "http"
     },
     {
       "name": "es.index.number-of-shards",
       "type": "java.lang.Integer",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "1"
     },
     {
       "name": "es.index.number-of-replicas",
       "type": "java.lang.Integer",
-      "sourceType": "com.example.core.es.config.EsProperties",
+      "sourceType": "com.hzoom.core.es.config.EsProperties",
       "defaultValue": "1"
+    },    {
+      "name": "zk.enable",
+      "type": "java.lang.Boolean",
+      "description": "Whether zk autoConfig is enabled.",
+      "sourceType": "com.hzoom.core.zookeeper.ZKProperties",
+      "defaultValue": "false"
+    },
+    {
+      "name": "zk.connectionString",
+      "type": "java.lang.String",
+      "description": "host:port",
+      "sourceType": "com.hzoom.core.zookeeper.ZKProperties",
+      "defaultValue": "localhost:2181"
     }
-
   ],
   "hints": []
 }
