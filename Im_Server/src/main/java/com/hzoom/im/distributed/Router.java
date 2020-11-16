@@ -39,15 +39,15 @@ public class Router {
                 ChildData data = event.getData();
                 switch (event.getType()) {
                     case CHILD_ADDED:
-                        log.info("CHILD_ADDED : {}  数据: {}", data.getPath(), data.getData());
+                        log.info("CHILD_ADDED : {} ", data.getPath());
                         processNodeAdded(data);
                         break;
                     case CHILD_REMOVED:
-                        log.info("CHILD_REMOVED : {}  数据: {}", data.getPath(), data.getData());
+                        log.info("CHILD_REMOVED : {} ", data.getPath());
                         processNodeRemoved(data);
                         break;
                     default:
-                        log.info("OTHER_CHILD_EVENT ");
+                        log.info("OTHER_CHILD_EVENT {}",event.getType());
                 }
             };
             childrenCache.getListenable().addListener(pathChildrenCacheListener);

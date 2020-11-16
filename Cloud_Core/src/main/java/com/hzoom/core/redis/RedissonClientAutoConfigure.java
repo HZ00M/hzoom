@@ -75,6 +75,7 @@ public class RedissonClientAutoConfigure {
             try {
                 jedis = jedisPool.getResource();
                 jedis.ping();
+                minIdleJedisList.add(jedis);
             }catch (Exception e){
                 e.printStackTrace();
             }
