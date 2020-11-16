@@ -13,10 +13,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import javax.net.ssl.SSLSocketFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableConfigurationProperties({RedisProperties.class})
@@ -49,6 +52,7 @@ public class RedissonClientAutoConfigure {
     public JedisPool getJedisPool() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
+        //MaxWaitMillis默认-1，表示无限等待，最好不使用默认值
         jedisPoolConfig.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
         jedisPoolConfig.setMaxTotal(redisProperties.getJedis().getPool().getMaxActive());
         jedisPoolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
@@ -57,8 +61,32 @@ public class RedissonClientAutoConfigure {
             return new JedisPool(jedisPoolConfig, redisProperties.getHost(), redisProperties.getPort(), redisProperties.getTimeout().getNano(), redisProperties.getPassword());
         }
         SSLSocketFactory.getDefault();
-        return new JedisPool(jedisPoolConfig, redisProperties.getHost(), redisProperties.getPort(), redisProperties.getTimeout().getNano());
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisProperties.getHost(), redisProperties.getPort(), redisProperties.getTimeout().getNano());
+        hotPool(jedisPool);
+        return jedisPool;
     }
 
+    //jedis连接池预热
+    public  void hotPool(JedisPool jedisPool){
+        int minIdle = redisProperties.getJedis().getPool().getMinIdle();
+        Jedis jedis =null;
+        List<Jedis> minIdleJedisList = new ArrayList<>(minIdle);
+        for (int i = 0;i<minIdle;i++) {
+            try {
+                jedis = jedisPool.getResource();
+                jedis.ping();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        for (int i = 0;i<minIdle;i++) {
+            try {
+                jedis = minIdleJedisList.get(i);
+                jedis.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 
+    }
 }
