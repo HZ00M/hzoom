@@ -15,7 +15,6 @@ public class UserDTO {
     String nickName = "nickName";
     PLATTYPE platform = PLATTYPE.WINDOWS;
 
-    // windows,mac,android, ios, web , other
     public enum PLATTYPE {
         WINDOWS, MAC, ANDROID, IOS, WEB, OTHER;
     }

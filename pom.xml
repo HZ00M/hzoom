@@ -17,7 +17,8 @@
 		<module>Im_Common</module>
 		<module>Im_Web</module>
         <module>Im_Server</module>
-    </modules>
+		<module>Im_Client</module>
+	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

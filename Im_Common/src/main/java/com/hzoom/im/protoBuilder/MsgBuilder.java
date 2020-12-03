@@ -29,6 +29,7 @@ public class MsgBuilder {
         return mb.build();
     }
 
+
     public static ProtoMsg.Message buildLoginResponse(
             ServerConstants.ResultCodeEnum en, long seqId, String sessionId) {
         ProtoMsg.Message.Builder mb = ProtoMsg.Message.newBuilder()
