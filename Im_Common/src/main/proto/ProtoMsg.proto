@@ -31,6 +31,21 @@ message LoginResponse {
     uint32 expose = 4;  //错误描述是否提示给用户:1 提示;0 不提示
 }
 
+/*退出请求*/
+message LogoutRequest{
+    string uid =1;  // 用户唯一id
+    string deviceId = 2;  // 设备ID
+    uint32 platform = 3;  //客户端平台 windows、mac、android、ios、web
+}
+
+/*退出响应*/
+message LogoutResponse{
+    bool result =1;  //true表示发送成功，false表示发送失败
+    uint32 code =2;  //错误码
+    string info = 3;  //错误描述
+    uint32 expose = 4;  //错误描述是否提示给用户:1 提示;0 不提示
+}
+
 /*聊天消息*/
 message MessageRequest {
     uint64 msg_id = 1;
@@ -81,6 +96,8 @@ message Message {
     MessageResponse  messageResponse = 7;      //IM消息响应
     MessageNotification  notification = 8;        //系统通知
     MessageHeartBeat     heartBeat = 9;  //心跳
+    LogoutRequest logoutRequest = 10;  //退出请求
+    LogoutResponse logoutResponse = 11;  //退出响应
 }
 
 

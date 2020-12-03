@@ -5,10 +5,10 @@ import com.hzoom.im.sender.LoginSender;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @ChannelHandler.Sharable
-@Service
+@Component
 public class ChatMsgHandler extends ChannelInboundHandlerAdapter {
     private LoginSender sender;
 

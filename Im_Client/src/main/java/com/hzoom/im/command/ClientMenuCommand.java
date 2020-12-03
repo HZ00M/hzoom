@@ -1,12 +1,11 @@
 package com.hzoom.im.command;
 
 import lombok.Data;
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import java.util.Scanner;
 
 @Data
-@Service("CLIENT")
+@Component("CLIENT")
 public class ClientMenuCommand implements Command<Scanner>{
     private String allCommandsShow;
     private String commandInput;

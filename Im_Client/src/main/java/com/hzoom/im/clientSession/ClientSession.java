@@ -119,7 +119,7 @@ public class ClientSession {
     }
 
     //关闭通道
-    public void close() {
+    public ChannelFuture close() throws InterruptedException {
         isConnected = false;
         ChannelFuture future = channel.close();
         future.addListener(new ChannelFutureListener() {
@@ -130,6 +130,7 @@ public class ClientSession {
                 }
             }
         });
+        return future;
     }
 
     public UserDTO getUser() {

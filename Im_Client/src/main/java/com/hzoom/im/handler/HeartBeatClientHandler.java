@@ -5,10 +5,10 @@ import com.hzoom.im.clientSession.ClientSession;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @ChannelHandler.Sharable
-@Service
+@Component
 public class HeartBeatClientHandler extends ChannelInboundHandlerAdapter {
     //心跳的时间间隔，单位为s
     private static final int HEARTBEAT_INTERVAL = 100;

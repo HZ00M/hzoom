@@ -9,6 +9,7 @@ import com.hzoom.im.entity.LoginBack;
 import com.hzoom.im.feign.WebOperator;
 import com.hzoom.im.sender.ChatSender;
 import com.hzoom.im.sender.LoginSender;
+import com.hzoom.im.sender.LogoutSender;
 import com.hzoom.im.utils.JsonUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -36,9 +37,10 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
     private ChatClient chatClient;
     @Autowired
     private ChatSender chatSender;
-
     @Autowired
     private LoginSender loginSender;
+    @Autowired
+    private LogoutSender logoutSender;
 
     private ClientSession session;
 
@@ -58,6 +60,9 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         ClientSession session =
                 channel.attr(ClientSession.SESSION_KEY).get();
         session.close();
+
+        //唤醒用户线程
+        notifyCommandThread();
     };
 
     private GenericFutureListener<ChannelFuture> connectedListener = (ChannelFuture f) -> {
@@ -73,6 +78,8 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
             session = new ClientSession(channel);
             session.setConnected(true);
             channel.closeFuture().addListener(closeListener);
+            //唤醒用户线程
+            notifyCommandThread();
         }
     };
 
@@ -81,6 +88,20 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
             chatClient.setConnectedListener(connectedListener);
             chatClient.doConnect();
         });
+    }
+
+    public synchronized void waitCommandThread() {
+        //休眠，命令收集线程
+        try {
+            this.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void notifyCommandThread() {
+        //唤醒，命令收集程
+        this.notify();
     }
 
     private void userLoginAndConnectToServer() {
@@ -108,6 +129,7 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         chatClient.setHost(imNode.getHost());
         chatClient.setPort(imNode.getPort());
         chatClient.doConnect();
+        waitCommandThread();
         log.info("step2：Netty 服务节点连接成功");
 
         log.info("step3：开始登录Netty 服务节点");
@@ -116,6 +138,7 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         loginSender.setUser(user);
         loginSender.setSession(session);
         loginSender.sendLoginMsg();
+        waitCommandThread();
 
         connectFlag = true;
     }
@@ -123,17 +146,27 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
     public void startCommandThread() throws InterruptedException {
         scanner = new Scanner(System.in);
         while (true) {
-            //建立连接
-            while (connectFlag == false) {
-                //输入用户名，然后登录
-                userLoginAndConnectToServer();
-            }
-            //处理命令
-            while (null != session) {
-                ChatConsoleCommand command = (ChatConsoleCommand) commandMap.get(Command.Type.CHAT);
+            try {
+                //建立连接
+                while (connectFlag == false) {
+                    //输入用户名，然后登录
+                    userLoginAndConnectToServer();
+                }
+                //处理命令
+                while (null != session) {
+                    ChatConsoleCommand command = (ChatConsoleCommand) commandMap.get(Command.Type.CHAT.toString());
+                    command.exec(scanner);
+                    startOneChat(command);
+                }
+            }catch (Exception e){
+                log.error("未处理异常");
+                LogoutConsoleCommand command = (LogoutConsoleCommand) commandMap.get(Command.Type.LOGOUT.toString());
                 command.exec(scanner);
-                startOneChat(command);
+                if (command.isLogout()){
+                    startLogout(command);
+                }
             }
+
         }
     }
 
@@ -174,13 +207,18 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         return session.isLogin();
     }
 
-    private void startLogout(Command command) {
+    private void startLogout(Command command)throws InterruptedException {
         //登出
         if (!isLogin()) {
             log.info("还没有登录，请先登录");
             return;
         }
-        //todo 登出
+        logoutSender.setUser(user);
+        logoutSender.setSession(session);
+        logoutSender.sendLogoutMsg();
+        connectFlag = false;
+        ChannelFuture close = session.close();
+        close.sync();
     }
 
     @Override

@@ -16,9 +16,9 @@ import java.util.UUID;
 @Slf4j
 public class LocalSession implements ServerSession {
     public static final AttributeKey<String> USER_ID_KEY = AttributeKey.valueOf("USER_ID_KEY");
-    private Map<String, Object> map = new HashMap<>();
-
     public static final AttributeKey<LocalSession> SESSION_KEY = AttributeKey.valueOf("SESSION_KEY");
+
+    private Map<String, Object> map = new HashMap<>();
 
     private Channel channel;
     private final String sessionId;
@@ -56,7 +56,7 @@ public class LocalSession implements ServerSession {
 
     @Override
     public ChannelFuture send(Object pkg) {
-        return channel.write(pkg);
+        return channel.writeAndFlush(pkg);
     }
 
     @Override

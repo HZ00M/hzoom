@@ -8,11 +8,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @ChannelHandler.Sharable
-@Service()
+@Component
 public class ExceptionHandler extends ChannelInboundHandlerAdapter {
     @Autowired
     CommandController commandController;

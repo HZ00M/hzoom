@@ -13,7 +13,7 @@ public class ServerConstants {
     //统计用户数的znode
     public static final String COUNTER_PATH = "/im/OnlineCounter";
 
-    public static final String WEB_URL = "http://localhost:8080";
+    public static final String WEB_URL = "http://localhost:8800";
 
 
     public static final AttributeKey<String> NODE_KEY =

@@ -5,10 +5,10 @@ import com.hzoom.im.builder.ChatMsgBuilder;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.utils.Print;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@Service
+@Component
 public class ChatSender extends Sender{
     public void sendTextMsg(String toUserId, String content) {
         ChatMsg chatMsg = new ChatMsg(getUser());

@@ -58,7 +58,7 @@ public class ChatServer implements SmartInitializingSingleton {
                         ch.pipeline().addLast("loginRequest", loginRequestHandler);
                         ch.pipeline().addLast("remoteNotification", remoteNotificationHandler);
                         ch.pipeline().addLast("chatRedirect", chatRedirectHandler);
-                        ch.pipeline().addLast("servetException", serverExceptionHandler);
+                        ch.pipeline().addLast("serverException", serverExceptionHandler);
                     }
                 });
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @ChannelHandler.Sharable
-@Component("loginRequestHandler")
+@Component
 public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
 
     @Autowired
@@ -24,15 +24,15 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
     private LoginServerProcessor loginServerProcessor;
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx,Object msg)throws Exception{
-        if (null==msg||!(msg instanceof ProtoMsg.Message)){
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (null == msg || !(msg instanceof ProtoMsg.Message)) {
             super.channelRead(ctx, msg);
             return;
         }
 
         ProtoMsg.Message pkg = (ProtoMsg.Message) msg;
         ProtoMsg.HeadType type = pkg.getType();
-        if (!type.equals(loginServerProcessor.support())){
+        if (!type.equals(loginServerProcessor.support())) {
             super.channelRead(ctx, msg);
             return;
         }
@@ -43,24 +43,24 @@ public class LoginRequestHandler extends ChannelInboundHandlerAdapter {
 
             @Override
             public Boolean execute() throws Exception {
-                return loginServerProcessor.handle(session,pkg);
+                return loginServerProcessor.handle(session, pkg);
             }
 
             @Override
             public void onBack(Boolean isSuccess) {
-                if (isSuccess){
+                if (isSuccess) {
                     ctx.pipeline().remove(LoginRequestHandler.class);
-                    log.info("登录成功: {}" , session.getUser());
-                }else{
+                    log.info("登录成功: {}", session.getUser());
+                } else {
                     sessionManger.closeSession(ctx);
-                    log.info("登录失败: {}" , session.getUser());
+                    log.info("登录失败: {}", session.getUser());
                 }
             }
 
             @Override
             public void onException(Throwable t) {
                 sessionManger.closeSession(ctx);
-                log.info("登录失败: {}" , session.getUser());
+                log.info("登录失败: {}", session.getUser());
             }
         });
     }

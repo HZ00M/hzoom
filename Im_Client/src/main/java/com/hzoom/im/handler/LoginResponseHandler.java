@@ -9,11 +9,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 @Slf4j
 @ChannelHandler.Sharable
-@Service
+@Component
 public class LoginResponseHandler extends ChannelInboundHandlerAdapter {
     @Autowired
     CommandController commandController;
@@ -43,12 +43,13 @@ public class LoginResponseHandler extends ChannelInboundHandlerAdapter {
 
         if (!result.equals(ServerConstants.ResultCodeEnum.SUCCESS)) {
             log.info(result.getDesc());
-            log.info("step3：登录Netty 服务节点失败");
+            log.info("step3：登录Netty 服务节点失败 原因:{}",result);
         } else {
             ClientSession session = ctx.channel().attr(ClientSession.SESSION_KEY).get();
             session.setSessionId(pkg.getSessionId());
             session.setLogin(true);
             log.info("step3：登录Netty 服务节点成功");
+            commandController.notifyCommandThread();
             ctx.channel().pipeline().addAfter("loginResponseHandler","heartBeatClientHandler",heartBeatClientHandler);
             ctx.channel().pipeline().remove("loginResponseHandler");
         }

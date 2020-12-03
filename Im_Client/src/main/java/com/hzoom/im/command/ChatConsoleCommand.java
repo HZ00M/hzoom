@@ -2,13 +2,13 @@ package com.hzoom.im.command;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 @Slf4j
 @Data
-@Service("CHAT")
+@Component("CHAT")
 public class ChatConsoleCommand implements Command<Scanner> {
     private String toUserId;
     private String message;

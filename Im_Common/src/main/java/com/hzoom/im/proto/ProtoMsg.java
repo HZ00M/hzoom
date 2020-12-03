@@ -2180,6 +2180,1628 @@ public final class ProtoMsg {
 
   }
 
+  public interface LogoutRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.hzoom.im.proto.bean.LogoutRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * 用户唯一id
+     * </pre>
+     *
+     * <code>string uid = 1;</code>
+     */
+    String getUid();
+    /**
+     * <pre>
+     * 用户唯一id
+     * </pre>
+     *
+     * <code>string uid = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getUidBytes();
+
+    /**
+     * <pre>
+     * 设备ID
+     * </pre>
+     *
+     * <code>string deviceId = 2;</code>
+     */
+    String getDeviceId();
+    /**
+     * <pre>
+     * 设备ID
+     * </pre>
+     *
+     * <code>string deviceId = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getDeviceIdBytes();
+
+    /**
+     * <pre>
+     *客户端平台 windows、mac、android、ios、web
+     * </pre>
+     *
+     * <code>uint32 platform = 3;</code>
+     */
+    int getPlatform();
+  }
+  /**
+   * <pre>
+   *退出请求
+   * </pre>
+   *
+   * Protobuf type {@code com.hzoom.im.proto.bean.LogoutRequest}
+   */
+  public  static final class LogoutRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.hzoom.im.proto.bean.LogoutRequest)
+      LogoutRequestOrBuilder {
+    // Use LogoutRequest.newBuilder() to construct.
+    private LogoutRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LogoutRequest() {
+      uid_ = "";
+      deviceId_ = "";
+      platform_ = 0;
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private LogoutRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              String s = input.readStringRequireUtf8();
+
+              uid_ = s;
+              break;
+            }
+            case 18: {
+              String s = input.readStringRequireUtf8();
+
+              deviceId_ = s;
+              break;
+            }
+            case 24: {
+
+              platform_ = input.readUInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor;
+    }
+
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoMsg.LogoutRequest.class, ProtoMsg.LogoutRequest.Builder.class);
+    }
+
+    public static final int UID_FIELD_NUMBER = 1;
+    private volatile Object uid_;
+    /**
+     * <pre>
+     * 用户唯一id
+     * </pre>
+     *
+     * <code>string uid = 1;</code>
+     */
+    public String getUid() {
+      Object ref = uid_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        uid_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * 用户唯一id
+     * </pre>
+     *
+     * <code>string uid = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUidBytes() {
+      Object ref = uid_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        uid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DEVICEID_FIELD_NUMBER = 2;
+    private volatile Object deviceId_;
+    /**
+     * <pre>
+     * 设备ID
+     * </pre>
+     *
+     * <code>string deviceId = 2;</code>
+     */
+    public String getDeviceId() {
+      Object ref = deviceId_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        deviceId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * 设备ID
+     * </pre>
+     *
+     * <code>string deviceId = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDeviceIdBytes() {
+      Object ref = deviceId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        deviceId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PLATFORM_FIELD_NUMBER = 3;
+    private int platform_;
+    /**
+     * <pre>
+     *客户端平台 windows、mac、android、ios、web
+     * </pre>
+     *
+     * <code>uint32 platform = 3;</code>
+     */
+    public int getPlatform() {
+      return platform_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getUidBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, uid_);
+      }
+      if (!getDeviceIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, deviceId_);
+      }
+      if (platform_ != 0) {
+        output.writeUInt32(3, platform_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getUidBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, uid_);
+      }
+      if (!getDeviceIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, deviceId_);
+      }
+      if (platform_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, platform_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoMsg.LogoutRequest)) {
+        return super.equals(obj);
+      }
+      ProtoMsg.LogoutRequest other = (ProtoMsg.LogoutRequest) obj;
+
+      boolean result = true;
+      result = result && getUid()
+          .equals(other.getUid());
+      result = result && getDeviceId()
+          .equals(other.getDeviceId());
+      result = result && (getPlatform()
+          == other.getPlatform());
+      return result;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + UID_FIELD_NUMBER;
+      hash = (53 * hash) + getUid().hashCode();
+      hash = (37 * hash) + DEVICEID_FIELD_NUMBER;
+      hash = (53 * hash) + getDeviceId().hashCode();
+      hash = (37 * hash) + PLATFORM_FIELD_NUMBER;
+      hash = (53 * hash) + getPlatform();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ProtoMsg.LogoutRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ProtoMsg.LogoutRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+        BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * Protobuf type {@code com.hzoom.im.proto.bean.LogoutRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.hzoom.im.proto.bean.LogoutRequest)
+        ProtoMsg.LogoutRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor;
+      }
+
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoMsg.LogoutRequest.class, ProtoMsg.LogoutRequest.Builder.class);
+      }
+
+      // Construct using com.hzoom.im.proto.bean.ProtoMsg.LogoutRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        uid_ = "";
+
+        deviceId_ = "";
+
+        platform_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor;
+      }
+
+      public ProtoMsg.LogoutRequest getDefaultInstanceForType() {
+        return ProtoMsg.LogoutRequest.getDefaultInstance();
+      }
+
+      public ProtoMsg.LogoutRequest build() {
+        ProtoMsg.LogoutRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ProtoMsg.LogoutRequest buildPartial() {
+        ProtoMsg.LogoutRequest result = new ProtoMsg.LogoutRequest(this);
+        result.uid_ = uid_;
+        result.deviceId_ = deviceId_;
+        result.platform_ = platform_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ProtoMsg.LogoutRequest) {
+          return mergeFrom((ProtoMsg.LogoutRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ProtoMsg.LogoutRequest other) {
+        if (other == ProtoMsg.LogoutRequest.getDefaultInstance()) return this;
+        if (!other.getUid().isEmpty()) {
+          uid_ = other.uid_;
+          onChanged();
+        }
+        if (!other.getDeviceId().isEmpty()) {
+          deviceId_ = other.deviceId_;
+          onChanged();
+        }
+        if (other.getPlatform() != 0) {
+          setPlatform(other.getPlatform());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoMsg.LogoutRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoMsg.LogoutRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private Object uid_ = "";
+      /**
+       * <pre>
+       * 用户唯一id
+       * </pre>
+       *
+       * <code>string uid = 1;</code>
+       */
+      public String getUid() {
+        Object ref = uid_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          uid_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 用户唯一id
+       * </pre>
+       *
+       * <code>string uid = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getUidBytes() {
+        Object ref = uid_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          uid_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 用户唯一id
+       * </pre>
+       *
+       * <code>string uid = 1;</code>
+       */
+      public Builder setUid(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 用户唯一id
+       * </pre>
+       *
+       * <code>string uid = 1;</code>
+       */
+      public Builder clearUid() {
+
+        uid_ = getDefaultInstance().getUid();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 用户唯一id
+       * </pre>
+       *
+       * <code>string uid = 1;</code>
+       */
+      public Builder setUidBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        uid_ = value;
+        onChanged();
+        return this;
+      }
+
+      private Object deviceId_ = "";
+      /**
+       * <pre>
+       * 设备ID
+       * </pre>
+       *
+       * <code>string deviceId = 2;</code>
+       */
+      public String getDeviceId() {
+        Object ref = deviceId_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          deviceId_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 设备ID
+       * </pre>
+       *
+       * <code>string deviceId = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDeviceIdBytes() {
+        Object ref = deviceId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          deviceId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * 设备ID
+       * </pre>
+       *
+       * <code>string deviceId = 2;</code>
+       */
+      public Builder setDeviceId(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
+        deviceId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 设备ID
+       * </pre>
+       *
+       * <code>string deviceId = 2;</code>
+       */
+      public Builder clearDeviceId() {
+
+        deviceId_ = getDefaultInstance().getDeviceId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * 设备ID
+       * </pre>
+       *
+       * <code>string deviceId = 2;</code>
+       */
+      public Builder setDeviceIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        deviceId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int platform_ ;
+      /**
+       * <pre>
+       *客户端平台 windows、mac、android、ios、web
+       * </pre>
+       *
+       * <code>uint32 platform = 3;</code>
+       */
+      public int getPlatform() {
+        return platform_;
+      }
+      /**
+       * <pre>
+       *客户端平台 windows、mac、android、ios、web
+       * </pre>
+       *
+       * <code>uint32 platform = 3;</code>
+       */
+      public Builder setPlatform(int value) {
+
+        platform_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *客户端平台 windows、mac、android、ios、web
+       * </pre>
+       *
+       * <code>uint32 platform = 3;</code>
+       */
+      public Builder clearPlatform() {
+
+        platform_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.hzoom.im.proto.bean.LogoutRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.hzoom.im.proto.bean.LogoutRequest)
+    private static final ProtoMsg.LogoutRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ProtoMsg.LogoutRequest();
+    }
+
+    public static ProtoMsg.LogoutRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LogoutRequest>
+        PARSER = new com.google.protobuf.AbstractParser<LogoutRequest>() {
+      public LogoutRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LogoutRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LogoutRequest> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<LogoutRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoMsg.LogoutRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface LogoutResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.hzoom.im.proto.bean.LogoutResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     *true表示发送成功，false表示发送失败
+     * </pre>
+     *
+     * <code>bool result = 1;</code>
+     */
+    boolean getResult();
+
+    /**
+     * <pre>
+     *错误码
+     * </pre>
+     *
+     * <code>uint32 code = 2;</code>
+     */
+    int getCode();
+
+    /**
+     * <pre>
+     *错误描述
+     * </pre>
+     *
+     * <code>string info = 3;</code>
+     */
+    String getInfo();
+    /**
+     * <pre>
+     *错误描述
+     * </pre>
+     *
+     * <code>string info = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getInfoBytes();
+
+    /**
+     * <pre>
+     *错误描述是否提示给用户:1 提示;0 不提示
+     * </pre>
+     *
+     * <code>uint32 expose = 4;</code>
+     */
+    int getExpose();
+  }
+  /**
+   * <pre>
+   *退出响应
+   * </pre>
+   *
+   * Protobuf type {@code com.hzoom.im.proto.bean.LogoutResponse}
+   */
+  public  static final class LogoutResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:com.hzoom.im.proto.bean.LogoutResponse)
+      LogoutResponseOrBuilder {
+    // Use LogoutResponse.newBuilder() to construct.
+    private LogoutResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private LogoutResponse() {
+      result_ = false;
+      code_ = 0;
+      info_ = "";
+      expose_ = 0;
+    }
+
+    @Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private LogoutResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              result_ = input.readBool();
+              break;
+            }
+            case 16: {
+
+              code_ = input.readUInt32();
+              break;
+            }
+            case 26: {
+              String s = input.readStringRequireUtf8();
+
+              info_ = s;
+              break;
+            }
+            case 32: {
+
+              expose_ = input.readUInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor;
+    }
+
+    protected FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              ProtoMsg.LogoutResponse.class, ProtoMsg.LogoutResponse.Builder.class);
+    }
+
+    public static final int RESULT_FIELD_NUMBER = 1;
+    private boolean result_;
+    /**
+     * <pre>
+     *true表示发送成功，false表示发送失败
+     * </pre>
+     *
+     * <code>bool result = 1;</code>
+     */
+    public boolean getResult() {
+      return result_;
+    }
+
+    public static final int CODE_FIELD_NUMBER = 2;
+    private int code_;
+    /**
+     * <pre>
+     *错误码
+     * </pre>
+     *
+     * <code>uint32 code = 2;</code>
+     */
+    public int getCode() {
+      return code_;
+    }
+
+    public static final int INFO_FIELD_NUMBER = 3;
+    private volatile Object info_;
+    /**
+     * <pre>
+     *错误描述
+     * </pre>
+     *
+     * <code>string info = 3;</code>
+     */
+    public String getInfo() {
+      Object ref = info_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        info_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     *错误描述
+     * </pre>
+     *
+     * <code>string info = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getInfoBytes() {
+      Object ref = info_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (String) ref);
+        info_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXPOSE_FIELD_NUMBER = 4;
+    private int expose_;
+    /**
+     * <pre>
+     *错误描述是否提示给用户:1 提示;0 不提示
+     * </pre>
+     *
+     * <code>uint32 expose = 4;</code>
+     */
+    public int getExpose() {
+      return expose_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (result_ != false) {
+        output.writeBool(1, result_);
+      }
+      if (code_ != 0) {
+        output.writeUInt32(2, code_);
+      }
+      if (!getInfoBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, info_);
+      }
+      if (expose_ != 0) {
+        output.writeUInt32(4, expose_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (result_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, result_);
+      }
+      if (code_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, code_);
+      }
+      if (!getInfoBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, info_);
+      }
+      if (expose_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, expose_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @Override
+    public boolean equals(final Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof ProtoMsg.LogoutResponse)) {
+        return super.equals(obj);
+      }
+      ProtoMsg.LogoutResponse other = (ProtoMsg.LogoutResponse) obj;
+
+      boolean result = true;
+      result = result && (getResult()
+          == other.getResult());
+      result = result && (getCode()
+          == other.getCode());
+      result = result && getInfo()
+          .equals(other.getInfo());
+      result = result && (getExpose()
+          == other.getExpose());
+      return result;
+    }
+
+    @Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getResult());
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode();
+      hash = (37 * hash) + INFO_FIELD_NUMBER;
+      hash = (53 * hash) + getInfo().hashCode();
+      hash = (37 * hash) + EXPOSE_FIELD_NUMBER;
+      hash = (53 * hash) + getExpose();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static ProtoMsg.LogoutResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static ProtoMsg.LogoutResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(ProtoMsg.LogoutResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @Override
+    protected Builder newBuilderForType(
+        BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * Protobuf type {@code com.hzoom.im.proto.bean.LogoutResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.hzoom.im.proto.bean.LogoutResponse)
+        ProtoMsg.LogoutResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor;
+      }
+
+      protected FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                ProtoMsg.LogoutResponse.class, ProtoMsg.LogoutResponse.Builder.class);
+      }
+
+      // Construct using com.hzoom.im.proto.bean.ProtoMsg.LogoutResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        result_ = false;
+
+        code_ = 0;
+
+        info_ = "";
+
+        expose_ = 0;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return ProtoMsg.internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor;
+      }
+
+      public ProtoMsg.LogoutResponse getDefaultInstanceForType() {
+        return ProtoMsg.LogoutResponse.getDefaultInstance();
+      }
+
+      public ProtoMsg.LogoutResponse build() {
+        ProtoMsg.LogoutResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public ProtoMsg.LogoutResponse buildPartial() {
+        ProtoMsg.LogoutResponse result = new ProtoMsg.LogoutResponse(this);
+        result.result_ = result_;
+        result.code_ = code_;
+        result.info_ = info_;
+        result.expose_ = expose_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof ProtoMsg.LogoutResponse) {
+          return mergeFrom((ProtoMsg.LogoutResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(ProtoMsg.LogoutResponse other) {
+        if (other == ProtoMsg.LogoutResponse.getDefaultInstance()) return this;
+        if (other.getResult() != false) {
+          setResult(other.getResult());
+        }
+        if (other.getCode() != 0) {
+          setCode(other.getCode());
+        }
+        if (!other.getInfo().isEmpty()) {
+          info_ = other.info_;
+          onChanged();
+        }
+        if (other.getExpose() != 0) {
+          setExpose(other.getExpose());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        ProtoMsg.LogoutResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (ProtoMsg.LogoutResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private boolean result_ ;
+      /**
+       * <pre>
+       *true表示发送成功，false表示发送失败
+       * </pre>
+       *
+       * <code>bool result = 1;</code>
+       */
+      public boolean getResult() {
+        return result_;
+      }
+      /**
+       * <pre>
+       *true表示发送成功，false表示发送失败
+       * </pre>
+       *
+       * <code>bool result = 1;</code>
+       */
+      public Builder setResult(boolean value) {
+
+        result_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *true表示发送成功，false表示发送失败
+       * </pre>
+       *
+       * <code>bool result = 1;</code>
+       */
+      public Builder clearResult() {
+
+        result_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int code_ ;
+      /**
+       * <pre>
+       *错误码
+       * </pre>
+       *
+       * <code>uint32 code = 2;</code>
+       */
+      public int getCode() {
+        return code_;
+      }
+      /**
+       * <pre>
+       *错误码
+       * </pre>
+       *
+       * <code>uint32 code = 2;</code>
+       */
+      public Builder setCode(int value) {
+
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *错误码
+       * </pre>
+       *
+       * <code>uint32 code = 2;</code>
+       */
+      public Builder clearCode() {
+
+        code_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private Object info_ = "";
+      /**
+       * <pre>
+       *错误描述
+       * </pre>
+       *
+       * <code>string info = 3;</code>
+       */
+      public String getInfo() {
+        Object ref = info_;
+        if (!(ref instanceof String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          String s = bs.toStringUtf8();
+          info_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      /**
+       * <pre>
+       *错误描述
+       * </pre>
+       *
+       * <code>string info = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getInfoBytes() {
+        Object ref = info_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b =
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (String) ref);
+          info_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       *错误描述
+       * </pre>
+       *
+       * <code>string info = 3;</code>
+       */
+      public Builder setInfo(
+          String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+
+        info_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *错误描述
+       * </pre>
+       *
+       * <code>string info = 3;</code>
+       */
+      public Builder clearInfo() {
+
+        info_ = getDefaultInstance().getInfo();
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *错误描述
+       * </pre>
+       *
+       * <code>string info = 3;</code>
+       */
+      public Builder setInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+
+        info_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int expose_ ;
+      /**
+       * <pre>
+       *错误描述是否提示给用户:1 提示;0 不提示
+       * </pre>
+       *
+       * <code>uint32 expose = 4;</code>
+       */
+      public int getExpose() {
+        return expose_;
+      }
+      /**
+       * <pre>
+       *错误描述是否提示给用户:1 提示;0 不提示
+       * </pre>
+       *
+       * <code>uint32 expose = 4;</code>
+       */
+      public Builder setExpose(int value) {
+
+        expose_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       *错误描述是否提示给用户:1 提示;0 不提示
+       * </pre>
+       *
+       * <code>uint32 expose = 4;</code>
+       */
+      public Builder clearExpose() {
+
+        expose_ = 0;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:com.hzoom.im.proto.bean.LogoutResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:com.hzoom.im.proto.bean.LogoutResponse)
+    private static final ProtoMsg.LogoutResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new ProtoMsg.LogoutResponse();
+    }
+
+    public static ProtoMsg.LogoutResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<LogoutResponse>
+        PARSER = new com.google.protobuf.AbstractParser<LogoutResponse>() {
+      public LogoutResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new LogoutResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<LogoutResponse> parser() {
+      return PARSER;
+    }
+
+    @Override
+    public com.google.protobuf.Parser<LogoutResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public ProtoMsg.LogoutResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MessageRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:com.hzoom.im.proto.bean.MessageRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -6069,6 +7691,56 @@ public final class ProtoMsg {
      * <code>.com.hzoom.im.proto.bean.MessageHeartBeat heartBeat = 9;</code>
      */
     ProtoMsg.MessageHeartBeatOrBuilder getHeartBeatOrBuilder();
+
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    boolean hasLogoutRequest();
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    ProtoMsg.LogoutRequest getLogoutRequest();
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    ProtoMsg.LogoutRequestOrBuilder getLogoutRequestOrBuilder();
+
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    boolean hasLogoutResponse();
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    ProtoMsg.LogoutResponse getLogoutResponse();
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    ProtoMsg.LogoutResponseOrBuilder getLogoutResponseOrBuilder();
   }
   /**
    * <pre>
@@ -6208,6 +7880,32 @@ public final class ProtoMsg {
               if (subBuilder != null) {
                 subBuilder.mergeFrom(heartBeat_);
                 heartBeat_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 82: {
+              ProtoMsg.LogoutRequest.Builder subBuilder = null;
+              if (logoutRequest_ != null) {
+                subBuilder = logoutRequest_.toBuilder();
+              }
+              logoutRequest_ = input.readMessage(ProtoMsg.LogoutRequest.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(logoutRequest_);
+                logoutRequest_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 90: {
+              ProtoMsg.LogoutResponse.Builder subBuilder = null;
+              if (logoutResponse_ != null) {
+                subBuilder = logoutResponse_.toBuilder();
+              }
+              logoutResponse_ = input.readMessage(ProtoMsg.LogoutResponse.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(logoutResponse_);
+                logoutResponse_ = subBuilder.buildPartial();
               }
 
               break;
@@ -6512,6 +8210,72 @@ public final class ProtoMsg {
       return getHeartBeat();
     }
 
+    public static final int LOGOUTREQUEST_FIELD_NUMBER = 10;
+    private ProtoMsg.LogoutRequest logoutRequest_;
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    public boolean hasLogoutRequest() {
+      return logoutRequest_ != null;
+    }
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    public ProtoMsg.LogoutRequest getLogoutRequest() {
+      return logoutRequest_ == null ? ProtoMsg.LogoutRequest.getDefaultInstance() : logoutRequest_;
+    }
+    /**
+     * <pre>
+     *退出请求
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+     */
+    public ProtoMsg.LogoutRequestOrBuilder getLogoutRequestOrBuilder() {
+      return getLogoutRequest();
+    }
+
+    public static final int LOGOUTRESPONSE_FIELD_NUMBER = 11;
+    private ProtoMsg.LogoutResponse logoutResponse_;
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    public boolean hasLogoutResponse() {
+      return logoutResponse_ != null;
+    }
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    public ProtoMsg.LogoutResponse getLogoutResponse() {
+      return logoutResponse_ == null ? ProtoMsg.LogoutResponse.getDefaultInstance() : logoutResponse_;
+    }
+    /**
+     * <pre>
+     *退出响应
+     * </pre>
+     *
+     * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+     */
+    public ProtoMsg.LogoutResponseOrBuilder getLogoutResponseOrBuilder() {
+      return getLogoutResponse();
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -6550,6 +8314,12 @@ public final class ProtoMsg {
       }
       if (heartBeat_ != null) {
         output.writeMessage(9, getHeartBeat());
+      }
+      if (logoutRequest_ != null) {
+        output.writeMessage(10, getLogoutRequest());
+      }
+      if (logoutResponse_ != null) {
+        output.writeMessage(11, getLogoutResponse());
       }
     }
 
@@ -6592,6 +8362,14 @@ public final class ProtoMsg {
       if (heartBeat_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, getHeartBeat());
+      }
+      if (logoutRequest_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, getLogoutRequest());
+      }
+      if (logoutResponse_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, getLogoutResponse());
       }
       memoizedSize = size;
       return size;
@@ -6644,6 +8422,16 @@ public final class ProtoMsg {
         result = result && getHeartBeat()
             .equals(other.getHeartBeat());
       }
+      result = result && (hasLogoutRequest() == other.hasLogoutRequest());
+      if (hasLogoutRequest()) {
+        result = result && getLogoutRequest()
+            .equals(other.getLogoutRequest());
+      }
+      result = result && (hasLogoutResponse() == other.hasLogoutResponse());
+      if (hasLogoutResponse()) {
+        result = result && getLogoutResponse()
+            .equals(other.getLogoutResponse());
+      }
       return result;
     }
 
@@ -6684,6 +8472,14 @@ public final class ProtoMsg {
       if (hasHeartBeat()) {
         hash = (37 * hash) + HEARTBEAT_FIELD_NUMBER;
         hash = (53 * hash) + getHeartBeat().hashCode();
+      }
+      if (hasLogoutRequest()) {
+        hash = (37 * hash) + LOGOUTREQUEST_FIELD_NUMBER;
+        hash = (53 * hash) + getLogoutRequest().hashCode();
+      }
+      if (hasLogoutResponse()) {
+        hash = (37 * hash) + LOGOUTRESPONSE_FIELD_NUMBER;
+        hash = (53 * hash) + getLogoutResponse().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -6861,6 +8657,18 @@ public final class ProtoMsg {
           heartBeat_ = null;
           heartBeatBuilder_ = null;
         }
+        if (logoutRequestBuilder_ == null) {
+          logoutRequest_ = null;
+        } else {
+          logoutRequest_ = null;
+          logoutRequestBuilder_ = null;
+        }
+        if (logoutResponseBuilder_ == null) {
+          logoutResponse_ = null;
+        } else {
+          logoutResponse_ = null;
+          logoutResponseBuilder_ = null;
+        }
         return this;
       }
 
@@ -6915,6 +8723,16 @@ public final class ProtoMsg {
           result.heartBeat_ = heartBeat_;
         } else {
           result.heartBeat_ = heartBeatBuilder_.build();
+        }
+        if (logoutRequestBuilder_ == null) {
+          result.logoutRequest_ = logoutRequest_;
+        } else {
+          result.logoutRequest_ = logoutRequestBuilder_.build();
+        }
+        if (logoutResponseBuilder_ == null) {
+          result.logoutResponse_ = logoutResponse_;
+        } else {
+          result.logoutResponse_ = logoutResponseBuilder_.build();
         }
         onBuilt();
         return result;
@@ -6984,6 +8802,12 @@ public final class ProtoMsg {
         }
         if (other.hasHeartBeat()) {
           mergeHeartBeat(other.getHeartBeat());
+        }
+        if (other.hasLogoutRequest()) {
+          mergeLogoutRequest(other.getLogoutRequest());
+        }
+        if (other.hasLogoutResponse()) {
+          mergeLogoutResponse(other.getLogoutResponse());
         }
         onChanged();
         return this;
@@ -8119,6 +9943,312 @@ public final class ProtoMsg {
         }
         return heartBeatBuilder_;
       }
+
+      private ProtoMsg.LogoutRequest logoutRequest_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtoMsg.LogoutRequest, ProtoMsg.LogoutRequest.Builder, ProtoMsg.LogoutRequestOrBuilder> logoutRequestBuilder_;
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public boolean hasLogoutRequest() {
+        return logoutRequestBuilder_ != null || logoutRequest_ != null;
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public ProtoMsg.LogoutRequest getLogoutRequest() {
+        if (logoutRequestBuilder_ == null) {
+          return logoutRequest_ == null ? ProtoMsg.LogoutRequest.getDefaultInstance() : logoutRequest_;
+        } else {
+          return logoutRequestBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public Builder setLogoutRequest(ProtoMsg.LogoutRequest value) {
+        if (logoutRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          logoutRequest_ = value;
+          onChanged();
+        } else {
+          logoutRequestBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public Builder setLogoutRequest(
+          ProtoMsg.LogoutRequest.Builder builderForValue) {
+        if (logoutRequestBuilder_ == null) {
+          logoutRequest_ = builderForValue.build();
+          onChanged();
+        } else {
+          logoutRequestBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public Builder mergeLogoutRequest(ProtoMsg.LogoutRequest value) {
+        if (logoutRequestBuilder_ == null) {
+          if (logoutRequest_ != null) {
+            logoutRequest_ =
+              ProtoMsg.LogoutRequest.newBuilder(logoutRequest_).mergeFrom(value).buildPartial();
+          } else {
+            logoutRequest_ = value;
+          }
+          onChanged();
+        } else {
+          logoutRequestBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public Builder clearLogoutRequest() {
+        if (logoutRequestBuilder_ == null) {
+          logoutRequest_ = null;
+          onChanged();
+        } else {
+          logoutRequest_ = null;
+          logoutRequestBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public ProtoMsg.LogoutRequest.Builder getLogoutRequestBuilder() {
+
+        onChanged();
+        return getLogoutRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      public ProtoMsg.LogoutRequestOrBuilder getLogoutRequestOrBuilder() {
+        if (logoutRequestBuilder_ != null) {
+          return logoutRequestBuilder_.getMessageOrBuilder();
+        } else {
+          return logoutRequest_ == null ?
+              ProtoMsg.LogoutRequest.getDefaultInstance() : logoutRequest_;
+        }
+      }
+      /**
+       * <pre>
+       *退出请求
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutRequest logoutRequest = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtoMsg.LogoutRequest, ProtoMsg.LogoutRequest.Builder, ProtoMsg.LogoutRequestOrBuilder>
+          getLogoutRequestFieldBuilder() {
+        if (logoutRequestBuilder_ == null) {
+          logoutRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ProtoMsg.LogoutRequest, ProtoMsg.LogoutRequest.Builder, ProtoMsg.LogoutRequestOrBuilder>(
+                  getLogoutRequest(),
+                  getParentForChildren(),
+                  isClean());
+          logoutRequest_ = null;
+        }
+        return logoutRequestBuilder_;
+      }
+
+      private ProtoMsg.LogoutResponse logoutResponse_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtoMsg.LogoutResponse, ProtoMsg.LogoutResponse.Builder, ProtoMsg.LogoutResponseOrBuilder> logoutResponseBuilder_;
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public boolean hasLogoutResponse() {
+        return logoutResponseBuilder_ != null || logoutResponse_ != null;
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public ProtoMsg.LogoutResponse getLogoutResponse() {
+        if (logoutResponseBuilder_ == null) {
+          return logoutResponse_ == null ? ProtoMsg.LogoutResponse.getDefaultInstance() : logoutResponse_;
+        } else {
+          return logoutResponseBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public Builder setLogoutResponse(ProtoMsg.LogoutResponse value) {
+        if (logoutResponseBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          logoutResponse_ = value;
+          onChanged();
+        } else {
+          logoutResponseBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public Builder setLogoutResponse(
+          ProtoMsg.LogoutResponse.Builder builderForValue) {
+        if (logoutResponseBuilder_ == null) {
+          logoutResponse_ = builderForValue.build();
+          onChanged();
+        } else {
+          logoutResponseBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public Builder mergeLogoutResponse(ProtoMsg.LogoutResponse value) {
+        if (logoutResponseBuilder_ == null) {
+          if (logoutResponse_ != null) {
+            logoutResponse_ =
+              ProtoMsg.LogoutResponse.newBuilder(logoutResponse_).mergeFrom(value).buildPartial();
+          } else {
+            logoutResponse_ = value;
+          }
+          onChanged();
+        } else {
+          logoutResponseBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public Builder clearLogoutResponse() {
+        if (logoutResponseBuilder_ == null) {
+          logoutResponse_ = null;
+          onChanged();
+        } else {
+          logoutResponse_ = null;
+          logoutResponseBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public ProtoMsg.LogoutResponse.Builder getLogoutResponseBuilder() {
+
+        onChanged();
+        return getLogoutResponseFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      public ProtoMsg.LogoutResponseOrBuilder getLogoutResponseOrBuilder() {
+        if (logoutResponseBuilder_ != null) {
+          return logoutResponseBuilder_.getMessageOrBuilder();
+        } else {
+          return logoutResponse_ == null ?
+              ProtoMsg.LogoutResponse.getDefaultInstance() : logoutResponse_;
+        }
+      }
+      /**
+       * <pre>
+       *退出响应
+       * </pre>
+       *
+       * <code>.com.hzoom.im.proto.bean.LogoutResponse logoutResponse = 11;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          ProtoMsg.LogoutResponse, ProtoMsg.LogoutResponse.Builder, ProtoMsg.LogoutResponseOrBuilder>
+          getLogoutResponseFieldBuilder() {
+        if (logoutResponseBuilder_ == null) {
+          logoutResponseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              ProtoMsg.LogoutResponse, ProtoMsg.LogoutResponse.Builder, ProtoMsg.LogoutResponseOrBuilder>(
+                  getLogoutResponse(),
+                  getParentForChildren(),
+                  isClean());
+          logoutResponse_ = null;
+        }
+        return logoutResponseBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -8179,6 +10309,16 @@ public final class ProtoMsg {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_hzoom_im_proto_bean_LoginResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_hzoom_im_proto_bean_LogoutRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor;
+  private static final
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_hzoom_im_proto_bean_LogoutResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_hzoom_im_proto_bean_MessageRequest_descriptor;
   private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -8217,33 +10357,40 @@ public final class ProtoMsg {
       "Id\030\002 \001(\t\022\r\n\005token\030\003 \001(\t\022\020\n\010platform\030\004 \001(" +
       "\r\022\023\n\013app_version\030\005 \001(\t\"K\n\rLoginResponse\022" +
       "\016\n\006result\030\001 \001(\010\022\014\n\004code\030\002 \001(\r\022\014\n\004info\030\003 " +
-      "\001(\t\022\016\n\006expose\030\004 \001(\r\"\253\001\n\016MessageRequest\022\016" +
-      "\n\006msg_id\030\001 \001(\004\022\014\n\004from\030\002 \001(\t\022\n\n\002to\030\003 \001(\t" +
-      "\022\014\n\004time\030\004 \001(\004\022\020\n\010msg_type\030\005 \001(\r\022\017\n\007cont" +
-      "ent\030\006 \001(\t\022\013\n\003url\030\010 \001(\t\022\020\n\010property\030\t \001(\t" +
-      "\022\021\n\tfrom_nick\030\n \001(\t\022\014\n\004json\030\013 \001(\t\"M\n\017Mes",
-      "sageResponse\022\016\n\006result\030\001 \001(\010\022\014\n\004code\030\002 \001" +
-      "(\r\022\014\n\004info\030\003 \001(\t\022\016\n\006expose\030\004 \001(\r\"E\n\023Mess" +
-      "ageNotification\022\r\n\005no_id\030\001 \001(\004\022\014\n\004json\030\002" +
-      " \001(\t\022\021\n\ttimestamp\030\003 \001(\t\":\n\020MessageHeartB" +
-      "eat\022\013\n\003seq\030\001 \001(\r\022\013\n\003uid\030\002 \001(\t\022\014\n\004json\030\003 " +
-      "\001(\t\"\342\003\n\007Message\022/\n\004type\030\001 \001(\0162!.com.hzoo" +
-      "m.im.proto.bean.HeadType\022\020\n\010sequence\030\002 \001" +
-      "(\004\022\022\n\nsession_id\030\003 \001(\t\022;\n\014loginRequest\030\004" +
-      " \001(\0132%.com.hzoom.im.proto.bean.LoginRequ" +
-      "est\022=\n\rloginResponse\030\005 \001(\0132&.com.hzoom.i",
-      "m.proto.bean.LoginResponse\022?\n\016messageReq" +
-      "uest\030\006 \001(\0132\'.com.hzoom.im.proto.bean.Mes" +
-      "sageRequest\022A\n\017messageResponse\030\007 \001(\0132(.c" +
-      "om.hzoom.im.proto.bean.MessageResponse\022B" +
-      "\n\014notification\030\010 \001(\0132,.com.hzoom.im.prot" +
-      "o.bean.MessageNotification\022<\n\theartBeat\030" +
-      "\t \001(\0132).com.hzoom.im.proto.bean.MessageH" +
-      "eartBeat*\257\001\n\010HeadType\022\021\n\rLOGIN_REQUEST\020\000" +
-      "\022\022\n\016LOGIN_RESPONSE\020\001\022\022\n\016LOGOUT_REQUEST\020\002" +
-      "\022\023\n\017LOGOUT_RESPONSE\020\003\022\016\n\nHEART_BEAT\020\004\022\023\n",
-      "\017MESSAGE_REQUEST\020\005\022\024\n\020MESSAGE_RESPONSE\020\006" +
-      "\022\030\n\024MESSAGE_NOTIFICATION\020\007b\006proto3"
+      "\001(\t\022\016\n\006expose\030\004 \001(\r\"@\n\rLogoutRequest\022\013\n\003" +
+      "uid\030\001 \001(\t\022\020\n\010deviceId\030\002 \001(\t\022\020\n\010platform\030" +
+      "\003 \001(\r\"L\n\016LogoutResponse\022\016\n\006result\030\001 \001(\010\022" +
+      "\014\n\004code\030\002 \001(\r\022\014\n\004info\030\003 \001(\t\022\016\n\006expose\030\004 " +
+      "\001(\r\"\253\001\n\016MessageRequest\022\016\n\006msg_id\030\001 \001(\004\022\014",
+      "\n\004from\030\002 \001(\t\022\n\n\002to\030\003 \001(\t\022\014\n\004time\030\004 \001(\004\022\020" +
+      "\n\010msg_type\030\005 \001(\r\022\017\n\007content\030\006 \001(\t\022\013\n\003url" +
+      "\030\010 \001(\t\022\020\n\010property\030\t \001(\t\022\021\n\tfrom_nick\030\n " +
+      "\001(\t\022\014\n\004json\030\013 \001(\t\"M\n\017MessageResponse\022\016\n\006" +
+      "result\030\001 \001(\010\022\014\n\004code\030\002 \001(\r\022\014\n\004info\030\003 \001(\t" +
+      "\022\016\n\006expose\030\004 \001(\r\"E\n\023MessageNotification\022" +
+      "\r\n\005no_id\030\001 \001(\004\022\014\n\004json\030\002 \001(\t\022\021\n\ttimestam" +
+      "p\030\003 \001(\t\":\n\020MessageHeartBeat\022\013\n\003seq\030\001 \001(\r" +
+      "\022\013\n\003uid\030\002 \001(\t\022\014\n\004json\030\003 \001(\t\"\342\004\n\007Message\022" +
+      "/\n\004type\030\001 \001(\0162!.com.hzoom.im.proto.bean.",
+      "HeadType\022\020\n\010sequence\030\002 \001(\004\022\022\n\nsession_id" +
+      "\030\003 \001(\t\022;\n\014loginRequest\030\004 \001(\0132%.com.hzoom" +
+      ".im.proto.bean.LoginRequest\022=\n\rloginResp" +
+      "onse\030\005 \001(\0132&.com.hzoom.im.proto.bean.Log" +
+      "inResponse\022?\n\016messageRequest\030\006 \001(\0132\'.com" +
+      ".hzoom.im.proto.bean.MessageRequest\022A\n\017m" +
+      "essageResponse\030\007 \001(\0132(.com.hzoom.im.prot" +
+      "o.bean.MessageResponse\022B\n\014notification\030\010" +
+      " \001(\0132,.com.hzoom.im.proto.bean.MessageNo" +
+      "tification\022<\n\theartBeat\030\t \001(\0132).com.hzoo",
+      "m.im.proto.bean.MessageHeartBeat\022=\n\rlogo" +
+      "utRequest\030\n \001(\0132&.com.hzoom.im.proto.bea" +
+      "n.LogoutRequest\022?\n\016logoutResponse\030\013 \001(\0132" +
+      "\'.com.hzoom.im.proto.bean.LogoutResponse" +
+      "*\257\001\n\010HeadType\022\021\n\rLOGIN_REQUEST\020\000\022\022\n\016LOGI" +
+      "N_RESPONSE\020\001\022\022\n\016LOGOUT_REQUEST\020\002\022\023\n\017LOGO" +
+      "UT_RESPONSE\020\003\022\016\n\nHEART_BEAT\020\004\022\023\n\017MESSAGE" +
+      "_REQUEST\020\005\022\024\n\020MESSAGE_RESPONSE\020\006\022\030\n\024MESS" +
+      "AGE_NOTIFICATION\020\007b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8269,36 +10416,48 @@ public final class ProtoMsg {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_LoginResponse_descriptor,
         new String[] { "Result", "Code", "Info", "Expose", });
-    internal_static_com_hzoom_im_proto_bean_MessageRequest_descriptor =
+    internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_com_hzoom_im_proto_bean_LogoutRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_hzoom_im_proto_bean_LogoutRequest_descriptor,
+        new String[] { "Uid", "DeviceId", "Platform", });
+    internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_com_hzoom_im_proto_bean_LogoutResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_hzoom_im_proto_bean_LogoutResponse_descriptor,
+        new String[] { "Result", "Code", "Info", "Expose", });
+    internal_static_com_hzoom_im_proto_bean_MessageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_com_hzoom_im_proto_bean_MessageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_MessageRequest_descriptor,
         new String[] { "MsgId", "From", "To", "Time", "MsgType", "Content", "Url", "Property", "FromNick", "Json", });
     internal_static_com_hzoom_im_proto_bean_MessageResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_com_hzoom_im_proto_bean_MessageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_MessageResponse_descriptor,
         new String[] { "Result", "Code", "Info", "Expose", });
     internal_static_com_hzoom_im_proto_bean_MessageNotification_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_com_hzoom_im_proto_bean_MessageNotification_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_MessageNotification_descriptor,
         new String[] { "NoId", "Json", "Timestamp", });
     internal_static_com_hzoom_im_proto_bean_MessageHeartBeat_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_com_hzoom_im_proto_bean_MessageHeartBeat_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_MessageHeartBeat_descriptor,
         new String[] { "Seq", "Uid", "Json", });
     internal_static_com_hzoom_im_proto_bean_Message_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_com_hzoom_im_proto_bean_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_hzoom_im_proto_bean_Message_descriptor,
-        new String[] { "Type", "Sequence", "SessionId", "LoginRequest", "LoginResponse", "MessageRequest", "MessageResponse", "Notification", "HeartBeat", });
+        new String[] { "Type", "Sequence", "SessionId", "LoginRequest", "LoginResponse", "MessageRequest", "MessageResponse", "Notification", "HeartBeat", "LogoutRequest", "LogoutResponse", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
