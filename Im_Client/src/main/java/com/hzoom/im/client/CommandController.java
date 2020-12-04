@@ -165,6 +165,7 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
                 if (command.isLogout()){
                     startLogout(command);
                 }
+                connectFlag = false;
             }
 
         }
@@ -216,9 +217,7 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         logoutSender.setUser(user);
         logoutSender.setSession(session);
         logoutSender.sendLogoutMsg();
-        connectFlag = false;
-        ChannelFuture close = session.close();
-        close.sync();
+        session.close();
     }
 
     @Override

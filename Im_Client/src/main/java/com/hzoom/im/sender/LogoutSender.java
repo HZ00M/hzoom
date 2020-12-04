@@ -1,6 +1,5 @@
 package com.hzoom.im.sender;
 
-import com.hzoom.im.builder.LoginMsgBuilder;
 import com.hzoom.im.builder.LogoutMsgBuilder;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.utils.Print;
@@ -19,5 +18,29 @@ public class LogoutSender extends Sender{
         ProtoMsg.Message message =
                 LogoutMsgBuilder.buildLogoutMsg(getUser(), getSession());
         super.sendMsg(message);
+    }
+
+    @Override
+    protected void sendSuccess(ProtoMsg.Message message) {
+        Print.tcfo("退出消息发送成功:"
+                + message.getLogoutRequest().getUid()
+                + "->"
+                + message.getLogoutRequest().getPlatform());
+    }
+
+    @Override
+    protected void sendException(ProtoMsg.Message message) {
+        Print.tcfo("退出消息发送异常:"
+                + message.getLogoutRequest().getUid()
+                + "->"
+                + message.getLogoutRequest().getPlatform());
+    }
+
+    @Override
+    protected void sendFailed(ProtoMsg.Message message) {
+        Print.tcfo("退出消息发送失败:"
+                + message.getLogoutRequest().getUid()
+                + "->"
+                + message.getLogoutRequest().getPlatform());
     }
 }
