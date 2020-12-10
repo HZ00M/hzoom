@@ -4,10 +4,12 @@ import com.hzoom.core.redis.RedisUtils;
 import com.hzoom.im.distributed.Peer;
 import com.hzoom.im.user.UserSessions;
 import com.hzoom.im.user.dao.UserSessionsDAO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class UserSessionsRedisImpl implements UserSessionsDAO {
     @Autowired
     private Peer peer;
@@ -36,6 +38,7 @@ public class UserSessionsRedisImpl implements UserSessionsDAO {
         }
         userSessions.addNodeBySessionId(sessionId,peer.getLocalImNode());
         save(userSessions);
+        log.info("分布式 session增加：uid {} sessionId{}",uid,sessionId);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class LoginServerProcessor implements ServerProcessor<LocalSession> {
          * 通知客户端：登录成功
          */
         ServerConstants.ResultCodeEnum resultCode = ServerConstants.ResultCodeEnum.SUCCESS;
-        ProtoMsg.Message response = MsgBuilder.buildLoginResponse(resultCode,sequence,serverSession.id());
+        ProtoMsg.Message response = MsgBuilder.buildLoginResponse(resultCode,sequence,serverSession.getSessionId());
         serverSession.send(response);
         return true;
     }

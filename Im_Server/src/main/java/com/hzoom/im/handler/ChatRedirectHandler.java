@@ -27,7 +27,7 @@ public class ChatRedirectHandler extends ChannelInboundHandlerAdapter {
     SessionManger sessionManger;
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)throws Exception{
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (null == msg || !(msg instanceof ProtoMsg.Message)) {
             super.channelRead(ctx, msg);
             return;
@@ -40,16 +40,16 @@ public class ChatRedirectHandler extends ChannelInboundHandlerAdapter {
             return;
         }
 
-        FutureTaskScheduler.add(()->{
+        FutureTaskScheduler.add(() -> {
             LocalSession session = LocalSession.getSession(ctx);
-            if (null!=session&&session.isLogin()){
-                redirectProcessor.handle(session,pkg);
+            if (null != session && session.isLogin()) {
+                redirectProcessor.handle(session, pkg);
                 return;
             }
             ProtoMsg.MessageRequest messageRequest = pkg.getMessageRequest();
             List<ServerSession> toSessions = sessionManger.getSessionsBy(messageRequest.getTo());
-            toSessions.forEach(serverSession->{
-                if (serverSession instanceof LocalSession){
+            toSessions.forEach(serverSession -> {
+                if (serverSession instanceof LocalSession) {
                     serverSession.send(pkg);
                 }
             });
@@ -59,9 +59,9 @@ public class ChatRedirectHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         LocalSession session = ctx.channel().attr(LocalSession.SESSION_KEY).get();
-        if (null!=session&& session.isValid()){
+        if (null != session && session.isValid()) {
             session.close();
-            sessionManger.removeLocalSession(session.id());
+            sessionManger.removeLocalSession(session.getSessionId());
         }
     }
 }

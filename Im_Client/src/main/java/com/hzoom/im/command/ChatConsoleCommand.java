@@ -15,7 +15,7 @@ public class ChatConsoleCommand implements Command<Scanner> {
 
     @Override
     public void exec(Scanner scanner) {
-        System.out.println("请输入聊天信息，格式为：内容@用户名 ");
+        log.info("请输入聊天信息，格式为：内容@用户名 ");
         String s = scanner.next();
         String[] array = s.split("@");
         try {

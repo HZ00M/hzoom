@@ -49,7 +49,7 @@ public class RemoteSession implements ServerSession, Serializable {
     }
 
     @Override
-    public String id() {
+    public String getSessionId() {
         return sessionId;
     }
 

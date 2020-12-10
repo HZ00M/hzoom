@@ -33,7 +33,7 @@ public class PeerSender {
 
     private EventLoopGroup eventLoopGroup;
 
-    public PeerSender(ImNode imNode){
+    public PeerSender(ImNode imNode) {
         this.imNode = imNode;
         this.bootstrap = new Bootstrap();
         this.eventLoopGroup = new NioEventLoopGroup();
@@ -62,44 +62,44 @@ public class PeerSender {
             /**
              * 发送链接成功的通知
              */
-            Notification<ImNode> notification=new Notification(SpringManager.getBean(Peer.class).getLocalImNode());
+            Notification<ImNode> notification = new Notification(SpringManager.getBean(Peer.class).getLocalImNode());
             notification.setType(Notification.CONNECT_FINISHED);
-            String json= JsonUtil.pojoToJson(notification);
+            String json = JsonUtil.pojoToJson(notification);
             ProtoMsg.Message pkg = MsgBuilder.buildNotification(json);
             writeAndFlush(pkg);
         }
 
     };
 
-    public void doConnect(){
+    public void doConnect() {
         String host = imNode.getHost();
         int port = imNode.getPort();
         try {
-            if (bootstrap!=null&& bootstrap.group() == null){
+            if (bootstrap != null && bootstrap.group() == null) {
                 bootstrap.group(eventLoopGroup)
-                        .remoteAddress(host,port)
+                        .remoteAddress(host, port)
                         .channel(NioSocketChannel.class)
-                        .option(ChannelOption.SO_KEEPALIVE,true)
+                        .option(ChannelOption.SO_KEEPALIVE, true)
                         .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                         .handler(new ChannelInitializer<SocketChannel>() {
                             @Override
                             protected void initChannel(SocketChannel ch) throws Exception {
-                                ch.pipeline().addLast("decoder",new ImProtoBufDecoder())
-                                        .addLast("encoder",new ImProtoBufEncoder())
-                                        .addLast("hearBeatClient",new ImNodeHeartBeatClientHandler())
-                                        .addLast("NodeException",new ImNodeExceptionHandler());
+                                ch.pipeline().addLast("decoder", new ImProtoBufDecoder())
+                                        .addLast("encoder", new ImProtoBufEncoder())
+                                        .addLast("hearBeatClient", new ImNodeHeartBeatClientHandler())
+                                        .addLast("NodeException", new ImNodeExceptionHandler());
                             }
                         });
                 log.info(new Date() + "imNode开始连接节点:{}", imNode.toString());
                 ChannelFuture future = bootstrap.connect();
                 future.addListener(connectedListener);
-            }else if (bootstrap.group()!=null){
-                log.info( "{} imNode再一次开始连接分布式节点 {}",new Date(), imNode.toString());
+            } else if (bootstrap.group() != null) {
+                log.info("{} imNode再一次开始连接分布式节点 {}", new Date(), imNode.toString());
                 ChannelFuture f = bootstrap.connect();
                 f.addListener(connectedListener);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("imNode客户端连接失败!" + e.getMessage());
         }
     }

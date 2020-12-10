@@ -1,5 +1,5 @@
 server:
-  port: 7000
+  port: 7001
 zk:
   enable: true
   connectionString: "106.52.151.187:2181"

@@ -12,11 +12,8 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -58,11 +55,15 @@ public class RemoteNotificationHandler extends ChannelInboundHandlerAdapter {
         if (notification.getType()==Notification.SESSION_OFF){
             log.info("收到用户下线通知, node={}", json);
             RemoteSession remoteSession = notification.getData();
-            sessionManger.removeRemoteSession(remoteSession.id());
+            sessionManger.removeRemoteSession(remoteSession.getSessionId());
         }
     }
     @Override
     public void channelInactive(ChannelHandlerContext ctx)throws Exception{
-        Optional.of(LocalSession.getSession(ctx)).ifPresent(LocalSession::unbind);
+        log.info("客户端连接断开");
+        LocalSession session = LocalSession.getSession(ctx);
+        if (null != session) {
+            session.unbind();
+        }
     }
 }

@@ -7,7 +7,7 @@ public interface ServerSession {
 
     ChannelFuture close();
 
-    String id();
+    String getSessionId();
 
     boolean isValid();
 }

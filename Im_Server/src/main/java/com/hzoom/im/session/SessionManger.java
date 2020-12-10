@@ -45,7 +45,7 @@ public class SessionManger {
      * 添加本地回话
      */
     public void addLocalSession(LocalSession localSession) {
-        String sessionId = localSession.id();
+        String sessionId = localSession.getSessionId();
         localSessionMap.put(sessionId, localSession);
         String userId = localSession.getSessionUser().getUserId();
         onlineCounter.increment();
@@ -87,9 +87,10 @@ public class SessionManger {
      * 通知其他节点
      */
     private void notifyOtherImNode(LocalSession session, int type) {
+        log.info("通知其他节点加入节点信息 session {} ",session);
         UserDTO user = session.getUser();
         RemoteSession remoteSession = RemoteSession.builder()
-                .sessionId(session.id())
+                .sessionId(session.getSessionId())
                 .imNode(peer.getLocalImNode())
                 .userId(user.getUserId())
                 .valid(true)
@@ -216,7 +217,7 @@ public class SessionManger {
         ChannelFuture future = null;
         if (null != localSession && localSession.isValid()) {
             future = localSession.close();
-            removeLocalSession(localSession.id());
+            removeLocalSession(localSession.getSessionId());
         }
         return future;
     }

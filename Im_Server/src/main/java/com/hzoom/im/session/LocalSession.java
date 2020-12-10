@@ -63,15 +63,18 @@ public class LocalSession implements ServerSession {
     public ChannelFuture close() {
         ChannelFuture future = channel.close();
         future.addListener((ChannelFuture f) -> {
+            if (f.isSuccess()){
+                log.error("close user: {} session success", user);
+            }
             if (!f.isSuccess()) {
-                log.error("close session {} error", sessionId);
+                log.error("close user: {} session error", sessionId);
             }
         });
         return future;
     }
 
     @Override
-    public String id() {
+    public String getSessionId() {
         return sessionId;
     }
 

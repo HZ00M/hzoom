@@ -28,6 +28,6 @@ public class UserSessions {
 
     public void addLocalNode(LocalSession session) {
         Peer peer = SpringManager.getBean(Peer.class);
-        imNodeCache.put(session.id(), peer.getLocalImNode());
+        imNodeCache.put(session.getSessionId(), peer.getLocalImNode());
     }
 }

@@ -32,7 +32,7 @@ public class Router {
 
     public void init() {
         try {
-                //订阅节点的增加和删除事件
+            //订阅节点的增加和删除事件
             PathChildrenCache childrenCache = new PathChildrenCache(client, ServerConstants.MANAGE_PATH, true);
             PathChildrenCacheListener pathChildrenCacheListener = (curatorFramework, event) -> {
                 log.info("开始监听节点事件:-----");
@@ -47,7 +47,7 @@ public class Router {
                         processNodeRemoved(data);
                         break;
                     default:
-                        log.info("OTHER_CHILD_EVENT {}",event.getType());
+                        log.info("OTHER_CHILD_EVENT {}", event.getType());
                 }
             };
             childrenCache.getListenable().addListener(pathChildrenCacheListener);
@@ -75,10 +75,10 @@ public class Router {
         ImNode imNode = ObjectUtil.JsonBytes2Object(payload, ImNode.class);
         long id = peer.getIdByPath(data.getPath());
         imNode.setId(id);
-        log.info("[TreeCache]节点更新端口, path={}, data={}",
+        log.info("[TreeCache]添加远程节点, path={}, data={}",
                 data.getPath(), JsonUtil.pojoToJson(imNode));
         if (imNode.equals(peer.getLocalImNode())) {
-            log.info("[TreeCache]本地节点, path={}, data={}",
+            log.info("[TreeCache]添加本地节点, path={}, data={}",
                     data.getPath(), JsonUtil.pojoToJson(imNode));
             return;
         }
@@ -87,7 +87,7 @@ public class Router {
          */
         PeerSender relaySender = peerSenderMap.get(id);
         if (null != relaySender && relaySender.getImNode().equals(imNode)) {
-            log.info("[TreeCache]节点重复增加, path={}, data={}",
+            log.info("[TreeCache]远程节点重复增加, path={}, data={}",
                     data.getPath(), JsonUtil.pojoToJson(imNode));
             return;
         }
