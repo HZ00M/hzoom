@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class LoginServerProcessor implements ServerProcessor<LocalSession> {
+public class LoginServerProcessor implements ServerProcessor<LocalSession,Boolean> {
     @Autowired
     MsgBuilder msgBuilder;
     @Autowired

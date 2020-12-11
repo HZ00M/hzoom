@@ -2,7 +2,7 @@ package com.hzoom.im.user.dao.impl;
 
 import com.hzoom.core.redis.RedisUtils;
 import com.hzoom.im.distributed.Peer;
-import com.hzoom.im.user.UserSessions;
+import com.hzoom.im.user.UserImNodes;
 import com.hzoom.im.user.dao.UserSessionsDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +19,22 @@ public class UserSessionsRedisImpl implements UserSessionsDAO {
     RedisUtils redisUtils;
 
     @Override
-    public void save(UserSessions userSessions) {
-        String redisKey = getRedisKey(userSessions.getUserId());
+    public void save(UserImNodes userImNodes) {
+        String redisKey = getRedisKey(userImNodes.getUserId());
         redisUtils.setexObject(redisKey,EXPIRE_TIME,redisKey);
     }
 
     @Override
-    public UserSessions get(String userId) {
+    public UserImNodes get(String userId) {
         String redisKey = getRedisKey(userId);
-        return redisUtils.getObject(redisKey,UserSessions.class);
+        return redisUtils.getObject(redisKey, UserImNodes.class);
     }
 
     @Override
     public void cacheUser(String uid, String sessionId) {
-        UserSessions userSessions = get(sessionId);
+        UserImNodes userSessions = get(sessionId);
         if (null==userSessions){
-            userSessions =new UserSessions(uid);
+            userSessions =new UserImNodes(uid);
         }
         userSessions.addNodeBySessionId(sessionId,peer.getLocalImNode());
         save(userSessions);
@@ -43,12 +43,12 @@ public class UserSessionsRedisImpl implements UserSessionsDAO {
 
     @Override
     public void removeUserSession(String userId, String sessionId) {
-        UserSessions userSessions = get(userId);
-        if (null==userSessions){
-            userSessions = new UserSessions(userId);
+        UserImNodes userImNodes = get(userId);
+        if (null== userImNodes){
+            userImNodes = new UserImNodes(userId);
         }
-        userSessions.removeNodeBySessionId(sessionId);
-        save(userSessions);
+        userImNodes.removeNodeBySessionId(sessionId);
+        save(userImNodes);
     }
 
     public static String getRedisKey(String userId){

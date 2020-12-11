@@ -10,11 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Data
-public class UserSessions {
+public class UserImNodes {
     private String userId;
     private Map<String, ImNode> imNodeCache = new LinkedHashMap<>(10);
 
-    public UserSessions(String userId) {
+    public UserImNodes(String userId) {
         this.userId = userId;
     }
 

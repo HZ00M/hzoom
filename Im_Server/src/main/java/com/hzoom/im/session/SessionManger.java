@@ -6,7 +6,7 @@ import com.hzoom.im.distributed.OnlineCounter;
 import com.hzoom.im.distributed.Peer;
 import com.hzoom.im.distributed.Router;
 import com.hzoom.im.entity.ImNode;
-import com.hzoom.im.user.UserSessions;
+import com.hzoom.im.user.UserImNodes;
 import com.hzoom.im.user.dao.UserSessionsDAO;
 import com.hzoom.im.utils.JsonUtil;
 import io.netty.channel.ChannelFuture;
@@ -39,7 +39,7 @@ public class SessionManger {
     /*远程会话集合*/
     private ConcurrentHashMap<String, RemoteSession> remoteSessionMap = new ConcurrentHashMap();
     /*本地用户集合*/
-    private ConcurrentHashMap<String, UserSessions> localUserSessionsMap = new ConcurrentHashMap();
+    private ConcurrentHashMap<String, UserImNodes> localUserImNodesMap = new ConcurrentHashMap();
 
     /**
      * 添加本地回话
@@ -87,7 +87,7 @@ public class SessionManger {
      * 通知其他节点
      */
     private void notifyOtherImNode(LocalSession session, int type) {
-        log.info("通知其他节点加入节点信息 session {} ",session);
+        log.info("通知其他节点加入节点信息 session {} ", session);
         UserDTO user = session.getUser();
         RemoteSession remoteSession = RemoteSession.builder()
                 .sessionId(session.getSessionId())
@@ -105,11 +105,11 @@ public class SessionManger {
      */
     public List<ServerSession> getSessionsBy(String userId) {
         List<ServerSession> sessions = new LinkedList<>();
-        UserSessions userSessions = loadFromCache(userId);
-        if (null == userSessions) {
+        UserImNodes userImNodes = loadFromCache(userId);
+        if (null == userImNodes) {
             return Collections.emptyList();
         }
-        Map<String, ImNode> allSession = userSessions.getImNodeCache();
+        Map<String, ImNode> allSession = userImNodes.getImNodeCache();
         allSession.keySet().stream().forEach(sessionId -> {
             //首先取得本地的session
             ServerSession serverSession = localSessionMap.get(sessionId);
@@ -128,22 +128,22 @@ public class SessionManger {
      * @param userId 用户的id
      * @return 用户的集合
      */
-    private UserSessions loadFromCache(String userId) {
+    private UserImNodes loadFromCache(String userId) {
         //从本地缓存获取
-        UserSessions userSessions = localUserSessionsMap.get(userId);
-        if (null != userSessions && null != userSessions.getImNodeCache() && userSessions.getImNodeCache().size() > 0) {
-            return userSessions;
+        UserImNodes userImNodes = localUserImNodesMap.get(userId);
+        if (null != userImNodes && null != userImNodes.getImNodeCache() && userImNodes.getImNodeCache().size() > 0) {
+            return userImNodes;
         }
         //从本地回话获取
-        UserSessions finalUserSessions = new UserSessions(userId);
-        ;
+        UserImNodes finalUserImNodes = new UserImNodes(userId);
+
         localSessionMap.values().stream().forEach(session -> {
             if (userId.equals(session.getSessionUser().getUserId())) {
-                finalUserSessions.addLocalNode(session);
+                finalUserImNodes.addLocalNode(session);
             }
         });
-        localUserSessionsMap.put(userId, finalUserSessions);
-        return finalUserSessions;
+        localUserImNodesMap.put(userId, finalUserImNodes);
+        return finalUserImNodes;
     }
 
     /**
@@ -152,13 +152,13 @@ public class SessionManger {
      * @param userId 用户的id
      * @return 用户的集合
      */
-    private UserSessions loadFromRedis(String userId) {
+    private UserImNodes loadFromRedis(String userId) {
         //从redis缓存获取
-        UserSessions userSessions = userSessionsDAO.get(userId);
-        if (null == userSessions) {
+        UserImNodes userImNodes = userSessionsDAO.get(userId);
+        if (null == userImNodes) {
             return null;
         }
-        Map<String, ImNode> map = userSessions.getImNodeCache();
+        Map<String, ImNode> map = userImNodes.getImNodeCache();
         map.keySet().stream().forEach(key -> {
             ImNode node = map.get(key);
             //当前节点直接忽略
@@ -167,7 +167,7 @@ public class SessionManger {
             }
         });
 
-        return userSessions;
+        return userImNodes;
     }
 
     /**
@@ -183,12 +183,12 @@ public class SessionManger {
 
         //添加本地保存的 远程session
         String userId = remoteSession.getUserId();
-        UserSessions userSessions = localUserSessionsMap.get(userId);
-        if (null == userId) {
-            userSessions = new UserSessions(userId);
-            localUserSessionsMap.put(userId, userSessions);
+        UserImNodes userImNodes = localUserImNodesMap.get(userId);
+        if (null == userImNodes) {
+            userImNodes = new UserImNodes(userId);
+            localUserImNodesMap.put(userId, userImNodes);
         }
-        userSessions.addNodeBySessionId(sessionId, remoteSession.getImNode());
+        userImNodes.addNodeBySessionId(sessionId, remoteSession.getImNode());
     }
 
     /**
@@ -205,8 +205,8 @@ public class SessionManger {
 
         //删除本地保存的 远程session
         String userId = remoteSession.getUserId();
-        UserSessions userSessions = localUserSessionsMap.get(userId);
-        userSessions.removeNodeBySessionId(sessionId);
+        UserImNodes userImNodes = localUserImNodesMap.get(userId);
+        userImNodes.removeNodeBySessionId(sessionId);
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class ChatRedirectProcessor implements ServerProcessor<LocalSession>{
+public class ChatRedirectProcessor implements ServerProcessor<LocalSession,Boolean>{
     @Autowired
     private SessionManger sessionManger;
 

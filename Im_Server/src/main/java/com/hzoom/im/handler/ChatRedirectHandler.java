@@ -1,6 +1,7 @@
 package com.hzoom.im.handler;
 
 import com.hzoom.core.concurrent.callbackTask.FutureTaskScheduler;
+import com.hzoom.im.distributed.Router;
 import com.hzoom.im.processor.ChatRedirectProcessor;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.session.LocalSession;
@@ -26,6 +27,7 @@ public class ChatRedirectHandler extends ChannelInboundHandlerAdapter {
     @Autowired
     SessionManger sessionManger;
 
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (null == msg || !(msg instanceof ProtoMsg.Message)) {
@@ -48,11 +50,19 @@ public class ChatRedirectHandler extends ChannelInboundHandlerAdapter {
             }
             ProtoMsg.MessageRequest messageRequest = pkg.getMessageRequest();
             List<ServerSession> toSessions = sessionManger.getSessionsBy(messageRequest.getTo());
+            final boolean[] isSended = {false};
             toSessions.forEach(serverSession -> {
-                if (serverSession instanceof LocalSession) {
-                    serverSession.send(pkg);
-                }
+//                if (serverSession instanceof LocalSession) {
+//                    serverSession.send(pkg);
+//                    isSended[0] =true;
+//                    log.info("信息本地转发");
+//                }
+                serverSession.send(pkg);
+                isSended[0] =true;
             });
+            if(!isSended[0]) {
+                log.error("用户尚未登录，不能接受消息");
+            }
         });
     }
 

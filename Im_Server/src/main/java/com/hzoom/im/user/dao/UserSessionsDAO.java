@@ -1,11 +1,11 @@
 package com.hzoom.im.user.dao;
 
-import com.hzoom.im.user.UserSessions;
+import com.hzoom.im.user.UserImNodes;
 
 public interface UserSessionsDAO {
-    void save(UserSessions s);
+    void save(UserImNodes s);
 
-    UserSessions get(String sessionId);
+    UserImNodes get(String sessionId);
 
     void cacheUser(String uid, String sessionId);
 
