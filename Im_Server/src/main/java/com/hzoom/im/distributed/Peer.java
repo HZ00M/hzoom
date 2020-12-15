@@ -2,6 +2,7 @@ package com.hzoom.im.distributed;
 
 import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
+import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
@@ -18,10 +19,13 @@ import java.net.InetSocketAddress;
 public class Peer {
     @Autowired
     private CuratorFramework client;
+    @Autowired
+    private ConstantsProperties constantsProperties;
 
     private ImNode localImNode;
 
     private String nodePath;
+
 
 
     public void init(InetSocketAddress address) {
@@ -32,7 +36,7 @@ public class Peer {
             nodePath = client.create()
                     .creatingParentsIfNeeded()
                     .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
-                    .forPath(ServerConstants.PATH_PREFIX, payload);
+                    .forPath(constantsProperties.getChildPathPrefix(), payload);
 
             //为node 设置id
             localImNode.setId(getId());
@@ -51,9 +55,9 @@ public class Peer {
         if (null == path) {
             throw new RuntimeException("节点路径有误");
         }
-        int index = path.lastIndexOf(ServerConstants.PATH_PREFIX);
+        int index = path.lastIndexOf(constantsProperties.getChildPathPrefix());
         if (index >= 0) {
-            index += ServerConstants.PATH_PREFIX.length();
+            index += constantsProperties.getChildPathPrefix().length();
             sid = index <= path.length() ? path.substring(index) : null;
         }
         if (null == sid) {

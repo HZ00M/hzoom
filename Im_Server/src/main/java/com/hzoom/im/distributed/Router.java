@@ -2,6 +2,7 @@ package com.hzoom.im.distributed;
 
 import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
+import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.protoBuilder.MsgBuilder;
 import com.hzoom.im.utils.JsonUtil;
@@ -25,6 +26,8 @@ public class Router {
     private CuratorFramework client;
     @Autowired
     private Peer peer;
+    @Autowired
+    private ConstantsProperties constantsProperties;
 
     private ConcurrentHashMap<Long, PeerSender> peerSenderMap =
             new ConcurrentHashMap<>();
@@ -33,7 +36,7 @@ public class Router {
     public void init() {
         try {
             //订阅节点的增加和删除事件
-            PathChildrenCache childrenCache = new PathChildrenCache(client, ServerConstants.MANAGE_PATH, true);
+            PathChildrenCache childrenCache = new PathChildrenCache(client, constantsProperties.getNodesPath(), true);
             PathChildrenCacheListener pathChildrenCacheListener = (curatorFramework, event) -> {
                 log.info("开始监听节点事件:-----");
                 ChildData data = event.getData();

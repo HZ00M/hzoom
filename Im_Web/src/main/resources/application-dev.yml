@@ -10,3 +10,14 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.1.201:8848
+
+management:
+  health:
+    elasticsearch:
+      enabled: false
+    redis:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -11,7 +11,7 @@ public class ServerConstants {
     public static final String PATH_PREFIX = MANAGE_PATH + "/seq-";
 
     //统计用户数的znode
-    public static final String COUNTER_PATH = "/im/OnlineCounter";
+    public static final String COUNTER_PATH = "/im/onlineCounter";
 
     public static final String WEB_URL = "http://localhost:8800";
 

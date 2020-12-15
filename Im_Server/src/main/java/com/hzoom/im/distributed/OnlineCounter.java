@@ -1,6 +1,7 @@
 package com.hzoom.im.distributed;
 
 import com.hzoom.im.constants.ServerConstants;
+import com.hzoom.im.properties.ConstantsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.atomic.AtomicValue;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 public class OnlineCounter implements SmartInitializingSingleton {
     @Autowired
     private CuratorFramework client;
+    @Autowired
+    private ConstantsProperties constantsProperties;
 
     private DistributedAtomicLong distributedAtomicLong;
 
@@ -22,7 +25,7 @@ public class OnlineCounter implements SmartInitializingSingleton {
 
     @Override
     public void afterSingletonsInstantiated() {
-        distributedAtomicLong = new DistributedAtomicLong(client, ServerConstants.COUNTER_PATH, new RetryNTimes(10, 30));
+        distributedAtomicLong = new DistributedAtomicLong(client, constantsProperties.getNodesPath(), new RetryNTimes(10, 30));
     }
 
     public boolean increment() {

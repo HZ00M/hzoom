@@ -3,24 +3,31 @@ package com.hzoom.im.balance;
 import com.hzoom.core.zookeeper.ZKUtils;
 import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
+import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.utils.JsonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 @Data
 @Slf4j
 @Service
+@RefreshScope
 public class ImLoadBalance {
 
     @Autowired
     private ZKUtils zkUtils;
+    @Autowired
+    private ConstantsProperties constantsProperties;
 
     /**
      * 获取负载最小的IM节点
@@ -70,7 +77,7 @@ public class ImLoadBalance {
         CuratorFramework client = zkUtils.getClient();
         List<String> children = null;
         try {
-            children = client.getChildren().forPath(ServerConstants.MANAGE_PATH);
+            children = client.getChildren().forPath(constantsProperties.getNodesPath());
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -99,12 +106,10 @@ public class ImLoadBalance {
      */
     public void removeWorkers() {
         try {
-            zkUtils.delete().deletingChildrenIfNeeded().forPath(ServerConstants.MANAGE_PATH);
+            zkUtils.delete().deletingChildrenIfNeeded().forPath(constantsProperties.getNodesPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

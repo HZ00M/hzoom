@@ -7,6 +7,8 @@ import com.hzoom.im.entity.LoginBack;
 import com.hzoom.im.po.UserPO;
 import com.hzoom.im.utils.JsonUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -14,6 +16,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping(value = "/user")
+@RefreshScope
 public class UserController {
     @Resource
     private ImLoadBalance imLoadBalance;
@@ -48,5 +51,12 @@ public class UserController {
     public Mono<String> removeWorkers(){
         imLoadBalance.removeWorkers();
         return Mono.just("已经删除");
+    }
+
+    @Value("${username}")
+    private String username;
+    @GetMapping(value = "/username")
+    public String username(){
+        return username;
     }
 }
