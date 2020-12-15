@@ -44,6 +44,7 @@ public class RemoteNotificationHandler extends ChannelInboundHandlerAdapter {
         //链接成功通知
         if (notification.getType()==Notification.CONNECT_FINISHED){
             log.info("收到分布式节点连接成功通知, node={}", json);
+            ctx.pipeline().remove("loginRequest");
             ctx.channel().attr(ServerConstants.NODE_KEY).set(JsonUtil.pojoToJson(notification.getData()));
         }
         //上线通知

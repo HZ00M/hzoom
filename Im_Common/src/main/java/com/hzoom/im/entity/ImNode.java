@@ -15,7 +15,7 @@ public class ImNode implements Comparable<ImNode>, Serializable {
     private long id;
 
     //Netty 服务 的连接数
-    private Integer balance = 0;
+    private volatile Integer balance = 0;
 
     //Netty 服务 IP
     private String host;

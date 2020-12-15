@@ -75,12 +75,13 @@ public class Router {
         ImNode imNode = ObjectUtil.JsonBytes2Object(payload, ImNode.class);
         long id = peer.getIdByPath(data.getPath());
         imNode.setId(id);
-        log.info("[TreeCache]添加远程节点, path={}, data={}",
-                data.getPath(), JsonUtil.pojoToJson(imNode));
         if (imNode.equals(peer.getLocalImNode())) {
             log.info("[TreeCache]添加本地节点, path={}, data={}",
                     data.getPath(), JsonUtil.pojoToJson(imNode));
             return;
+        }else {
+            log.info("[TreeCache]添加远程节点, path={}, data={}",
+                    data.getPath(), JsonUtil.pojoToJson(imNode));
         }
         /**
          * 重复收到注册的事件

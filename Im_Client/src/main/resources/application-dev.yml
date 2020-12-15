@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: im-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration

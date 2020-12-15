@@ -52,6 +52,8 @@ public class SessionManger {
         log.info("本地session增加：{},  在线总数:{} ",
                 JsonUtil.pojoToJson(localSession.getSessionUser()),
                 onlineCounter.getCurValue());
+        peer.incBalance();
+
         userSessionsDAO.cacheUser(userId, sessionId);
 
         /**通知其他节点**/

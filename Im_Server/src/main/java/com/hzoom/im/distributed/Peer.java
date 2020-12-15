@@ -90,7 +90,7 @@ public class Peer {
             try {
                 localImNode.incrementBalance();
                 byte[] payload = JsonUtil.object2JsonBytes(localImNode);
-                client.setData().forPath(ServerConstants.MANAGE_PATH, payload);
+                client.setData().forPath(nodePath, payload);
                 return true;
             } catch (Exception e) {
                 return false;
@@ -107,7 +107,7 @@ public class Peer {
             try {
                 localImNode.decrementBalance();
                 byte[] payload = JsonUtil.object2JsonBytes(localImNode);
-                client.setData().forPath(ServerConstants.MANAGE_PATH, payload);
+                client.setData().forPath(nodePath, payload);
                 return true;
             } catch (Exception e) {
                 return false;

@@ -4,10 +4,11 @@ import com.hzoom.im.proto.ProtoMsg;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
+
 @Slf4j
 @Data
-public class UserDTO {
-
+public class UserDTO implements Serializable {
     String userId;
     String userName;
     String devId;
@@ -15,7 +16,7 @@ public class UserDTO {
     String nickName = "nickName";
     PLATTYPE platform = PLATTYPE.WINDOWS;
 
-    public enum PLATTYPE {
+    public enum PLATTYPE implements Serializable{
         WINDOWS, MAC, ANDROID, IOS, WEB, OTHER;
     }
 

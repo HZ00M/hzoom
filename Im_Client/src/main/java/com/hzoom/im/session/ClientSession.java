@@ -1,4 +1,4 @@
-package com.hzoom.im.clientSession;
+package com.hzoom.im.session;
 
 import com.hzoom.core.concurrent.callbackTask.CallbackTask;
 import com.hzoom.core.concurrent.callbackTask.CallbackTaskScheduler;

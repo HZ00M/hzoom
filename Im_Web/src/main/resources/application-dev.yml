@@ -1,6 +1,12 @@
 server:
   port: 8800
-
 zk:
   enable: true
   connectionString: "106.52.151.187:2181"
+spring:
+  application:
+    name: im-web
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848

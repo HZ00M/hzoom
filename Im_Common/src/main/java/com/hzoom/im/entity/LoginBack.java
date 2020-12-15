@@ -3,8 +3,11 @@ package com.hzoom.im.entity;
 import com.hzoom.im.bean.UserDTO;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class LoginBack {
+public class LoginBack implements Serializable {
+
 
     ImNode imNode;
 

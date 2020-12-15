@@ -2,7 +2,8 @@ package com.hzoom.im.client;
 
 import com.hzoom.core.concurrent.callbackTask.FutureTaskScheduler;
 import com.hzoom.im.bean.UserDTO;
-import com.hzoom.im.clientSession.ClientSession;
+import com.hzoom.im.feign.UserController;
+import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.command.*;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.entity.LoginBack;
@@ -41,6 +42,8 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
     private LoginSender loginSender;
     @Autowired
     private LogoutSender logoutSender;
+    @Autowired
+    private UserController userController;
 
     private ClientSession session;
 
@@ -120,7 +123,9 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
         user.setDevId("unknown");
 
         log.info("step1：开始登录WEB GATE");
-        LoginBack loginBack = WebOperator.login(command.getUserName(), command.getPassword());
+//        LoginBack loginBack = WebOperator.login(command.getUserName(), command.getPassword());
+        String loginBackJson = userController.loginAction(command.getUserName(), command.getPassword());
+        LoginBack loginBack = JsonUtil.jsonToPojo(loginBackJson, LoginBack.class);
         ImNode imNode = loginBack.getImNode();
         log.info("step1 WEB GATE 返回的node节点是：{}", JsonUtil.pojoToJson(imNode));
 
@@ -159,7 +164,7 @@ public class CommandController implements ApplicationContextAware, SmartInitiali
                     startOneChat(command);
                 }
             }catch (Exception e){
-                log.error("未处理异常");
+                log.error("未处理异常",e);
                 LogoutConsoleCommand command = (LogoutConsoleCommand) commandMap.get(Command.Type.LOGOUT.toString());
                 command.exec(scanner);
                 if (command.isLogout()){

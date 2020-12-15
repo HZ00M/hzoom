@@ -18,7 +18,7 @@ public class RemoteSession implements ServerSession, Serializable {
     private static final long serialVersionUID = -400010884211394846L;
     private String userId;
     private String sessionId;
-    private ImNode imNode;
+    private volatile ImNode imNode;
     private boolean valid = true;
 
     public RemoteSession() {

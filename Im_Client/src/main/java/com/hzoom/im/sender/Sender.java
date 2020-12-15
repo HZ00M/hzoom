@@ -3,7 +3,7 @@ package com.hzoom.im.sender;
 import com.hzoom.core.concurrent.callbackTask.CallbackTask;
 import com.hzoom.core.concurrent.callbackTask.CallbackTaskScheduler;
 import com.hzoom.im.bean.UserDTO;
-import com.hzoom.im.clientSession.ClientSession;
+import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.proto.ProtoMsg;
 import io.netty.channel.ChannelFuture;
 import lombok.Data;

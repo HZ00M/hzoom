@@ -18,9 +18,9 @@ public class UserController {
     @Resource
     private ImLoadBalance imLoadBalance;
 
-    @GetMapping(value = "/login/{username}/{password}")
-    public Mono<String> loginAction(@PathVariable("username") String username,
-                                    @PathVariable("password") String password){
+    @GetMapping(value = "/login")
+    public Mono<String> loginAction(@RequestParam("username") String username,
+                                    @RequestParam("password") String password){
         UserPO user = new UserPO();
         user.setUserName(username);
         user.setPassWord(password);

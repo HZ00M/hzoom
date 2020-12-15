@@ -1,6 +1,6 @@
 package com.hzoom.im.builder;
 
-import com.hzoom.im.clientSession.ClientSession;
+import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.proto.ProtoMsg;
 
 public abstract class Builder {

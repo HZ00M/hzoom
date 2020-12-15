@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class PeerSender {
     private Channel channel;
 
-    private ImNode imNode;
+    private volatile ImNode imNode;
 
     private boolean connectFlag;
 

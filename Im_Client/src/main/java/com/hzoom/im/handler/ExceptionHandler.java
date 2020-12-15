@@ -1,7 +1,7 @@
 package com.hzoom.im.handler;
 
 import com.hzoom.im.client.CommandController;
-import com.hzoom.im.clientSession.ClientSession;
+import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.exception.InvalidFrameException;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
