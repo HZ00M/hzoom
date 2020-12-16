@@ -1,5 +1,5 @@
 server:
-  port: 8800
+  port: 8888
 zk:
   enable: true
   connectionString: "106.52.151.187:2181"
@@ -10,6 +10,22 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.1.201:8848
+    gateway:
+      routes:
+        - id: route1
+          uri: http://localhost:8888/
+          predicates:
+            - Path=/foo/**
+          filters:
+            - RewritePath=/foo/(?<segment>.*),/user/$\{segment}
+        - id: route2
+          uri:  http://localhost:8888/
+          predicates:
+            - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+          filters:
+            - RequestTime=false
+      default-filters:
+
 
 management:
   health:
