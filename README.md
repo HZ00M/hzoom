@@ -1,8 +1,26 @@
 ### 简介
 本项目指在帮你快速搭建一款分布式，高可用，可伸缩的游戏框架，即时通讯框架。
 
+### 技术栈
+- 并发设计模式：活跃对象、保护性暂挂、半同步半异步、不可变对象、流水线、二阶段挂起、线程特有存储、主从模式等
+- springboot 2.x.x 
+- spring cloud Greenwich.SR2 
+- elasticsearch7.x.x
+- netty websocket
+- jedis、redisson
+- mybatis
+- xxljob
+- curator
+- 工作流 activiti 6.0.0
+- 基于注解的多数据源，读写分离
+- shardingsphere 分库分表
+- zookeeper 分布式计数器，节点监听器
+- nacos注册中心和nacos配置中心
+- protobuf
+- docker、docker compose
+- webflux
+
 ### starter-core模块（核心自动配置模块）
-                 
 ```
 src/
   +- main/
@@ -15,10 +33,12 @@ src/
       +- sqlgen 动态sql语句，封装crud
       +- xxl  xxl-job自动配置类
       +- zookeeper zk自动配置类，封装核心api
-
+      +- resource
 ```
 
 ### cloud-xxx模块（微服务脚手架）
+
+
 - cloud-common 公共项目
 - cloud-config-client 配置中心测试 
 - cloud-config-server 配置中心
@@ -37,7 +57,7 @@ src/
         +- zookeeper zk自动配置类，封装核心api
         +- websocket websocket自动配置测试
         +- xxl 分布式调度测试
-
+      +- resource
 ```
 - cloud-eureka-consumer 
 - cloud-eureka-service eureka服务发现中心
@@ -58,6 +78,6 @@ src/
         +- server 聊天服务器
         +- session 本地session,远程session,session管理器
         +- user 分布式用户会话
-    +- resource
+      +- resource
 ```
     
