@@ -27,9 +27,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hzoom</groupId>
-    <artifactId>myCloud</artifactId>
+    <artifactId>hzoom</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>myCloud</name>
+    <name>hzoom</name>
     <description>Demo project for Spring Boot</description>
 
     <!-- 全局版本配置 -->
