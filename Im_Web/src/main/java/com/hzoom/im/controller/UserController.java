@@ -5,10 +5,13 @@ import com.hzoom.im.bean.UserDTO;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.entity.LoginBack;
 import com.hzoom.im.po.UserPO;
+import com.hzoom.im.stream.define.StreamClient;
 import com.hzoom.im.utils.JsonUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -20,6 +23,8 @@ import javax.annotation.Resource;
 public class UserController {
     @Resource
     private ImLoadBalance imLoadBalance;
+    @Autowired
+    StreamClient streamClient;
 
     @GetMapping(value = "/login")
     public Mono<String> loginAction(@RequestParam("username") String username,
@@ -56,7 +61,12 @@ public class UserController {
     @Value("${username}")
     private String username;
     @GetMapping(value = "/username")
-    public String username(){
-        return username;
+    public Mono<String> username(){
+        return Mono.just(username);
+    }
+
+    @GetMapping(value = "/sendTest")
+    public void send(){
+        streamClient.output().send(MessageBuilder.withPayload("hello world ...").build());
     }
 }

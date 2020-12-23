@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <artifactId>Cloud_Core</artifactId>
+            <artifactId>starter-core</artifactId>
             <groupId>com.hzoom</groupId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

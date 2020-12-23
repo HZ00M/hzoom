@@ -4,6 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
+        <module>starter-core</module>
+
         <module>Eureka_Service</module>
         <module>Eureka_Client</module>
         <module>Eureka_Consumer</module>
@@ -11,7 +13,6 @@
         <module>common</module>
         <module>Config_Server</module>
         <module>Config_Client</module>
-        <module>Cloud_Core</module>
         <module>Elastic_Service</module>
 
         <module>Im_Common</module>

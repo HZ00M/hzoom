@@ -6,6 +6,12 @@ zk:
 spring:
   application:
     name: im-web
+  rabbitmq:
+    host: 106.52.151.187
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: my_vhost
   cloud:
     nacos:
       discovery:
@@ -25,7 +31,13 @@ spring:
           filters:
             - RequestTime=false
       default-filters:
-
+    stream:
+      bindings:
+        input1:
+          #指定输入通道对应的主题名
+          destination: minestream
+        output1:
+          destination: minestream
 
 management:
   health:
