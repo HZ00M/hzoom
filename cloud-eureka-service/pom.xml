@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Eureka_Service</artifactId>
+    <artifactId>cloud-eureka-service</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.hzoom</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>cloud-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

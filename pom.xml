@@ -6,19 +6,19 @@
     <modules>
         <module>starter-core</module>
 
-        <module>Eureka_Service</module>
-        <module>Eureka_Client</module>
-        <module>Eureka_Consumer</module>
-        <module>Zuul_Service</module>
-        <module>common</module>
-        <module>Config_Server</module>
-        <module>Config_Client</module>
-        <module>Elastic_Service</module>
+        <module>cloud-common</module>
+        <module>cloud-eureka-client</module>
+        <module>cloud-eureka-consumer</module>
+        <module>cloud-eureka-service</module>
+        <module>cloud-zuul-service</module>
+        <module>cloud-config-server</module>
+        <module>cloud-config-client</module>
+        <module>cloud-elastic-service</module>
 
-        <module>Im_Common</module>
-        <module>Im_Web</module>
-        <module>Im_Server</module>
-        <module>Im_Client</module>
+        <module>im-common</module>
+        <module>im-client</module>
+        <module>im-server</module>
+        <module>im-web</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
