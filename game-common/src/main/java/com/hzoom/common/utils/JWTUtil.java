@@ -2,7 +2,6 @@ package com.hzoom.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.hzoom.common.error.TokenException;
-import com.mygame.common.error.TokenException;
 import io.jsonwebtoken.*;
 import org.apache.commons.lang.time.DateUtils;
 
