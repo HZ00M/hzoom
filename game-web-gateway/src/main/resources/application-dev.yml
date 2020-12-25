@@ -1,0 +1,50 @@
+server:
+  port: 5003
+  ssl:
+    enabled: false
+    key-alias: my-game-web
+    key-store: classpath:my-game-web.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: game-center-server
+          uri: lb://game-center-server   #配置服务id
+          predicates:
+            - name: Path
+              args:
+                pattern: /game-center-server/**
+          filters:
+            - name: RewritePath
+              args:
+                regexp: /game-center-server/(?<remaining>.*)
+                replacement: /${remaining}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+game-center-server:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.hzoom.balance.KeyLoadBalancerRule
+
+gateway:
+  filter:
+    whiteRequestUri:
+      - /request/10001
+      - /test/https
+      - /request/10003
+    user-request-rate-count: 100
+    global-request-rate-count: 3000
+    cache-user-max-count: 5000
+    cache-user-timeout: 300000

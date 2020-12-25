@@ -1,4 +1,4 @@
-package com.hzoom.filter;
+package hzoom.filter;
 
 import com.hzoom.common.error.TokenException;
 import com.hzoom.common.utils.JWTUtil;

@@ -1,0 +1,14 @@
+server:
+  port: 5003
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

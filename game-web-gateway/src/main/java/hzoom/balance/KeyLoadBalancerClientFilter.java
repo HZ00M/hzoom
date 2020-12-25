@@ -1,4 +1,4 @@
-package com.hzoom.balance;
+package hzoom.balance;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;

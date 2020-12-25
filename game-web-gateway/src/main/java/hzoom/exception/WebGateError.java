@@ -1,4 +1,4 @@
-package com.hzoom.exception;
+package hzoom.exception;
 
 public enum  WebGateError {
     UNKNOWN(-2, "网关服务器未知道异常"),

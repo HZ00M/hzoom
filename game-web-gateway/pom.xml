@@ -10,17 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>game-web-gateway</artifactId>
+
     <dependencies>
-        <dependency>
-            <groupId>com.hzoom</groupId>
-            <artifactId>game-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
+    <dependency>
+        <groupId>com.hzoom</groupId>
+        <artifactId>game-common</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-gateway</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-alibaba-nacos-config</artifactId>
+    </dependency>
     </dependencies>
-
 </project>

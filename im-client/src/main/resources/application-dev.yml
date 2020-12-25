@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: im-client
   cloud:
     nacos:
       discovery:

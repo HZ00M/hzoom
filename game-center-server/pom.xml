@@ -9,17 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>im-client</artifactId>
+    <artifactId>game-center-server</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>com.hzoom</groupId>
-            <artifactId>im-common</artifactId>
+            <artifactId>game-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-    </dependencies>
 
+    </dependencies>
 </project>

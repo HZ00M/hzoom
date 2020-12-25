@@ -1,4 +1,4 @@
-package com.hzoom.filter;
+package hzoom.filter;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

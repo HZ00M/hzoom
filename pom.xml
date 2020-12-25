@@ -22,6 +22,7 @@
 
         <module>game-common</module>
         <module>game-web-gateway</module>
+        <module>game-center-server</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -87,7 +87,7 @@ public class ImLoadBalance {
             log.info("child:", child);
             byte[] payload = null;
             try {
-                payload = zkUtils.getData().forPath(ServerConstants.MANAGE_PATH+"/"+child);
+                payload = zkUtils.getData().forPath(constantsProperties.getNodesPath()+"/"+child);
 
             } catch (Exception e) {
                 e.printStackTrace();
