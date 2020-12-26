@@ -23,6 +23,7 @@
         <module>game-common</module>
         <module>game-web-gateway</module>
         <module>game-center-server</module>
+        <module>game-mongo-dao</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

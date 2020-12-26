@@ -24,7 +24,7 @@ import java.util.List;
 @Configuration
 @EnableConfigurationProperties({RedisProperties.class})
 @ConditionalOnClass
-@Import({RedisDistributedAspectRegistrar.class,RedisUtils.class})
+@Import({RedisDistributedAspectRegistrar.class, RedisService.class})
 @ConditionalOnProperty(
         prefix = "spring.redis",
         name = {"enable"},

@@ -1,4 +1,4 @@
-package hzoom.exception;
+package com.hzoom.game.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;

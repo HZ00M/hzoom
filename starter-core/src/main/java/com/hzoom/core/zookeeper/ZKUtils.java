@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
 @Slf4j
 public class ZKUtils {
     @Autowired

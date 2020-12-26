@@ -1,6 +1,6 @@
 package com.hzoom.demo.redisTest;
 
-import com.hzoom.core.redis.RedisUtils;
+import com.hzoom.core.redis.RedisService;
 import com.hzoom.demo.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 public class RedisUtilsTest extends BaseTest{
     @Autowired
-    private RedisUtils redisUtils;
+    private RedisService redisUtils;
 
     @Test
     public void test(){

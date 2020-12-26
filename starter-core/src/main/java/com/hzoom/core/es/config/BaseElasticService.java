@@ -31,7 +31,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Slf4j
-@Component
 public class BaseElasticService {
     @Autowired
     RestHighLevelClient client;

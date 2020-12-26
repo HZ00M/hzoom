@@ -1,5 +1,5 @@
 server:
-  port: 5003
+  port: 5000
   ssl:
     enabled: false
     key-alias: my-game-web
@@ -36,7 +36,7 @@ management:
         include: '*'
 game-center-server:
   ribbon:
-    NFLoadBalancerRuleClassName: com.hzoom.balance.KeyLoadBalancerRule
+    NFLoadBalancerRuleClassName: com.com.hzoom.game.balance.KeyLoadBalancerRule
 
 gateway:
   filter:

@@ -15,8 +15,7 @@ import redis.clients.jedis.exceptions.JedisException;
 import java.util.*;
 
 @Slf4j
-@Component
-public class RedisUtils {
+public class RedisService {
     /**
      * 查看键的剩余时间  返回三种值 -2(健已经不存在了)  -1(表示永久有效)  大于0的数(还有多少有效时间)
      */

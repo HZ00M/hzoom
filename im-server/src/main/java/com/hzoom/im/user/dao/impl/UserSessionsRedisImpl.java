@@ -1,6 +1,6 @@
 package com.hzoom.im.user.dao.impl;
 
-import com.hzoom.core.redis.RedisUtils;
+import com.hzoom.core.redis.RedisService;
 import com.hzoom.im.distributed.Peer;
 import com.hzoom.im.user.UserImNodes;
 import com.hzoom.im.user.dao.UserSessionsDAO;
@@ -16,7 +16,7 @@ public class UserSessionsRedisImpl implements UserSessionsDAO {
     public static final String REDIS_PREFIX = "UserSessions:uid:";
     private static final int EXPIRE_TIME = 60 * 4;//4小时
     @Autowired
-    RedisUtils redisUtils;
+    RedisService redisUtils;
 
     @Override
     public void save(UserImNodes userImNodes) {

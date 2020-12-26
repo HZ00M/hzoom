@@ -16,10 +16,18 @@
         <groupId>com.hzoom</groupId>
         <artifactId>game-common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <!--spring-boot-starter-webflux与spring-boot-starter-web只能选其一-->
+            </exclusion>
+            <exclusion>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <!--gateway默认使用的是webFlux，而Tomcat使用的是netty-->
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
         <groupId>org.springframework.cloud</groupId>

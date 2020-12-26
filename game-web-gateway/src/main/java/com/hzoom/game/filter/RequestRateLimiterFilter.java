@@ -1,4 +1,4 @@
-package hzoom.filter;
+package com.hzoom.game.filter;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

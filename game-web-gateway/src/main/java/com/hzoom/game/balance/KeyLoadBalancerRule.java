@@ -1,4 +1,4 @@
-package hzoom.balance;
+package com.hzoom.game.balance;
 
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;

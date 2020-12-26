@@ -1,4 +1,4 @@
-package hzoom.balance;
+package com.hzoom.game.balance;
 
 import com.netflix.loadbalancer.IRule;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

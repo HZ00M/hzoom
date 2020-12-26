@@ -1,4 +1,4 @@
-package hzoom.filter;
+package com.hzoom.game.filter;
 
 import com.hzoom.common.error.TokenException;
 import com.hzoom.common.utils.JWTUtil;
@@ -27,11 +27,11 @@ public class TokenVerifyFilter implements GlobalFilter, Ordered {
         String requestUri = exchange.getRequest().getURI().getPath();
         List<String> whiteRequestUri = filterProperties.getWhiteRequestUri();
         if (whiteRequestUri.contains(requestUri)){
-            chain.filter(exchange);// 如果请求的uri在白名单中，则跳过验证。
+            return chain.filter(exchange);// 如果请求的uri在白名单中，则跳过验证。
         }
         String token = exchange.getRequest().getHeaders().getFirst("token");
         if (StringUtils.isEmpty(token)){
-            log.debug("{} 请求验证失败，token为空",token);
+            log.info("{} 请求验证失败，token为空",token);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
@@ -44,7 +44,7 @@ public class TokenVerifyFilter implements GlobalFilter, Ordered {
             ServerWebExchange newExchange = exchange.mutate().request(request).build();
             return chain.filter(newExchange);
         } catch (TokenException e) {
-            log.debug("{} 请求验证失败,token非法");
+            log.info("{} 请求验证失败,token非法",token);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }

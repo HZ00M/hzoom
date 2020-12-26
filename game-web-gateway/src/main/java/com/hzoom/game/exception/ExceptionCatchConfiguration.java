@@ -1,4 +1,4 @@
-package hzoom.exception;
+package com.hzoom.game.exception;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
