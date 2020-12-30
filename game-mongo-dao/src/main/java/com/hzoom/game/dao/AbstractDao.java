@@ -12,7 +12,7 @@ import java.util.Optional;
 public abstract class AbstractDao<ENTITY, ID> {
     private static final String REDIS_DEFAULT_VALUE = "#null#";
     @Autowired
-    private RedisService redisService;
+    protected RedisService redisService;
 
     protected abstract RedisKeyEnum getRedisKey();
 

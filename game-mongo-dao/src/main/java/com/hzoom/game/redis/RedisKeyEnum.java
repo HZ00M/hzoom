@@ -5,6 +5,8 @@ import org.springframework.util.StringUtils;
 import java.time.Duration;
 
 public enum RedisKeyEnum {
+    USER_INFO(Duration.ofDays(7).getSeconds()),
+    USER_ID_INCR(RedisKeyEnum.UNLIMIT),
     PLAYER_INFO(Duration.ofDays(7).getSeconds()),
     PLAYER_ID_INCR(RedisKeyEnum.UNLIMIT),
     ;

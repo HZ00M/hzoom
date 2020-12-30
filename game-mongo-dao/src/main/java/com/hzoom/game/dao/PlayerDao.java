@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlayerDao extends AbstractDao<Player,Long>{
     @Autowired
-    private PlayerRepository playerRepository;
+    private PlayerRepository repository;
 
     @Override
     protected RedisKeyEnum getRedisKey() {
@@ -24,6 +24,6 @@ public class PlayerDao extends AbstractDao<Player,Long>{
 
     @Override
     protected MongoRepository<Player, Long> getMongoRepository() {
-        return playerRepository;
+        return repository;
     }
 }
