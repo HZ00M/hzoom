@@ -105,8 +105,8 @@ public class GameEventExecutorGroup extends AbstractEventExecutorGroup {
         return this.select(selectKey).scheduleAtFixedRate(task, initialDelay, period, unit);
     }
 
-    public ScheduledFuture<?> scheduleWithFixedDelay(Object selectKey, Runnable command, long initialDelay, long delay, TimeUnit unit) {
-        return this.select(selectKey).scheduleWithFixedDelay(command, initialDelay, delay, unit);
+    public ScheduledFuture<?> scheduleWithFixedDelay(Object selectKey, Runnable task, long initialDelay, long delay, TimeUnit unit) {
+        return this.select(selectKey).scheduleWithFixedDelay(task, initialDelay, delay, unit);
     }
 
     public EventExecutor select(Object selectKey) {

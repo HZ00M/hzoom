@@ -1,4 +1,4 @@
-package com.hzoom.game.dao;
+package com.hzoom.game.dao.base;
 
 import com.alibaba.fastjson.JSON;
 import com.hzoom.core.redis.RedisService;

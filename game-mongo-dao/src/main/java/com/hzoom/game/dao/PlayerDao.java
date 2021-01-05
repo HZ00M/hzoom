@@ -1,5 +1,6 @@
 package com.hzoom.game.dao;
 
+import com.hzoom.game.dao.base.AbstractDao;
 import com.hzoom.game.entity.Player;
 import com.hzoom.game.redis.RedisKeyEnum;
 import com.hzoom.game.repository.PlayerRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlayerDao extends AbstractDao<Player,Long>{
+public class PlayerDao extends AbstractDao<Player,Long> {
     @Autowired
     private PlayerRepository repository;
 

@@ -1,12 +1,13 @@
 package com.hzoom.game.dao;
 
+import com.hzoom.game.dao.base.AbstractDao;
 import com.hzoom.game.entity.UserAccount;
 import com.hzoom.game.redis.RedisKeyEnum;
 import com.hzoom.game.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public class UserAccountDao extends AbstractDao<UserAccount,String>{
+public class UserAccountDao extends AbstractDao<UserAccount,String> {
     @Autowired
     private UserAccountRepository repository;
 

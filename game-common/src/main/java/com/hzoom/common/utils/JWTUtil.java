@@ -3,6 +3,7 @@ package com.hzoom.common.utils;
 import com.alibaba.fastjson.JSON;
 import com.hzoom.common.error.TokenException;
 import io.jsonwebtoken.*;
+import lombok.Data;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.util.Date;
@@ -49,56 +50,13 @@ public class JWTUtil {
         }
     }
 
+    @Data
     public static class TokenBody {
         private String openId;
         private long userId;
         private long playerId;
         private String serverId = "1";
         private String[] param;//其它的额外参数
-
-        public String[] getParam() {
-            return param;
-        }
-
-        public void setParam(String[] param) {
-            this.param = param;
-        }
-
-        public String getServerId() {
-            return serverId;
-        }
-
-        public void setServerId(String serverId) {
-            this.serverId = serverId;
-        }
-
-        public String getOpenId() {
-            return openId;
-        }
-
-        public void setOpenId(String openId) {
-            this.openId = openId;
-        }
-
-        public long getUserId() {
-            return userId;
-        }
-
-        public void setUserId(long userId) {
-            this.userId = userId;
-        }
-
-        public long getPlayerId() {
-            return playerId;
-        }
-
-
-        public void setPlayerId(long playerId) {
-            this.playerId = playerId;
-        }
-
-
-
     }
 
  
