@@ -6,7 +6,9 @@ import com.hzoom.game.redis.RedisKeyEnum;
 import com.hzoom.game.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserAccountDao extends AbstractDao<UserAccount,String> {
     @Autowired
     private UserAccountRepository repository;

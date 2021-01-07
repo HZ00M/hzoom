@@ -35,7 +35,7 @@ public class RequestRateLimiterFilter implements GlobalFilter, Ordered {
         globalRateLimiter = RateLimiter.create(permitsPerSecond);
         int maximumSize = filterProperties.getCacheUserMaxCount();
         int duration = filterProperties.getCacheUserTimeout();
-        CacheBuilder.newBuilder().maximumSize(maximumSize).expireAfterAccess(duration, TimeUnit.MILLISECONDS).build(new CacheLoader<String, RateLimiter>() {
+        userRateLimiterCache = CacheBuilder.newBuilder().maximumSize(maximumSize).expireAfterAccess(duration, TimeUnit.MILLISECONDS).build(new CacheLoader<String, RateLimiter>() {
             @Override
             public RateLimiter load(String key) throws Exception {
                 // 不存在限流器就创建一个。
@@ -67,7 +67,7 @@ public class RequestRateLimiterFilter implements GlobalFilter, Ordered {
     }
 
     private Mono<Void> tooManyRequest(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.debug("请求太多，触发限流");
+        log.info("请求太多，触发限流");
         exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);// 请求失败，返回请求太多
         return exchange.getResponse().setComplete();
     }

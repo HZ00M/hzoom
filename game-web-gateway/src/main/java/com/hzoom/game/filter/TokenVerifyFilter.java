@@ -1,6 +1,6 @@
 package com.hzoom.game.filter;
 
-import com.hzoom.common.error.TokenException;
+import com.hzoom.common.exception.TokenException;
 import com.hzoom.common.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;

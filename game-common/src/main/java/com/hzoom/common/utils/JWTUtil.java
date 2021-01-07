@@ -1,7 +1,7 @@
 package com.hzoom.common.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.hzoom.common.error.TokenException;
+import com.hzoom.common.exception.TokenException;
 import io.jsonwebtoken.*;
 import lombok.Data;
 import org.apache.commons.lang.time.DateUtils;
@@ -13,11 +13,11 @@ public class JWTUtil {
     // TOKEN有效期 七天
     private final static long TOKEN_EXPIRE = DateUtils.MILLIS_PER_DAY * 7;
 
-    public static String getUsertoken(String openId, long userId) {
-        return getUsertoken(openId, userId, 0, "-1");
+    public static String getUserToken(String openId, long userId) {
+        return getUserToken(openId, userId, 0, "-1");
     }
 
-    public static String getUsertoken(String openId, long userId, long playerId, String serverId, String... params) {
+    public static String getUserToken(String openId, long userId, long playerId, String serverId, String... params) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;//使用对称加密算法生成签名
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);

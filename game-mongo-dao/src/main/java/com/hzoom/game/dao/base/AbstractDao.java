@@ -65,4 +65,9 @@ public abstract class AbstractDao<ENTITY, ID> {
     public void saveOrUpdateToRedis(ENTITY entity, ID id) {
         this.updateRedis(entity, id);
     }
+
+    public void saveOrUpdate(ENTITY entity, ID id) {
+        this.updateRedis(entity, id);
+        this.getMongoRepository().save(entity);
+    }
 }

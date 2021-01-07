@@ -1,5 +1,6 @@
-package com.hzoom.common.error;
+package com.hzoom.common.exception;
 
+import com.hzoom.common.error.IError;
 import org.slf4j.helpers.MessageFormatter;
 
 public class ErrorException extends RuntimeException{

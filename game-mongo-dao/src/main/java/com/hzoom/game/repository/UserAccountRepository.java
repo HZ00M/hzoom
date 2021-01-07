@@ -9,8 +9,8 @@ import java.util.Date;
 
 public interface UserAccountRepository extends MongoRepository<UserAccount,String> {
 
-    Page<UserAccount>  findUserAccountByUserIdEquals(Long userId);
-
-    @Query(value = "{'creatTime':{'$gt':?1}}")
-    Page<UserAccount> findTest(Date now);
+//    Page<UserAccount>  findUserAccountByUserIdEquals(Long userId);
+//
+//    @Query(value = "{'creatTime':{'$gt':?1}}")
+//    Page<UserAccount> findTest(Date now);
 }

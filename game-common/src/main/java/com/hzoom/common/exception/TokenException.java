@@ -1,4 +1,4 @@
-package com.hzoom.common.error;
+package com.hzoom.common.exception;
 
 public class TokenException extends Exception{
     private static final long serialVersionUID = 1L;

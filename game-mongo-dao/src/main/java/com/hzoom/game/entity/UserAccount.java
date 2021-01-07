@@ -11,6 +11,7 @@ import java.util.Date;
 public class UserAccount {
     @Id
     private String openId;
+
     private Long userId;
     private Date createTime;
     private String registerIp;
