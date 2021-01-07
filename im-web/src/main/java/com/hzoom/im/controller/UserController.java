@@ -6,6 +6,7 @@ import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.entity.LoginBack;
 import com.hzoom.im.po.UserPO;
 import com.hzoom.im.stream.define.StreamClient;
+import com.hzoom.im.stream.service.TopicService;
 import com.hzoom.im.utils.JsonUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class UserController {
     private ImLoadBalance imLoadBalance;
     @Autowired
     StreamClient streamClient;
+    @Autowired
+    private TopicService topicService;
 
     @GetMapping(value = "/login")
     public Mono<String> loginAction(@RequestParam("username") String username,
@@ -68,5 +71,10 @@ public class UserController {
     @GetMapping(value = "/sendTest")
     public void send(){
         streamClient.output().send(MessageBuilder.withPayload("hello world ...").build());
+    }
+
+    @GetMapping(value = "/topics/{target}")
+    public void send(@PathVariable("target") String target){
+        topicService.sendMessage("my topic test",target);
     }
 }

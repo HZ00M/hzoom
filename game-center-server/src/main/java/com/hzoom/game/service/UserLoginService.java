@@ -50,4 +50,12 @@ public class UserLoginService {
         log.debug("user {} 注册成功", userAccount);
         return userAccount;
     }
+
+    public Optional<UserAccount> getUserAccountByOpenId(String openId) {
+        return this.userAccountDao.findById(openId);
+    }
+
+    public void updateUserAccount(UserAccount userAccount) {
+        this.userAccountDao.saveOrUpdate(userAccount, userAccount.getOpenId());
+    }
 }

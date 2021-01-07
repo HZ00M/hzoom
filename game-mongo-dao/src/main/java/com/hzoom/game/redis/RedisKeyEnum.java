@@ -9,6 +9,7 @@ public enum RedisKeyEnum {
     USER_ID_INCR(RedisKeyEnum.UNLIMIT),
     PLAYER_INFO(Duration.ofDays(7).getSeconds()),
     PLAYER_ID_INCR(RedisKeyEnum.UNLIMIT),
+    PLAYER_NICKNAME(RedisKeyEnum.UNLIMIT),
     ;
 
     RedisKeyEnum(Long timeOutSecond) {
@@ -22,7 +23,7 @@ public enum RedisKeyEnum {
         if (StringUtils.isEmpty(id)) {
             throw new IllegalArgumentException("参数不能为空");
         }
-        return this.name() + ":" + id;
+        return this.name() + "_" + id;
     }
 
     public String getKey(){

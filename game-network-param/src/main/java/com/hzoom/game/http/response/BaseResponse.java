@@ -24,14 +24,6 @@ public class BaseResponse<T> {
         this.data = data;
     }
 
-    public static Builder newBuilder(Object data){
-        return new Builder(data);
-    }
-
-    public static Builder newBuilder(IError error){
-        return new Builder(error);
-    }
-
     public static <T> BaseResponse<T> parseObject(String response,Class<T> t){
         JSONObject root = JSONObject.parseObject(response);
         int code = root.getIntValue("code");
@@ -48,23 +40,4 @@ public class BaseResponse<T> {
         return result;
     }
 
-    public static class Builder{
-        private Object data;
-        private IError error;
-        public Builder(Object data){
-            this.data = data;
-        }
-
-        public Builder(IError error){
-            this.error = error;
-        }
-
-        public BaseResponse build(){
-            if (data!=null){
-                return new BaseResponse(data);
-            }else {
-                return new BaseResponse(error);
-            }
-        }
-    }
 }
