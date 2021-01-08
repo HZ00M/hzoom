@@ -1,4 +1,4 @@
-package com.hzoom.game.http.response;
+package com.hzoom.game.http.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hzoom.common.error.IError;

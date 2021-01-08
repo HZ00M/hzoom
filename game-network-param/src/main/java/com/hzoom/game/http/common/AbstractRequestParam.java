@@ -1,4 +1,4 @@
-package com.hzoom.game.http.request;
+package com.hzoom.game.http.common;
 
 import com.hzoom.common.exception.ErrorException;
 import com.hzoom.common.error.IError;

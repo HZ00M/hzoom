@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 public class AESUtils {
 
     public static String createSecret(long userId, String zoneId) {
-        return RandomStringUtils.randomAscii(16);
+        return userId + zoneId;
     }
 
     private static SecretKey generateKey(String secret) throws NoSuchAlgorithmException {

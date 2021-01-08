@@ -2,11 +2,12 @@ package com.hzoom.game.http.request;
 
 
 import com.hzoom.common.error.GameCenterError;
+import com.hzoom.game.http.common.AbstractRequestParam;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
 @Data
-public class LoginParam extends AbstractRequestParam{
+public class LoginParam extends AbstractRequestParam {
     private String openId;
     private String sdkToken;
     private String ip;

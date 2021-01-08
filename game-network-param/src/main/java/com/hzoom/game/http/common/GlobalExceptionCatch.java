@@ -1,10 +1,9 @@
-package com.hzoom.game.http;
+package com.hzoom.game.http.common;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hzoom.common.error.GameCenterError;
 import com.hzoom.common.error.IError;
 import com.hzoom.common.exception.ErrorException;
-import com.hzoom.game.http.response.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package com.hzoom.game.http.mapping;
+package com.hzoom.game.mapping;
 
 public class GameCenterMapping {
     public final static String USER_LOGIN = "10001";

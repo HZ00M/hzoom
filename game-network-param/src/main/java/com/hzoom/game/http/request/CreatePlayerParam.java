@@ -1,11 +1,12 @@
 package com.hzoom.game.http.request;
 
 import com.hzoom.common.error.GameCenterError;
+import com.hzoom.game.http.common.AbstractRequestParam;
 import lombok.Data;
 import org.springframework.util.StringUtils;
 
 @Data
-public class CreatePlayerParam extends AbstractRequestParam{
+public class CreatePlayerParam extends AbstractRequestParam {
     private String zoneId = "0";// 如果是分区游戏，需要传区id
     private String nickName;
     @Override
