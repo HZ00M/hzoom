@@ -1,5 +1,7 @@
 package com.hzoom.game.message.common;
 
+import java.util.Arrays;
+
 public class MessagePackage implements IMessage{
     private DefaultMessageHeader header;
     private byte[] body;
@@ -29,5 +31,13 @@ public class MessagePackage implements IMessage{
     @Override
     public byte[] body() {
         return body;
+    }
+
+    @Override
+    public String toString() {
+        return "MessagePackage{" +
+                "header=" + header.toString() +
+                ", body=" + Arrays.toString(body) +
+                '}';
     }
 }

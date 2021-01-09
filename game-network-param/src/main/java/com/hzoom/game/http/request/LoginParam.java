@@ -1,7 +1,7 @@
 package com.hzoom.game.http.request;
 
 
-import com.hzoom.common.error.GameCenterError;
+import com.hzoom.game.error.GameCenterError;
 import com.hzoom.game.http.common.AbstractRequestParam;
 import lombok.Data;
 import org.springframework.util.StringUtils;

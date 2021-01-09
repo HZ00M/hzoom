@@ -1,7 +1,7 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.common.utils.AESUtils;
-import com.hzoom.common.utils.CompressUtil;
+import com.hzoom.game.utils.AESUtils;
+import com.hzoom.game.utils.CompressUtil;
 import com.hzoom.game.message.common.DefaultMessageHeader;
 import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;

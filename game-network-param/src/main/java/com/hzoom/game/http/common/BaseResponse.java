@@ -1,7 +1,7 @@
 package com.hzoom.game.http.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hzoom.common.error.IError;
+import com.hzoom.game.error.IError;
 import lombok.Data;
 
 @Data

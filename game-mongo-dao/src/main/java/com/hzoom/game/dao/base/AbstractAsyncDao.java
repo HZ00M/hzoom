@@ -1,6 +1,6 @@
 package com.hzoom.game.dao.base;
 
-import com.hzoom.common.concurrent.GameEventExecutorGroup;
+import com.hzoom.game.concurrent.GameEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Promise;
 import lombok.extern.slf4j.Slf4j;

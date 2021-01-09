@@ -1,13 +1,13 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.common.cloud.PlayerServiceInstanceManager;
-import com.hzoom.common.stream.TopicService;
-import com.hzoom.common.utils.AESUtils;
-import com.hzoom.common.utils.JWTUtil;
-import com.hzoom.common.utils.NettyUtils;
-import com.hzoom.common.error.GatewaySocketError;
-import com.hzoom.common.utils.RSAUtils;
-import com.hzoom.game.common.GatewayMessageCode;
+import com.hzoom.game.cloud.PlayerServiceInstanceManager;
+import com.hzoom.game.stream.TopicService;
+import com.hzoom.game.utils.AESUtils;
+import com.hzoom.game.utils.JWTUtil;
+import com.hzoom.game.utils.NettyUtils;
+import com.hzoom.game.error.GatewaySocketError;
+import com.hzoom.game.utils.RSAUtils;
+import com.hzoom.game.common.GatewayMessageTypeEnum;
 import com.hzoom.game.message.common.DefaultMessageHeader;
 import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
@@ -51,7 +51,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MessagePackage receivePackage = (MessagePackage) msg;
         int messageId = receivePackage.getHeader().getMessageId();
-        if (messageId == GatewayMessageCode.ConnectConfirm.getMessageId()) {// 如果是认证消息，在这里处理
+        if (messageId == GatewayMessageTypeEnum.ConnectConfirm.getMessageId()) {// 如果是认证消息，在这里处理
             ConfirmMsgRequest request = new ConfirmMsgRequest();
             request.read(receivePackage.body());
             String token = request.getBodyObj().getToken();

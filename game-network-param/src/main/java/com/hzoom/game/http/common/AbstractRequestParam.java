@@ -1,7 +1,7 @@
 package com.hzoom.game.http.common;
 
-import com.hzoom.common.exception.ErrorException;
-import com.hzoom.common.error.IError;
+import com.hzoom.game.exception.ErrorException;
+import com.hzoom.game.error.IError;
 import lombok.Data;
 
 @Data

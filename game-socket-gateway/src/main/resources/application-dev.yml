@@ -6,9 +6,27 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.1.201:8848
-
+  redis:
+    database: 0
+    host: 106.52.151.187
+    port: 6379
+    timeout: 3000
+    enable: true
+    jedis.pool:
+      max-active: 50
+      max-wait: 3000
+      max-idle: 50
+      min-idle: 10
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+game:
+  gateway:
+    server:
+      config:
+        port: 6666  # 游戏网关的长连接端口，这里的数据是自定义配置。
+        boss-thread-count: 1
+        work-thread-count: 4
+        server-id: 1001

@@ -1,7 +1,7 @@
 package com.hzoom.game.service;
 
-import com.hzoom.common.error.GameCenterError;
-import com.hzoom.common.exception.ErrorException;
+import com.hzoom.game.error.GameCenterError;
+import com.hzoom.game.exception.ErrorException;
 import com.hzoom.core.redis.RedisService;
 import com.hzoom.game.dao.PlayerDao;
 import com.hzoom.game.entity.Player;

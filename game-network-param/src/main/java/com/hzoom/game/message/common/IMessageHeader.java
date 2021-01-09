@@ -1,7 +1,7 @@
 package com.hzoom.game.message.common;
 
 public interface IMessageHeader extends Cloneable{
-    Integer getMessageId();
-    String getServiceId();
+    int getMessageId();
+    int getServiceId();
     MessageType getMessageType();
 }

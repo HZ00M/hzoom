@@ -1,10 +1,10 @@
 package com.hzoom.game.controller;
 
-import com.hzoom.common.error.GameCenterError;
-import com.hzoom.common.error.IError;
-import com.hzoom.common.exception.ErrorException;
-import com.hzoom.common.exception.TokenException;
-import com.hzoom.common.utils.JWTUtil;
+import com.hzoom.game.error.GameCenterError;
+import com.hzoom.game.error.IError;
+import com.hzoom.game.exception.ErrorException;
+import com.hzoom.game.exception.TokenException;
+import com.hzoom.game.utils.JWTUtil;
 import com.hzoom.game.entity.Player;
 import com.hzoom.game.entity.UserAccount;
 import com.hzoom.game.entity.UserAccount.ZonePlayerInfo;

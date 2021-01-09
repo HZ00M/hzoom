@@ -1,6 +1,6 @@
 package com.hzoom.game.dao;
 
-import com.hzoom.common.concurrent.GameEventExecutorGroup;
+import com.hzoom.game.concurrent.GameEventExecutorGroup;
 import com.hzoom.game.dao.base.AbstractAsyncDao;
 import com.hzoom.game.entity.Player;
 import io.netty.util.concurrent.Future;

@@ -1,7 +1,7 @@
 package com.hzoom.game.filter;
 
-import com.hzoom.common.exception.TokenException;
-import com.hzoom.common.utils.JWTUtil;
+import com.hzoom.game.exception.TokenException;
+import com.hzoom.game.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

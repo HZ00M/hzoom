@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@Configuration
 @ConfigurationProperties(prefix = "game.gateway.server.config")
+@Configuration
 public class GatewayServerProperties {
     /**
      * 服务器ID
