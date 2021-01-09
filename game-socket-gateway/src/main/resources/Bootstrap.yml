@@ -1,12 +1,12 @@
 spring:
   profiles:
     active: dev
-  cloud:
-    nacos:
-      config:
-        server-addr: 192.168.1.201:8848
-        prefix: game-socket-gateway
-        file-extension: yaml  #${prefix} - ${spring.profiles.active} . ${file-extension}
-        ext-config:
-          - data-id: share-config-dev.yaml
-            refresh: true
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.1.201:8848
+#        prefix: game-socket-gateway
+#        file-extension: yaml  #${prefix} - ${spring.profiles.active} . ${file-extension}
+#        ext-config:
+#          - data-id: share-config-dev.yaml
+#            refresh: true
