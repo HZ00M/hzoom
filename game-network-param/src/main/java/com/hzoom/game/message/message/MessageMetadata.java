@@ -1,4 +1,4 @@
-package com.hzoom.game.message.common;
+package com.hzoom.game.message.message;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

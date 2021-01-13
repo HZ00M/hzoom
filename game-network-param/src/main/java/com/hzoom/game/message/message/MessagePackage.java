@@ -1,4 +1,4 @@
-package com.hzoom.game.message.common;
+package com.hzoom.game.message.message;
 
 import java.util.Arrays;
 

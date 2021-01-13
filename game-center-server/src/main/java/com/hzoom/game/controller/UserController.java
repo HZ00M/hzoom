@@ -4,6 +4,10 @@ import com.hzoom.game.error.GameCenterError;
 import com.hzoom.game.error.IError;
 import com.hzoom.game.exception.ErrorException;
 import com.hzoom.game.exception.TokenException;
+import com.hzoom.game.http.request.SelectGameGatewayParam;
+import com.hzoom.game.http.response.GameGatewayInfoResponse;
+import com.hzoom.game.model.GameGatewayInfo;
+import com.hzoom.game.service.GameGatewayService;
 import com.hzoom.game.utils.JWTUtil;
 import com.hzoom.game.entity.Player;
 import com.hzoom.game.entity.UserAccount;
@@ -15,14 +19,18 @@ import com.hzoom.game.http.common.BaseResponse;
 import com.hzoom.game.http.response.LoginResponse;
 import com.hzoom.game.service.PlayerService;
 import com.hzoom.game.service.UserLoginService;
+import com.hzoom.game.utils.RSAUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/request")
@@ -32,6 +40,8 @@ public class UserController {
     private UserLoginService userLoginService;
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private GameGatewayService gameGatewayService;
 
     @PostMapping(GameCenterMapping.USER_LOGIN)
     public BaseResponse<LoginResponse> login(@RequestBody LoginParam param){
@@ -73,5 +83,29 @@ public class UserController {
             userLoginService.updateUserAccount(userAccount);
         }
         return new BaseResponse<>(zonePlayerInfo);
+    }
+
+    @PostMapping(GameCenterMapping.SELECT_GAME_GATEWAY)
+    public Object selectGameGateway(@RequestBody SelectGameGatewayParam param)throws Exception{
+        param.checkParam();
+        long playerId = param.getPlayerId();
+        GameGatewayInfo gameGatewayInfo = gameGatewayService.selectGameGatewayInfoByPlayerId(playerId);
+        GameGatewayInfoResponse response = new GameGatewayInfoResponse();
+        response.setId(gameGatewayInfo.getId());
+        response.setIp(gameGatewayInfo.getIp());
+        response.setPort(gameGatewayInfo.getHttpPort());
+
+        Map<String, Object> keyPair = RSAUtils.genKeyPair();//生成rsa公钥和私钥
+        byte[] publicKeyBytes = RSAUtils.getPublicKey(keyPair);//获取公钥
+        String publicKey = Base64Utils.encodeToString(publicKeyBytes);// 为了方便传输，对bytes数组进行一下base64编码
+        String token = JWTUtil.getUserToken(param.getOpenId(),param.getUserId(),param.getPlayerId(),param.getZoneId(),gameGatewayInfo.getIp(),publicKey);
+        response.setToken(token);
+
+        byte[] privateKeyBytes = RSAUtils.getPrivateKey(keyPair);//获取私钥
+        String privateKey = Base64Utils.encodeToString(privateKeyBytes);
+        response.setRsaPrivateKey(privateKey);
+        log.debug("player {} 获取游戏网关信息成功：{}", playerId, response);
+        BaseResponse<GameGatewayInfoResponse> responseEntity = new BaseResponse(response);
+        return responseEntity;
     }
 }

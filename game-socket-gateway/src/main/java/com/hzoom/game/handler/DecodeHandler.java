@@ -2,8 +2,8 @@ package com.hzoom.game.handler;
 
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
-import com.hzoom.game.message.common.DefaultMessageHeader;
-import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.game.message.message.DefaultMessageHeader;
+import com.hzoom.game.message.message.MessagePackage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

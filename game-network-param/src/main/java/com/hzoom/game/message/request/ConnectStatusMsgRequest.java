@@ -1,8 +1,8 @@
 package com.hzoom.game.message.request;
 
-import com.hzoom.game.message.common.AbstractJsonMessage;
-import com.hzoom.game.message.common.MessageMetadata;
-import com.hzoom.game.message.common.MessageType;
+import com.hzoom.game.message.message.AbstractJsonMessage;
+import com.hzoom.game.message.message.MessageMetadata;
+import com.hzoom.game.message.message.MessageType;
 
 @MessageMetadata(messageId = 2, messageType = MessageType.REQUEST, serviceId = 1)
 public class ConnectStatusMsgRequest extends AbstractJsonMessage<ConnectStatusMsgRequest.MessageBody> {

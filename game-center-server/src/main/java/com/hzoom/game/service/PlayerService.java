@@ -5,6 +5,7 @@ import com.hzoom.game.exception.ErrorException;
 import com.hzoom.core.redis.RedisService;
 import com.hzoom.game.dao.PlayerDao;
 import com.hzoom.game.entity.Player;
+import com.hzoom.game.http.request.SelectGameGatewayParam;
 import com.hzoom.game.redis.RedisKeyEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,5 @@ public class PlayerService {
         log.info("角色创建成功,{}", player);
         return player;
     }
+
 }

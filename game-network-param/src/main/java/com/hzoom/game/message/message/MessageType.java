@@ -1,4 +1,4 @@
-package com.hzoom.game.message.common;
+package com.hzoom.game.message.message;
 
 public enum MessageType {
     REQUEST,        //客户端请求消息

@@ -1,6 +1,6 @@
 package com.hzoom.game.stream;
 
-import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.PlayerChannelManager;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;

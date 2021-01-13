@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.RateLimiter;
-import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

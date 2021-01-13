@@ -8,8 +8,8 @@ import com.hzoom.game.utils.NettyUtils;
 import com.hzoom.game.error.GatewaySocketError;
 import com.hzoom.game.utils.RSAUtils;
 import com.hzoom.game.common.GatewayMessageTypeEnum;
-import com.hzoom.game.message.common.DefaultMessageHeader;
-import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.game.message.message.DefaultMessageHeader;
+import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.ConnectStatusMsgRequest;
 import com.hzoom.game.message.response.ConfirmMsgResponse;
@@ -64,7 +64,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
                 confirmsSuccess = true;//标记认证成功
                 repeatConnect();
                 playerChannelManager.addChannel(tokenBody.getPlayerId(), ctx.channel());//加入channel管理
-                String aesSecretKey = AESUtils.createSecret(tokenBody.getUserId(), tokenBody.getServerId());//生成此连接的AES密钥
+                String aesSecretKey = AESUtils.createSecret(tokenBody.getUserId(), tokenBody.getZoneId());//生成此连接的AES密钥
                 // 将对称加密密钥分别设置到编码和解码的handler中
                 EncodeHandler encodeHandler = ctx.pipeline().get(EncodeHandler.class);
                 DecodeHandler decodeHandler = ctx.pipeline().get(DecodeHandler.class);

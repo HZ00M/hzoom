@@ -26,6 +26,7 @@
         <module>game-mongo-dao</module>
         <module>game-network-param</module>
         <module>game-socket-gateway</module>
+        <module>game-client</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

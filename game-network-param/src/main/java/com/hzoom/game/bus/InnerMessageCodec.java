@@ -1,7 +1,7 @@
 package com.hzoom.game.bus;
 
-import com.hzoom.game.message.common.DefaultMessageHeader;
-import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.game.message.message.DefaultMessageHeader;
+import com.hzoom.game.message.message.MessagePackage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 

@@ -1,0 +1,31 @@
+spring:
+  redis:
+    database: 0
+    host: 106.52.151.187
+    port: 6379
+    timeout: 3000
+    enable: true
+    jedis.pool:
+      max-active: 50
+      max-wait: 3000
+      max-idle: 50
+      min-idle: 10
+game:
+  client:
+    config:
+      use-game-center: true
+      game-center-url: 'http://localhost:5003'
+retrofit:
+  # 连接池配置
+  pool:
+    pool1:
+      max-idle-connections: 3
+      keep-alive-second: 100
+  enable-log: true
+  enable-degrade: true
+  degrade-type: sentinel
+  # 日志打印拦截器
+  logging-interceptor: com.github.lianjiatech.retrofit.spring.boot.interceptor.DefaultLoggingInterceptor
+test:
+  access-key-id: abc
+  access-key-secret: abc

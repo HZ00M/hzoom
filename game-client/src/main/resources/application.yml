@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: game-client
+  profiles:
+    active: dev

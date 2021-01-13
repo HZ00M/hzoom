@@ -17,7 +17,7 @@ public class JWTUtil {
         return getUserToken(openId, userId, 0, "-1");
     }
 
-    public static String getUserToken(String openId, long userId, long playerId, String serverId, String... params) {
+    public static String getUserToken(String openId, long userId, long playerId, String zoneId, String... params) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;//使用对称加密算法生成签名
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -25,7 +25,7 @@ public class JWTUtil {
         tokenBody.setOpenId(openId);
         tokenBody.setPlayerId(playerId);
         tokenBody.setUserId(userId);
-        tokenBody.setServerId(serverId);
+        tokenBody.setZoneId(zoneId);
         tokenBody.setParam(params);
         String subject = JSON.toJSONString(tokenBody);
         JwtBuilder builder = Jwts.builder().setId(String.valueOf(nowMillis)).setIssuedAt(now).setSubject(subject).signWith(signatureAlgorithm, TOKEN_SECRET);
@@ -55,7 +55,7 @@ public class JWTUtil {
         private String openId;
         private long userId;
         private long playerId;
-        private String serverId = "1";
+        private String zoneId = "1";
         private String[] param;//其它的额外参数
     }
 
