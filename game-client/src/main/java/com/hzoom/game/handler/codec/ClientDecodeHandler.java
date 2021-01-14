@@ -11,13 +11,13 @@ import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DecodeHandler extends ChannelInboundHandlerAdapter {
+public class ClientDecodeHandler extends ChannelInboundHandlerAdapter {
     private String aesSecretKey;//aes对称秘钥
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf byteBuf = (ByteBuf) msg;
-        
+
         try {
             int messageSize = byteBuf.readInt();
             int clientSeqId = byteBuf.readInt();
@@ -27,12 +27,13 @@ public class DecodeHandler extends ChannelInboundHandlerAdapter {
             int compress = byteBuf.readByte();
             int errorCode = byteBuf.readInt();
             byte[] body = null;
-            if (errorCode==0&&byteBuf.readableBytes()>0){
+            if (errorCode == 0 && byteBuf.readableBytes() > 0) {
                 body = new byte[byteBuf.readableBytes()];
-                if (aesSecretKey!=null&& messageId!=1){
-                    body = AESUtils.decode(aesSecretKey,body);
+                byteBuf.readBytes(body);
+                if (aesSecretKey != null && messageId != 1) {
+                    body = AESUtils.decode(aesSecretKey, body);
                 }
-                if (compress==1){
+                if (compress == 1) {
                     body = CompressUtil.decompress(body);
                 }
             }
@@ -50,7 +51,7 @@ public class DecodeHandler extends ChannelInboundHandlerAdapter {
 
             log.info("接收服务器消息,大小：{}:<-{}", messageSize, header);
             ctx.fireChannelRead(messagePackage);
-        }finally {
+        } finally {
             ReferenceCountUtil.release(byteBuf);
         }
     }

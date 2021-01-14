@@ -14,7 +14,7 @@ import io.netty.util.ReferenceCountUtil;
  * 解码客户端消息,协议格式为：消息总长度(int 4) + 消息序列号(int 4) + 消息号(int 4) + 服务ID（short2）+ 客户端发送时间(long 8)
  * + 版本号(int 4) + 是否压缩(byte 1) + body（变长）
  */
-public class DecodeHandler extends ChannelInboundHandlerAdapter {
+public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
     private String aesSecret; //对称加密密钥
 
     public void setAesSecret(String aesSecret) {

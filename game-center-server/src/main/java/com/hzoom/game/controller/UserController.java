@@ -22,7 +22,6 @@ import com.hzoom.game.service.UserLoginService;
 import com.hzoom.game.utils.RSAUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,12 +92,13 @@ public class UserController {
         GameGatewayInfoResponse response = new GameGatewayInfoResponse();
         response.setId(gameGatewayInfo.getId());
         response.setIp(gameGatewayInfo.getIp());
-        response.setPort(gameGatewayInfo.getHttpPort());
+        response.setHttpPort(gameGatewayInfo.getHttpPort());
+        response.setSocketPort(gameGatewayInfo.getSocketPort());
 
         Map<String, Object> keyPair = RSAUtils.genKeyPair();//生成rsa公钥和私钥
         byte[] publicKeyBytes = RSAUtils.getPublicKey(keyPair);//获取公钥
         String publicKey = Base64Utils.encodeToString(publicKeyBytes);// 为了方便传输，对bytes数组进行一下base64编码
-        String token = JWTUtil.getUserToken(param.getOpenId(),param.getUserId(),param.getPlayerId(),param.getZoneId(),gameGatewayInfo.getIp(),publicKey);
+        String token = JWTUtil.getUserToken(param.getOpenId(),param.getUserId(),param.getPlayerId(),param.getZoneId(),publicKey,gameGatewayInfo.getIp());
         response.setToken(token);
 
         byte[] privateKeyBytes = RSAUtils.getPrivateKey(keyPair);//获取私钥

@@ -51,7 +51,7 @@ public class GatewayServerProperties {
     /**
      * 等待认证的超时时间
      */
-    private int waiteConfirmTimeoutSecond = 30;
+    private int waiteConfirmTimeoutSecond = 600;
     /**
      * 单个用户的限流请允许的每秒请求数量
      */

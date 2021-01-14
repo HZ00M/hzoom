@@ -35,14 +35,14 @@ public class GameClientInitService {
     private void selectGateway() {
         if (gameClientProperties.isUseGameCenter()) {
             SelectGameGatewayParam param = new SelectGameGatewayParam();
-            param.setOpenId("test_openId");
-            param.setPlayerId(1);
-            param.setUserId(1);
+            param.setOpenId("123456");
+            param.setPlayerId(123);
+            param.setUserId(123);
             param.setZoneId("1");
             GameGatewayInfoResponse gateGatewayMsg = this.selectGatewayInfoFromGameCenter(param);
             if (gateGatewayMsg != null) {
                 gameClientProperties.setDefaultGameGatewayHost(gateGatewayMsg.getIp());
-                gameClientProperties.setDefaultGameGatewayPort(gateGatewayMsg.getPort());
+                gameClientProperties.setDefaultGameGatewayPort(gateGatewayMsg.getSocketPort());
                 gameClientProperties.setGatewayToken(gateGatewayMsg.getToken());
                 gameClientProperties.setRsaPrivateKey(gateGatewayMsg.getRsaPrivateKey());
             } else {

@@ -46,7 +46,7 @@ public class GatewayServerBoot {
                     .childOption(ChannelOption.TCP_NODELAY,true)
                     .childHandler(createChannelInitializer());
             log.info("启动服务 端口：{}",port);
-            ChannelFuture bindFuture = bootstrap.bind().sync();
+            ChannelFuture bindFuture = bootstrap.bind(port).sync();
             bindFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -61,8 +61,8 @@ public class GatewayServerBoot {
             @Override
             protected void initChannel(Channel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast("encoder",new EncodeHandler(gatewayServerProperties))
-                        .addLast("decode",new DecodeHandler())
+                pipeline.addLast("encoder",new ServerEncodeHandler(gatewayServerProperties))
+                        .addLast("decode",new ServerDecodeHandler())
                         .addLast("confirm",new ConfirmHandler(playerServiceInstanceManager,playerChannelManager,topicService,gatewayServerProperties))
                         .addLast("requestLimit",requestRateLimiterHandler)
                         .addLast(new IdleStateHandler(gatewayServerProperties.getReaderIdleTimeSeconds(), gatewayServerProperties.getWriterIdleTimeSeconds(), gatewayServerProperties.getAllIdleTimeSeconds()))

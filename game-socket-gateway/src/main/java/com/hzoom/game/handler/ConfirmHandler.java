@@ -36,8 +36,6 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
     private GatewayServerProperties gatewayServerProperties;
     private boolean confirmsSuccess = false;
     private ScheduledFuture<?> scheduledFuture;
-    @Getter
-    private JWTUtil.TokenBody tokenBody;
 
     public ConfirmHandler(PlayerServiceInstanceManager playerServiceInstanceManager, PlayerChannelManager playerChannelManager
             , TopicService topicService, GatewayServerProperties gatewayServerProperties) {
@@ -46,6 +44,9 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
         this.topicService = topicService;
         this.gatewayServerProperties = gatewayServerProperties;
     }
+
+    @Getter
+    private JWTUtil.TokenBody tokenBody;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -60,16 +61,16 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
                 log.info("token为空，断开连接");
                 ctx.close();
             } else {
-                JWTUtil.TokenBody tokenBody = JWTUtil.getTokenBody(token);
+                tokenBody = JWTUtil.getTokenBody(token);
                 confirmsSuccess = true;//标记认证成功
                 repeatConnect();
                 playerChannelManager.addChannel(tokenBody.getPlayerId(), ctx.channel());//加入channel管理
                 String aesSecretKey = AESUtils.createSecret(tokenBody.getUserId(), tokenBody.getZoneId());//生成此连接的AES密钥
                 // 将对称加密密钥分别设置到编码和解码的handler中
-                EncodeHandler encodeHandler = ctx.pipeline().get(EncodeHandler.class);
-                DecodeHandler decodeHandler = ctx.pipeline().get(DecodeHandler.class);
-                encodeHandler.setAesSecret(aesSecretKey);
-                decodeHandler.setAesSecret(aesSecretKey);
+                ServerEncodeHandler serverEncodeHandler = ctx.pipeline().get(ServerEncodeHandler.class);
+                ServerDecodeHandler serverDecodeHandler = ctx.pipeline().get(ServerDecodeHandler.class);
+                serverEncodeHandler.setAesSecret(aesSecretKey);
+                serverDecodeHandler.setAesSecret(aesSecretKey);
                 byte[] clientRsaPublicKey = getClientRsaPublicKey();
                 byte[] encryptAesKey = RSAUtils.encryptByPublicKey(aesSecretKey.getBytes(), clientRsaPublicKey);// 使用客户端的公钥加密对称加密密钥
 
@@ -145,7 +146,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
 
     // 从token中获取客户端的公钥
     private byte[] getClientRsaPublicKey() {
-        String rsaPublicKey = tokenBody.getParam()[0];//获取客户端非对称的RSA公钥字符串
+        String rsaPublicKey = tokenBody.getRsaPublicKey();//获取客户端非对称的RSA公钥字符串
         return Base64Utils.decodeFromString(rsaPublicKey);
     }
 }

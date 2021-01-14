@@ -11,8 +11,6 @@ import okhttp3.OkHttpClient;
 import org.springframework.beans.factory.annotation.Value;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +25,9 @@ public interface HttpApi {
     @OkHttpClientBuilder
     static OkHttpClient.Builder okHttpClient() {
         return new OkHttpClient.Builder()
-                .connectTimeout(1, TimeUnit.SECONDS)
-                .readTimeout(1,TimeUnit.SECONDS)
-                .writeTimeout(1,TimeUnit.SECONDS);
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10,TimeUnit.SECONDS)
+                .writeTimeout(10,TimeUnit.SECONDS);
     }
 
     @POST("request/10003")

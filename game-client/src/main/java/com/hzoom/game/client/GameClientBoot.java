@@ -1,8 +1,8 @@
 package com.hzoom.game.client;
 
 import com.hzoom.game.config.GameClientProperties;
-import com.hzoom.game.handler.codec.DecodeHandler;
-import com.hzoom.game.handler.codec.EncodeHandler;
+import com.hzoom.game.handler.codec.ClientDecodeHandler;
+import com.hzoom.game.handler.codec.ClientEncodeHandler;
 import com.hzoom.game.handler.common.DispatchGameMessageHandler;
 import com.hzoom.game.handler.common.HeartbeatHandler;
 import com.hzoom.game.handler.common.ResponseHandler;
@@ -63,12 +63,12 @@ public class GameClientBoot {
         return new ChannelInitializer() {
             @Override
             protected void initChannel(Channel ch) throws Exception {
-                ch.pipeline().addLast("encode",new EncodeHandler(gameClientProperties));// 添加编码
-                ch.pipeline().addLast("decode",new DecodeHandler());// 添加解码
-                ch.pipeline().addLast("response",responseHandler);//将响应消息转化为对应的响应对象
-                ch.pipeline().addLast(new IdleStateHandler(150,60,200));//如果6秒之内没有消息写出，发送写出空闲事件，触发心跳
-                ch.pipeline().addLast("heartbeat",new HeartbeatHandler());//心跳Handler
-                ch.pipeline().addLast("dispatch",dispatchGameMessageHandler);// 添加逻辑处理
+                ch.pipeline().addLast("encode", new ClientEncodeHandler(gameClientProperties));// 添加编码
+                ch.pipeline().addLast("decode", new ClientDecodeHandler());// 添加解码
+                ch.pipeline().addLast("response", responseHandler);//将响应消息转化为对应的响应对象
+                ch.pipeline().addLast(new IdleStateHandler(150, 60, 200));//如果6秒之内没有消息写出，发送写出空闲事件，触发心跳
+                ch.pipeline().addLast("heartbeat", new HeartbeatHandler());//心跳Handler
+                ch.pipeline().addLast("dispatch", dispatchGameMessageHandler);// 添加逻辑处理
             }
         };
     }

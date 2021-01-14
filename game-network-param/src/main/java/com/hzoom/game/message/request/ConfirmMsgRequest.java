@@ -3,6 +3,7 @@ package com.hzoom.game.message.request;
 import com.hzoom.game.message.message.AbstractJsonMessage;
 import com.hzoom.game.message.message.MessageMetadata;
 import com.hzoom.game.message.message.MessageType;
+import lombok.Data;
 
 @MessageMetadata(messageId = 1, messageType = MessageType.REQUEST, serviceId = 1)
 public class ConfirmMsgRequest extends AbstractJsonMessage<ConfirmMsgRequest.ConfirmBody> {
@@ -12,15 +13,8 @@ public class ConfirmMsgRequest extends AbstractJsonMessage<ConfirmMsgRequest.Con
         return ConfirmBody.class;
     }
 
+    @Data
     public static class ConfirmBody {
         private String token;
-
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
     }
 }

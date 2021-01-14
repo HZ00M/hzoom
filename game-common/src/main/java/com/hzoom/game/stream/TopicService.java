@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TopicService {
-    @Autowired
+    @Autowired(required = false)
     private BinderAwareChannelResolver resolver;
-    @Autowired
+    @Autowired(required = false)
     private TopicProperties topicProperties;
 
     public void sendMessage(String body, String topic) {

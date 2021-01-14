@@ -63,7 +63,7 @@ public class GameGatewayInfo {
         return "GatewayInfoResponse{" +
                 "id=" + id +
                 ", ip='" + ip + '\'' +
-                ", port=" + socketPort +
+                ", socketPort=" + socketPort +
                 ", httpPort=" + httpPort +
                 '}';
     }

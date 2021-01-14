@@ -6,6 +6,15 @@ spring:
     nacos:
       discovery:
         server-addr: 192.168.1.201:8848
+        metadata:
+          weight: 2
+          socketPort : ${game.gateway.server.config.port}
+  rabbitmq:
+    host: 106.52.151.187
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: my_vhost
   redis:
     database: 0
     host: 106.52.151.187

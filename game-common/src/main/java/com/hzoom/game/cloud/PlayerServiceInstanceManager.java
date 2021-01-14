@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @Slf4j
 public class PlayerServiceInstanceManager {
-    @Autowired
+    @Autowired(required = false)
     private RedisService redisService;
     @Autowired
     private ServiceInstanceService instanceService;

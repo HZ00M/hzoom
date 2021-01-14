@@ -14,10 +14,10 @@ public class JWTUtil {
     private final static long TOKEN_EXPIRE = DateUtils.MILLIS_PER_DAY * 7;
 
     public static String getUserToken(String openId, long userId) {
-        return getUserToken(openId, userId, 0, "-1");
+        return getUserToken(openId, userId, 0, "-1",null);
     }
 
-    public static String getUserToken(String openId, long userId, long playerId, String zoneId, String... params) {
+    public static String getUserToken(String openId, long userId, long playerId, String zoneId,String rsaPublicKey, String... params) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;//使用对称加密算法生成签名
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -26,6 +26,7 @@ public class JWTUtil {
         tokenBody.setPlayerId(playerId);
         tokenBody.setUserId(userId);
         tokenBody.setZoneId(zoneId);
+        tokenBody.setRsaPublicKey(rsaPublicKey);
         tokenBody.setParam(params);
         String subject = JSON.toJSONString(tokenBody);
         JwtBuilder builder = Jwts.builder().setId(String.valueOf(nowMillis)).setIssuedAt(now).setSubject(subject).signWith(signatureAlgorithm, TOKEN_SECRET);
@@ -56,6 +57,7 @@ public class JWTUtil {
         private long userId;
         private long playerId;
         private String zoneId = "1";
+        private String rsaPublicKey;
         private String[] param;//其它的额外参数
     }
 
