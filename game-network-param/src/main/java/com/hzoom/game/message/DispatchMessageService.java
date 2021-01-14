@@ -1,5 +1,9 @@
-package com.hzoom.game.message.dispatcher;
+package com.hzoom.game.message;
 
+import com.hzoom.game.message.dispatcher.DispatcherMapping;
+import com.hzoom.game.message.dispatcher.IChannelContext;
+import com.hzoom.game.message.dispatcher.MessageHandler;
+import com.hzoom.game.message.dispatcher.MessageMapping;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
 import lombok.extern.slf4j.Slf4j;

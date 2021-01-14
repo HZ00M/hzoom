@@ -5,7 +5,7 @@ import com.hzoom.game.http.HttpApi;
 import com.hzoom.game.http.common.BaseResponse;
 import com.hzoom.game.http.request.SelectGameGatewayParam;
 import com.hzoom.game.http.response.GameGatewayInfoResponse;
-import com.hzoom.game.message.dispatcher.DispatchMessageService;
+import com.hzoom.game.message.DispatchMessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

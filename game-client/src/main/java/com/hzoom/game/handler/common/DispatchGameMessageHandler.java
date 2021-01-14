@@ -1,7 +1,7 @@
 package com.hzoom.game.handler.common;
 
 import com.hzoom.game.client.GameClientChannelContext;
-import com.hzoom.game.message.dispatcher.DispatchMessageService;
+import com.hzoom.game.message.DispatchMessageService;
 import com.hzoom.game.message.message.IMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

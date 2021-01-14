@@ -2,6 +2,7 @@ package com.hzoom.game.cloud;
 
 import com.hzoom.game.event.GameChannelCloseEvent;
 import com.hzoom.core.redis.RedisService;
+import com.hzoom.game.model.ServerInfo;
 import io.netty.util.concurrent.DefaultEventExecutor;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Promise;
@@ -70,7 +71,7 @@ public class PlayerServiceInstanceManager {
                     }
                 } catch (Throwable e) {
                     promise.setFailure(e);
-                    log.error("selectServerId fail ! message:{}",e.getMessage());
+                    log.error("selectServerId fail ! message:{}", e.getMessage());
                 }
 
             });
@@ -83,26 +84,29 @@ public class PlayerServiceInstanceManager {
     }
 
     @EventListener(GameChannelCloseEvent.class)
-    public void remove(GameChannelCloseEvent event){
+    public void remove(GameChannelCloseEvent event) {
         serviceInstanceMap.remove(event.getPlayerId());
     }
 
     private Integer selectServerIdAndSaveRedis(Integer serviceId, Long playerId) {
-        Integer serverId = instanceService.selectServerInfo(serviceId, playerId).getServerId();
-        eventExecutor.execute(()->{
-            try {
-                String key = getRedisKey(playerId);
-                redisService.hset(key,String.valueOf(serviceId),String.valueOf(serverId));
-            }catch (Exception e){
-                log.error("selectServerIdAndSaveRedis fail ! message:{}",e.getMessage());
-            }
-        });
-        return serverId;
+        ServerInfo serverInfo = instanceService.selectServerInfo(serviceId, playerId);
+        if (serverInfo != null) {
+            Integer serverId = serverInfo.getServerId();
+            eventExecutor.execute(() -> {
+                try {
+                    String key = getRedisKey(playerId);
+                    redisService.hset(key, String.valueOf(serviceId), String.valueOf(serverId));
+                } catch (Exception e) {
+                    log.error("selectServerIdAndSaveRedis fail ! message:{}", e.getMessage());
+                }
+            });
+        }
+        return null;
     }
 
     private void addLocalCache(Long playerId, Integer serviceId, Integer serverId) {
         Map<Integer, Integer> instanceMap = serviceInstanceMap.get(playerId);
-        instanceMap.put(serviceId,serverId);
+        instanceMap.put(serviceId, serverId);
     }
 
     private String getRedisKey(Long playerId) {

@@ -26,6 +26,7 @@ public class ServiceInstanceService {
 
     /**
      * 根据玩家id挑选一台服务器
+     *
      * @param serviceId
      * @param playerId
      * @return
@@ -48,6 +49,7 @@ public class ServiceInstanceService {
 
     /**
      * 判断某个服务中的serverId是否还有效
+     *
      * @param serviceId
      * @param serverId
      * @return
@@ -62,12 +64,12 @@ public class ServiceInstanceService {
         return false;
     }
 
-    public Set<Integer> getAllServiceId(){
+    public Set<Integer> getAllServiceId() {
         return serverInfos.keySet();
     }
 
     @EventListener(HeartbeatEvent.class)
-    public void listener(HeartbeatEvent event){
+    public void listener(HeartbeatEvent event) {
         refreshServiceInfo();
     }
 
@@ -82,13 +84,15 @@ public class ServiceInstanceService {
         log.debug("抓取游戏服务配置成功,{}", serviceInstances);
         serviceInstances.forEach(instance -> {
             int weight = getInstanceWeight(instance);
-            ServerInfo serverInfo = ServerInfo.newServerInfo(instance);
-            List<ServerInfo> serverInfos = tempServerInfoMap.get(serverInfo.getServiceId());
-            if (serverInfos == null) {
-                serverInfos = new ArrayList<>();
-                tempServerInfoMap.put(serverInfo.getServiceId(), serverInfos);
+            for (int i = 0; i < weight; i++) {
+                ServerInfo serverInfo = ServerInfo.newServerInfo(instance);
+                List<ServerInfo> serverList = tempServerInfoMap.get(serverInfo.getServiceId());
+                if (serverList == null) {
+                    serverList = new ArrayList<>();
+                    tempServerInfoMap.put(serverInfo.getServiceId(), serverList);
+                }
+                serverList.add(serverInfo);
             }
-            serverInfos.add(serverInfo);
         });
         this.serverInfos = tempServerInfoMap;
     }
@@ -101,7 +105,7 @@ public class ServiceInstanceService {
         return Integer.parseInt(weight);
     }
 
-    public TopicService getTopicService(){
+    public TopicService getTopicService() {
         return topicService;
     }
 

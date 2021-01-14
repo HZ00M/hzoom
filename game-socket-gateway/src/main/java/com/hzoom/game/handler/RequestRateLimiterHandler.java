@@ -18,31 +18,21 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@ChannelHandler.Sharable
-@Component
 public class RequestRateLimiterHandler extends ChannelInboundHandlerAdapter {
-    @Autowired
-    private GatewayServerProperties gatewayServerProperties;
-    private RateLimiter globalRateLimiter = RateLimiter.create(20); // 全局限制器
-    private LoadingCache<String, RateLimiter> userRateLimiterCache = CacheBuilder.newBuilder()
-            .maximumSize(2000).expireAfterAccess(1000 * 60, TimeUnit.MILLISECONDS)
-            .build(new CacheLoader<String, RateLimiter>() {
-                @Override
-                public RateLimiter load(String key) throws Exception {
-                    // 不存在限流器就创建一个。
-                    double permitsPerSecond = 20;
-                    RateLimiter newRateLimiter = RateLimiter.create(permitsPerSecond);
-                    return newRateLimiter;
-                }
-            });
+    private RateLimiter globalRateLimiter; // 全局限制器
+    private static RateLimiter userRateLimiter;
     private Map<Long, Integer> clientSeqMap = new ConcurrentHashMap<>();
+
+    public RequestRateLimiterHandler(RateLimiter globalRateLimiter, double requestPerSecond) {
+        this.globalRateLimiter = globalRateLimiter;
+        userRateLimiter = RateLimiter.create(requestPerSecond);
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MessagePackage messagePackage = (MessagePackage) msg;
         int clientSeqId = messagePackage.getHeader().getClientSeqId();
         long playerId = messagePackage.getHeader().getPlayerId();
-        RateLimiter userRateLimiter = userRateLimiterCache.get(String.valueOf(playerId));
         if (!userRateLimiter.tryAcquire()) {
             log.info("用户{}请求过多，触发限流!", playerId);
             ctx.close();
@@ -57,7 +47,8 @@ public class RequestRateLimiterHandler extends ChannelInboundHandlerAdapter {
         if (lastClientSeqId != null && clientSeqId <= lastClientSeqId) {
             return;
         }
-        clientSeqMap.put(playerId, clientSeqId);
+        lastClientSeqId =clientSeqId;
+        clientSeqMap.put(playerId, lastClientSeqId);
         ctx.fireChannelRead(msg);
 
     }

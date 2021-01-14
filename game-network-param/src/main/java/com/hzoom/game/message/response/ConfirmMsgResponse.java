@@ -5,7 +5,7 @@ import com.hzoom.game.message.message.MessageMetadata;
 import com.hzoom.game.message.message.MessageType;
 import lombok.Data;
 
-@MessageMetadata(messageId = 1, messageType = MessageType.RESPONSE, serviceId = 1)
+@MessageMetadata(messageId = 1, serviceId = 1, messageType = MessageType.RESPONSE)
 public class ConfirmMsgResponse extends AbstractJsonMessage<ConfirmMsgResponse.ConfirmResponseBody> {
 
     @Override

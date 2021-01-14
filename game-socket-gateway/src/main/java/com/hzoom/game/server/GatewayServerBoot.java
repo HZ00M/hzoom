@@ -1,6 +1,8 @@
 package com.hzoom.game.server;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
+import com.hzoom.game.message.GameMessageService;
 import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
@@ -9,6 +11,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +29,16 @@ public class GatewayServerBoot {
     @Autowired
     private TopicService topicService;
     @Autowired
-    private RequestRateLimiterHandler requestRateLimiterHandler;
-    @Autowired
     private DispatchHandler dispatchHandler;
+    @Autowired
+    private TestGameMessageHandler testGameMessageHandler;
 
+    private RateLimiter globalRateLimiter;
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workGroup;
 
     public void startServer(){
+        globalRateLimiter = RateLimiter.create(gatewayServerProperties.getGlobalRequestPerSecond());
         bossGroup = new NioEventLoopGroup(gatewayServerProperties.getBossThreadCount());
         workGroup = new NioEventLoopGroup(gatewayServerProperties.getWorkThreadCount());
         int port = gatewayServerProperties.getPort();
@@ -64,10 +69,11 @@ public class GatewayServerBoot {
                 pipeline.addLast("encoder",new ServerEncodeHandler(gatewayServerProperties))
                         .addLast("decode",new ServerDecodeHandler())
                         .addLast("confirm",new ConfirmHandler(playerServiceInstanceManager,playerChannelManager,topicService,gatewayServerProperties))
-                        .addLast("requestLimit",requestRateLimiterHandler)
+                        .addLast("requestLimit",new RequestRateLimiterHandler(globalRateLimiter,gatewayServerProperties.getRequestPerSecond()))
                         .addLast(new IdleStateHandler(gatewayServerProperties.getReaderIdleTimeSeconds(), gatewayServerProperties.getWriterIdleTimeSeconds(), gatewayServerProperties.getAllIdleTimeSeconds()))
                         .addLast("heartbeat",new HeartbeatHandler())
                         .addLast("dispatch",dispatchHandler);
+//                        .addLast("test",testGameMessageHandler);
             }
         };
         return channelInitializer;

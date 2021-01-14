@@ -4,7 +4,7 @@ import com.hzoom.game.message.message.AbstractJsonMessage;
 import com.hzoom.game.message.message.MessageMetadata;
 import com.hzoom.game.message.message.MessageType;
 
-@MessageMetadata(messageId = 2, messageType = MessageType.RESPONSE, serviceId = 1)
+@MessageMetadata(messageId = 2, serviceId = 1, messageType = MessageType.RESPONSE)
 public class HeartbeatMsgResponse extends AbstractJsonMessage<HeartbeatMsgResponse.ResponseBody> {
     @Override
     protected Class<ResponseBody> getBodyObjClass() {

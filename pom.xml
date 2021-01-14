@@ -27,6 +27,8 @@
         <module>game-network-param</module>
         <module>game-socket-gateway</module>
         <module>game-client</module>
+        <module>game-bird</module>
+        <module>game-gateway-message-starter</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

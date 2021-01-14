@@ -7,7 +7,7 @@ import com.hzoom.game.handler.common.DispatchGameMessageHandler;
 import com.hzoom.game.handler.common.HeartbeatHandler;
 import com.hzoom.game.handler.common.ResponseHandler;
 import com.hzoom.game.message.GameMessageService;
-import com.hzoom.game.message.dispatcher.DispatchMessageService;
+import com.hzoom.game.message.DispatchMessageService;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
