@@ -1,6 +1,6 @@
 package com.hzoom.game.handler.common;
 
-import com.hzoom.game.message.GameMessageService;
+import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessagePackage;
 import io.netty.channel.ChannelHandler;
@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ResponseHandler extends ChannelInboundHandlerAdapter {
     @Autowired
-    private GameMessageService gameMessageService;
+    private GameMessageManager gameMessageManager;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MessagePackage messagePackage = (MessagePackage) msg;
         int messageId = messagePackage.getHeader().getMessageId();
-        IMessage response = gameMessageService.getResponseInstanceByMessageId(messageId);
+        IMessage response = gameMessageManager.getResponseInstanceByMessageId(messageId);
         response.setHeader(messagePackage.getHeader());
         response.read(messagePackage.body());
         ctx.fireChannelRead(response);

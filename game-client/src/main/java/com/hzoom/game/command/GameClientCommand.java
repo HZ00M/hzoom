@@ -2,7 +2,7 @@ package com.hzoom.game.command;
 
 import com.hzoom.game.client.GameClientBoot;
 import com.hzoom.game.config.GameClientProperties;
-import com.hzoom.game.message.message.DefaultMessageHeader;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
@@ -49,7 +49,7 @@ public class GameClientCommand {
             // 向服务器发送一条消息
             FirstMsgRequest request = new FirstMsgRequest();
             request.setValue("Hello,server !!");
-            DefaultMessageHeader header = (DefaultMessageHeader)request.getHeader();
+            IMessage.Header header = request.getHeader();
             header.setClientSendTime(System.currentTimeMillis());
             gameClientBoot.getChannel().writeAndFlush(request);
         }

@@ -7,7 +7,5 @@ public interface IChannelContext {
 
     <T> T getRequest();
 
-    String getRemoteHost();
-
     long getPlayerId();
 }

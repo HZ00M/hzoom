@@ -3,9 +3,9 @@ package com.hzoom.game.message;
 import com.hzoom.game.message.message.AbstractMessage;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -13,20 +13,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Service
+@Component
 @Slf4j
-public class GameMessageService {
+public class GameMessageManager {
     private Map<String, Class<? extends IMessage>> msgClassMap = new HashMap<>();
 
     public IMessage getRequestInstanceByMessageId(int messageId){
-        return getMessageInstance(messageId,MessageType.REQUEST);
+        return getMessageInstance(messageId, IMessage.MessageType.REQUEST);
     }
 
     public IMessage getResponseInstanceByMessageId(int messageId){
-        return getMessageInstance(messageId,MessageType.RESPONSE);
+        return getMessageInstance(messageId, IMessage.MessageType.RESPONSE);
     }
 
-    public IMessage getMessageInstance(int messageId, MessageType messageType) {
+    public IMessage getMessageInstance(int messageId, IMessage.MessageType messageType) {
         String key = getMetadataKey(messageId, messageType);
         Class<? extends IMessage> clazz = msgClassMap.get(key);
         if (clazz ==null){
@@ -52,14 +52,14 @@ public class GameMessageService {
             if (metadata != null) {
                 checkMessageMetadata(metadata, c);
                 int messageId = metadata.messageId();
-                MessageType messageType = metadata.messageType();
+                IMessage.MessageType messageType = metadata.messageType();
                 String key = getMetadataKey(messageId, messageType);
                 msgClassMap.put(key, c);
             }
         });
     }
 
-    private String getMetadataKey(int messageId, MessageType messageType) {
+    private String getMetadataKey(int messageId, IMessage.MessageType messageType) {
         return messageId + "_" + messageType;
     }
 
@@ -72,7 +72,7 @@ public class GameMessageService {
         if (serviceId == 0) {
             throw new IllegalArgumentException("serviceId未设置：" + c.getName());
         }
-        MessageType messageType = metadata.messageType();
+        IMessage.MessageType messageType = metadata.messageType();
         if (messageType == null) {
             throw new IllegalArgumentException("messageType未设置:" + c.getName());
         }

@@ -6,7 +6,7 @@ import com.hzoom.game.handler.codec.ClientEncodeHandler;
 import com.hzoom.game.handler.common.DispatchGameMessageHandler;
 import com.hzoom.game.handler.common.HeartbeatHandler;
 import com.hzoom.game.handler.common.ResponseHandler;
-import com.hzoom.game.message.GameMessageService;
+import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.DispatchMessageService;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -23,7 +23,7 @@ public class GameClientBoot {
     @Autowired
     private GameClientProperties gameClientProperties;
     @Autowired
-    private GameMessageService gameMessageService;
+    private GameMessageManager gameMessageManager;
     @Autowired
     private DispatchMessageService dispatchMessageService;
     @Autowired

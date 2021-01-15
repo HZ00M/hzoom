@@ -1,7 +1,7 @@
 package com.hzoom.game.message.message;
 
 public abstract class AbstractMessage implements IMessage {
-    private IMessageHeader header;
+    private Header header;
     private byte[] body;
 
     public AbstractMessage() {
@@ -9,7 +9,7 @@ public abstract class AbstractMessage implements IMessage {
         if (metadata == null) {
             throw new IllegalArgumentException("消息没有添加元数据注解:" + this.getClass());
         }
-        header = new DefaultMessageHeader(metadata);
+        header = new Header(metadata);
     }
 
     protected abstract byte[] encode();
@@ -19,13 +19,18 @@ public abstract class AbstractMessage implements IMessage {
     protected abstract boolean isNullBody();
 
     @Override
-    public IMessageHeader getHeader() {
+    public Header getHeader() {
         return header;
     }
 
     @Override
-    public void setHeader(IMessageHeader messageHeader) {
+    public void setHeader(Header messageHeader) {
         this.header = messageHeader;
+    }
+
+    @Override
+    public MessageType getMessageType(){
+        return header.getMessageType();
     }
 
     @Override

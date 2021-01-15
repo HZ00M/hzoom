@@ -34,11 +34,6 @@ public class GameClientChannelContext implements IChannelContext {
         return (T) request;
     }
 
-    @Override
-    public String getRemoteHost() {
-        InetSocketAddress socketAddress = (InetSocketAddress) channel.remoteAddress();
-        return socketAddress.getAddress().getHostAddress();
-    }
 
     @Override
     public long getPlayerId() {

@@ -1,11 +1,11 @@
 package com.hzoom.game.message.request;
 
 import com.hzoom.game.message.message.AbstractJsonMessage;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 import lombok.Data;
 
-@MessageMetadata(messageId = 10002, serviceId = 1, messageType = MessageType.REQUEST)
+@MessageMetadata(messageId = 10002, serviceId = 1, messageType = IMessage.MessageType.REQUEST)
 public class SecondMsgRequest extends AbstractJsonMessage<SecondMsgRequest.SecondRequestBody> {
 
     @Override

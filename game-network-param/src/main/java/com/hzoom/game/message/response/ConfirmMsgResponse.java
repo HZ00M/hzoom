@@ -1,11 +1,11 @@
 package com.hzoom.game.message.response;
 
 import com.hzoom.game.message.message.AbstractJsonMessage;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 import lombok.Data;
 
-@MessageMetadata(messageId = 1, serviceId = 1, messageType = MessageType.RESPONSE)
+@MessageMetadata(messageId = 1, serviceId = 1, messageType = IMessage.MessageType.RESPONSE)
 public class ConfirmMsgResponse extends AbstractJsonMessage<ConfirmMsgResponse.ConfirmResponseBody> {
 
     @Override

@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 public @interface MessageMetadata {
     int messageId();    //消息请求id
     int serviceId();    //服务id
-    MessageType messageType();  //消息类型
+    IMessage.MessageType messageType();  //消息类型
 }

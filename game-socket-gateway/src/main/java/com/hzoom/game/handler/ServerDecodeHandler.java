@@ -1,8 +1,8 @@
 package com.hzoom.game.handler;
 
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
-import com.hzoom.game.message.message.DefaultMessageHeader;
 import com.hzoom.game.message.message.MessagePackage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -43,7 +43,7 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
                     body = CompressUtil.decompress(body);
                 }
             }
-            DefaultMessageHeader header = new DefaultMessageHeader();
+            IMessage.Header header = new IMessage.Header();
             header.setClientSendTime(clientSendTime);
             header.setClientSeqId(clientSeqId);
             header.setMessageId(messageId);
@@ -53,7 +53,7 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
 
             MessagePackage messagePackage = new MessagePackage();
             messagePackage.setHeader(header);
-            messagePackage.read(body);
+            messagePackage.setBody(body);
             ctx.fireChannelRead(messagePackage);
         } finally {
             ReferenceCountUtil.release(byteBuf);

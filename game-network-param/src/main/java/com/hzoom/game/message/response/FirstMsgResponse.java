@@ -1,14 +1,14 @@
 package com.hzoom.game.message.response;
 
 import com.hzoom.game.message.message.AbstractMessage;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.Getter;
 import lombok.Setter;
 
-@MessageMetadata(messageId = 10001, serviceId = 1, messageType = MessageType.RESPONSE) // 添加元数据信息
+@MessageMetadata(messageId = 10001, serviceId = 1, messageType = IMessage.MessageType.RESPONSE) // 添加元数据信息
 public class FirstMsgResponse extends AbstractMessage {
     @Setter
     @Getter

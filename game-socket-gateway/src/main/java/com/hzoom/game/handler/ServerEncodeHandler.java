@@ -1,8 +1,8 @@
 package com.hzoom.game.handler;
 
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
-import com.hzoom.game.message.message.DefaultMessageHeader;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;
 import io.netty.buffer.ByteBuf;
@@ -38,7 +38,7 @@ public class ServerEncodeHandler extends MessageToByteEncoder<MessagePackage> {
             }
             messageSize += body.length;
         }
-        DefaultMessageHeader header = msg.getHeader();
+        IMessage.Header header = msg.getHeader();
         out.writeInt(messageSize);
         out.writeInt(header.getClientSeqId());
         out.writeInt(header.getMessageId());

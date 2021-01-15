@@ -20,4 +20,8 @@ public class TopicService {
     public void sendMessage(byte[] body, String topic) {
         resolver.resolveDestination(topic).send(new GenericMessage<>(body));
     }
+
+    public static String generateTopic(String prefix, int serverId) {
+        return prefix + "-" + serverId;
+    }
 }

@@ -1,6 +1,6 @@
 package com.hzoom.game.handler.codec;
 
-import com.hzoom.game.message.message.DefaultMessageHeader;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
@@ -37,7 +37,7 @@ public class ClientDecodeHandler extends ChannelInboundHandlerAdapter {
                     body = CompressUtil.decompress(body);
                 }
             }
-            DefaultMessageHeader header = new DefaultMessageHeader();
+            IMessage.Header header = new IMessage.Header();
             header.setMessageSize(messageSize);
             header.setClientSeqId(clientSeqId);
             header.setMessageId(messageId);
@@ -47,7 +47,7 @@ public class ClientDecodeHandler extends ChannelInboundHandlerAdapter {
 
             MessagePackage messagePackage = new MessagePackage();
             messagePackage.setHeader(header);
-            messagePackage.read(body);
+            messagePackage.setBody(body);
 
             log.info("接收服务器消息,大小：{}:<-{}", messageSize, header);
             ctx.fireChannelRead(messagePackage);

@@ -1,10 +1,10 @@
 package com.hzoom.game.message.response;
 
 import com.hzoom.game.message.message.AbstractJsonMessage;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 
-@MessageMetadata(messageId = 2, serviceId = 1, messageType = MessageType.RESPONSE)
+@MessageMetadata(messageId = 2, serviceId = 1, messageType = IMessage.MessageType.RESPONSE)
 public class HeartbeatMsgResponse extends AbstractJsonMessage<HeartbeatMsgResponse.ResponseBody> {
     @Override
     protected Class<ResponseBody> getBodyObjClass() {

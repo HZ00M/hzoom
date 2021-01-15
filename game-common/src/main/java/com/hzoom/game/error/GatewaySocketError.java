@@ -1,7 +1,7 @@
 package com.hzoom.game.error;
 
 public enum GatewaySocketError implements IError {
-    REPEAT_CONNECT(103,"重复连接");
+    REPEAT_CONNECT(103,"重复连接"),
     ;
 
     private int errorCode;

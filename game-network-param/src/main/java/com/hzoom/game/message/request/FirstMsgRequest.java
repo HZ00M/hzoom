@@ -1,12 +1,12 @@
 package com.hzoom.game.message.request;
 
 import com.hzoom.game.message.message.AbstractMessage;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
-import com.hzoom.game.message.message.MessageType;
 import lombok.Getter;
 import lombok.Setter;
 
-@MessageMetadata(messageId = 10001, serviceId = 1,messageType= MessageType.REQUEST) // 添加元数据信息
+@MessageMetadata(messageId = 10001, serviceId = 1,messageType= IMessage.MessageType.REQUEST) // 添加元数据信息
 public class FirstMsgRequest extends AbstractMessage{
     @Setter
     @Getter

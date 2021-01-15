@@ -2,9 +2,8 @@ package com.hzoom.game.handler;
 
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.config.TopicProperties;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.stream.TopicService;
-import com.hzoom.game.bus.InnerMessageCodec;
-import com.hzoom.game.message.message.DefaultMessageHeader;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;
 import io.netty.channel.ChannelHandler;
@@ -42,12 +41,11 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
                 .addListener((Future<Integer> future) -> {
                     if (future.isSuccess()) {
                         Integer toServerId = future.get();
-                        DefaultMessageHeader header = messagePackage.getHeader();
+                        IMessage.Header header = messagePackage.getHeader();
                         header.setToServerId(toServerId);
                         header.setFromServerId(gatewayServerProperties.getServerId());
                         String topic = topicProperties.getGameTopic();
-                        byte[] bytes = InnerMessageCodec.sendMessage(messagePackage);
-                        topicService.sendMessage(bytes, topic);
+                        topicService.sendMessage(messagePackage.transportObject(), topic);
                         log.info("发送到{}消息成功->{}",topic, messagePackage.getHeader());
                     } else {
                         log.error("消息发送失败", future.cause());

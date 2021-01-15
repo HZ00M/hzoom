@@ -1,6 +1,7 @@
 package com.hzoom.game.handler;
 
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
+import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.JWTUtil;
@@ -8,7 +9,6 @@ import com.hzoom.game.utils.NettyUtils;
 import com.hzoom.game.error.GatewaySocketError;
 import com.hzoom.game.utils.RSAUtils;
 import com.hzoom.game.common.GatewayMessageTypeEnum;
-import com.hzoom.game.message.message.DefaultMessageHeader;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.ConnectStatusMsgRequest;
@@ -134,7 +134,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
             Channel existChannel = playerChannelManager.getChannel(tokenBody.getPlayerId());
             if (existChannel != null) {//关闭旧链接，保留新链接
                 ConfirmMsgResponse response = new ConfirmMsgResponse();
-                DefaultMessageHeader header = (DefaultMessageHeader) response.getHeader();
+                IMessage.Header header =  response.getHeader();
                 header.setErrorCode(GatewaySocketError.REPEAT_CONNECT.getErrorCode());
                 MessagePackage messagePackage = new MessagePackage();
                 messagePackage.setHeader(header);

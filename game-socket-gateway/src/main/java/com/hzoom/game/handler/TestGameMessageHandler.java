@@ -1,6 +1,6 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.game.message.GameMessageService;
+import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
     @Autowired
-    private GameMessageService messageService;
+    private GameMessageManager messageService;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -32,7 +32,7 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
             response.setServerTime(System.currentTimeMillis());
             MessagePackage returnPackage = new MessagePackage();
             returnPackage.setHeader(response.getHeader());
-            returnPackage.read(response.body());
+            returnPackage.setBody(response.body());
             ctx.writeAndFlush(returnPackage);
         } else if (messageId == 10002) {
             SecondMsgRequest request = (SecondMsgRequest) messageService.getRequestInstanceByMessageId(messageId);
@@ -43,7 +43,7 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
             response.getBodyObj().setResult2("服务器回复");
             MessagePackage returnPackage = new MessagePackage();
             returnPackage.setHeader(response.getHeader());
-            returnPackage.read(response.body());
+            returnPackage.setBody(response.body());
             ctx.writeAndFlush(returnPackage);
         } 
     }
