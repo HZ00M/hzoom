@@ -13,13 +13,14 @@ import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.StringUtil;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+@Slf4j
 public class GameChannelPipeline {
-    static final InternalLogger logger = InternalLoggerFactory.getInstance(DefaultChannelPipeline.class);
 
     private static final String HEAD_NAME = generateName0(HeadContext.class);
     private static final String TAIL_NAME = generateName0(TailContext.class);
@@ -293,7 +294,7 @@ public class GameChannelPipeline {
      */
     protected void onUnhandledInboundException(Throwable cause) {
         try {
-            logger.warn("An exceptionCaught() event was fired, and it reached at the tail of the pipeline. " + "It usually means the last handler in the pipeline did not handle the exception.", cause);
+            log.warn("An exceptionCaught() event was fired, and it reached at the tail of the pipeline. " + "It usually means the last handler in the pipeline did not handle the exception.", cause);
         } finally {
             ReferenceCountUtil.release(cause);
         }
@@ -306,7 +307,7 @@ public class GameChannelPipeline {
      */
     protected void onUnhandledInboundMessage(Object msg) {
         try {
-            logger.debug("Discarded inbound message {} that reached at the tail of the pipeline. " + "Please check your pipeline configuration.", msg);
+            log.debug("Discarded inbound message {} that reached at the tail of the pipeline. " + "Please check your pipeline configuration.", msg);
         } finally {
             ReferenceCountUtil.release(msg);
         }
@@ -349,7 +350,7 @@ public class GameChannelPipeline {
         @Override
         public void channelRegister(AbstractGameChannelHandlerContext ctx, long playerId, GameChannelPromise promise) {
             promise.setSuccess();
-            logger.debug("注册事件未处理");
+            log.debug("注册事件未处理");
         }
 
         @Override

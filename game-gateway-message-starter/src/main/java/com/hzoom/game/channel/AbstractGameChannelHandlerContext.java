@@ -1,18 +1,16 @@
 package com.hzoom.game.channel;
 
 import com.hzoom.game.message.message.IMessage;
-import io.netty.channel.DefaultChannelPipeline;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Promise;
 import io.netty.util.internal.ObjectUtil;
 import io.netty.util.internal.PromiseNotificationUtil;
 import io.netty.util.internal.ThrowableUtil;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public abstract class AbstractGameChannelHandlerContext {
-    static final InternalLogger logger = InternalLoggerFactory.getInstance(DefaultChannelPipeline.class);
     volatile AbstractGameChannelHandlerContext next;
     volatile AbstractGameChannelHandlerContext prev;
     private final boolean inbound;
@@ -113,9 +111,9 @@ public abstract class AbstractGameChannelHandlerContext {
                     }
                 });
             } catch (Throwable t) {
-                if (logger.isWarnEnabled()) {
-                    logger.warn("Failed to submit an exceptionCaught() event.", t);
-                    logger.warn("The exceptionCaught() event that was failed to submit was:", cause);
+                if (log.isWarnEnabled()) {
+                    log.warn("Failed to submit an exceptionCaught() event.", t);
+                    log.warn("The exceptionCaught() event that was failed to submit was:", cause);
                 }
             }
         }
@@ -125,10 +123,10 @@ public abstract class AbstractGameChannelHandlerContext {
         try {
             handler().exceptionCaught(this, cause);
         } catch (Throwable error) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("An exception {}" + "was thrown by a user handler's exceptionCaught() " + "method while handling the following exception:", ThrowableUtil.stackTraceToString(error), cause);
-            } else if (logger.isWarnEnabled()) {
-                logger.warn("An exception '{}' [enable DEBUG level for full stacktrace] " + "was thrown by a user handler's exceptionCaught() " + "method while handling the following exception:", error, cause);
+            if (log.isDebugEnabled()) {
+                log.debug("An exception {}" + "was thrown by a user handler's exceptionCaught() " + "method while handling the following exception:", ThrowableUtil.stackTraceToString(error), cause);
+            } else if (log.isWarnEnabled()) {
+                log.warn("An exception '{}' [enable DEBUG level for full stacktrace] " + "was thrown by a user handler's exceptionCaught() " + "method while handling the following exception:", error, cause);
             }
         }
 
@@ -247,8 +245,8 @@ public abstract class AbstractGameChannelHandlerContext {
 
     private void notifyHandlerException(Throwable cause) {
         if (inExceptionCaught(cause)) {
-            if (logger.isWarnEnabled()) {
-                logger.warn("An exception was thrown by a user handler " + "while handling an exceptionCaught event", cause);
+            if (log.isWarnEnabled()) {
+                log.warn("An exception was thrown by a user handler " + "while handling an exceptionCaught event", cause);
             }
             return;
         }
@@ -335,7 +333,7 @@ public abstract class AbstractGameChannelHandlerContext {
     }
 
     private static void notifyOutboundHandlerException(Throwable cause, Promise<?> promise) {
-        PromiseNotificationUtil.tryFailure(promise, cause, logger);
+        PromiseNotificationUtil.tryFailure(promise, cause, null);
 
     }
 

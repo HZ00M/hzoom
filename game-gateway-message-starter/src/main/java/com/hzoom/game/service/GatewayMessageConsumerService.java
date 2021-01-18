@@ -6,16 +6,13 @@ import com.hzoom.game.channel.IMessageSendFactory;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.concurrent.GameEventExecutorGroup;
 import com.hzoom.game.config.GameChannelProperties;
-import com.hzoom.game.context.DispatchUserEventManager;
 import com.hzoom.game.context.GatewayMessageSendFactory;
 import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessagePackage;
-import com.hzoom.game.rpc.DispatchRPCEventManager;
 import com.hzoom.game.rpc.RpcMessageSendFactory;
 import com.hzoom.game.stream.TopicService;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
-import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.EventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,19 +60,19 @@ public class GatewayMessageConsumerService {
         log.info("StreamConsumer receive : "+message);
     }
 
-    @StreamListener(target = "${game.channel.business-game-message-topic}" + "-" + "${game.server.config.server-id}", condition = "${game.channel.topic-group-id}")
+    @StreamListener(target = "${game.channel.business-game-message-topic}" + "-" + "${game.server.config.server-id}")
     public void consume(MessagePackage messagePackage) {
         IMessage message = getMessage(IMessage.MessageType.REQUEST, messagePackage);
         messageEventDispatchService.fireReadMessage(messagePackage.getHeader().getPlayerId(), message);
     }
 
-    @StreamListener(target = "${game.channel.rpc-request-game-message-topic}" + "-" + "${game.server.config.server-id}", condition = "rpc-${game.channel.topic-group-id}")
+    @StreamListener(target = "${game.channel.rpc-request-game-message-topic}" + "-" + "${game.server.config.server-id}")
     public void consumeRPCRequestMessage(MessagePackage messagePackage) {
         IMessage message = getMessage(IMessage.MessageType.RPC_REQUEST,messagePackage);
         messageEventDispatchService.fireReadRPCRequest(message);
     }
 
-    @StreamListener(target = "${game.channel.rpc-response-game-message-topic}" + "-" + "${game.server.config.server-id}", condition = "rpc-request-${game.channel.topic-group-id}")
+    @StreamListener(target = "${game.channel.rpc-response-game-message-topic}" + "-" + "${game.server.config.server-id}")
     public void consumeRPCResponseMessage(MessagePackage messagePackage) {
         IMessage message = getMessage(IMessage.MessageType.RPC_RESPONSE, messagePackage);
         rpcMessageSendFactory.receiveResponse(message);

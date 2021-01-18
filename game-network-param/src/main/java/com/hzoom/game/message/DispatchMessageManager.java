@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class DispatchMessageService {
+public class DispatchMessageManager {
     @Autowired
     private ApplicationContext applicationContext;
     private Map<String, DispatcherMapping> dispatcherMappingMap = new HashMap<>();
@@ -33,8 +33,8 @@ public class DispatchMessageService {
      * @param packagePath
      */
     public static void scanGameMessages(ApplicationContext applicationContext, int serviceId, String packagePath) {
-        DispatchMessageService dispatchMessageService = applicationContext.getBean(DispatchMessageService.class);
-        dispatchMessageService.scanGameMessages(serviceId, packagePath);
+        DispatchMessageManager dispatchMessageManager = applicationContext.getBean(DispatchMessageManager.class);
+        dispatchMessageManager.scanGameMessages(serviceId, packagePath);
     }
 
     public void scanGameMessages(int serviceId, String packagePath) {

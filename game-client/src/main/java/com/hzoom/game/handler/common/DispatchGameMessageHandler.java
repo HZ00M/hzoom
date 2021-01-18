@@ -1,7 +1,7 @@
 package com.hzoom.game.handler.common;
 
 import com.hzoom.game.client.GameClientChannelContext;
-import com.hzoom.game.message.DispatchMessageService;
+import com.hzoom.game.message.DispatchMessageManager;
 import com.hzoom.game.message.message.IMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class DispatchGameMessageHandler extends ChannelInboundHandlerAdapter {
     @Autowired
-    private DispatchMessageService dispatchMessageService;
+    private DispatchMessageManager dispatchMessageManager;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         IMessage message = (IMessage)msg;
         GameClientChannelContext context = new GameClientChannelContext(ctx.channel(),message);
-        dispatchMessageService.callMethod(message,context);
+        dispatchMessageManager.callMethod(message,context);
     }
 
     @Override

@@ -8,14 +8,13 @@ import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.Promise;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GameChannel {
-    private static Logger logger = LoggerFactory.getLogger(GameChannel.class);
     private volatile EventExecutor executor;// 此channel所属的线程
     private IMessageSendFactory messageSendFactory; // 发送消息的工厂类接口
     private GameChannelPipeline channelPipeline;// 处理事件的链表
@@ -68,7 +67,7 @@ public class GameChannel {
                     });
                 } else {
                     gameChannelService.fireInactiveChannel(playerId);
-                    logger.error("player {} channel 注册失败", playerId, future.cause());
+                    log.error("player {} channel 注册失败", playerId, future.cause());
                 }
             }
         });
@@ -100,7 +99,7 @@ public class GameChannel {
                 task.run();
             }
         } catch (Throwable e) {
-            logger.error("服务器异常", e);
+            log.error("服务器异常", e);
         }
     }
 
