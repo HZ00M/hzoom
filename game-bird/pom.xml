@@ -11,5 +11,12 @@
 
     <artifactId>game-bird</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.hzoom</groupId>
+            <artifactId>game-gateway-message-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

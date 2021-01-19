@@ -21,16 +21,17 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.concurrent.TimeUnit;
 
+
 @Slf4j
 public abstract class AbstractGameMessageDispatchHandler<T> implements GameChannelInboundHandler {
     @Getter
-    private long playerId;
-    private DispatchMessageManager dispatchMessageManager;
-    private DispatchRPCEventManager dispatchRPCEventManager;
-    private DispatchUserEventManager dispatchUserEventManager;
-    private ScheduledFuture<?> flushToRedisScheduledFuture;
-    private ScheduledFuture<?> flushToDBScheduledFuture;
-    private GameServerProperties serverProperties;
+    protected long playerId;
+    protected DispatchMessageManager dispatchMessageManager;
+    protected DispatchRPCEventManager dispatchRPCEventManager;
+    protected DispatchUserEventManager dispatchUserEventManager;
+    protected ScheduledFuture<?> flushToRedisScheduledFuture;
+    protected ScheduledFuture<?> flushToDBScheduledFuture;
+    protected GameServerProperties serverProperties;
 
     protected abstract T getDataManager();
 
@@ -40,7 +41,7 @@ public abstract class AbstractGameMessageDispatchHandler<T> implements GameChann
 
     protected abstract Future<Boolean> updateToDB(Promise<Boolean> promise);
 
-    private AbstractGameMessageDispatchHandler(ApplicationContext context){
+    public AbstractGameMessageDispatchHandler(ApplicationContext context){
         dispatchMessageManager = context.getBean(DispatchMessageManager.class);
         dispatchRPCEventManager = context.getBean(DispatchRPCEventManager.class);
         dispatchUserEventManager = context.getBean(DispatchUserEventManager.class);

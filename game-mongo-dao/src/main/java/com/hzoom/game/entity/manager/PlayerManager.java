@@ -1,7 +1,9 @@
 package com.hzoom.game.entity.manager;
 
 import com.hzoom.game.entity.Player;
+import lombok.Getter;
 
+@Getter
 public class PlayerManager {
     private Player player;
 
