@@ -18,19 +18,18 @@ import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.Promise;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @MessageHandler
+@Slf4j
 public class PlayerLogicHandler {
-    private Logger logger = LoggerFactory.getLogger(PlayerLogicHandler.class);
 
     @UserEvent(IdleStateEvent.class)
     public void idleStateEvent(UserEventContext<PlayerManager> ctx, IdleStateEvent event, Promise<Object> promise) {
-        logger.debug("收到空闲事件：{}", event.getClass().getName());
+        log.debug("收到空闲事件：{}", event.getClass().getName());
         ctx.getCtx().close();
     }
 
@@ -45,7 +44,7 @@ public class PlayerLogicHandler {
 
     @MessageMapping(EnterGameMsgRequest.class)
     public void enterGame(EnterGameMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {
-        logger.info("接收到客户端进入游戏请求：{}", request.getHeader().getPlayerId());
+        log.info("接收到客户端进入游戏请求：{}", request.getHeader().getPlayerId());
         EnterGameMsgResponse response = new EnterGameMsgResponse();
         response.getBodyObj().setNickname("叶孤城");
         response.getBodyObj().setPlayerId(1);
@@ -65,7 +64,7 @@ public class PlayerLogicHandler {
                     GetPlayerByIdMsgResponse response = (GetPlayerByIdMsgResponse) future.get();
                     ctx.sendMessage(response);
                 } else {
-                    logger.error("playerId {} 数据查询失败", playerId, future.cause());
+                    log.error("playerId {} 数据查询失败", playerId, future.cause());
                 }
             }
         });
@@ -84,7 +83,7 @@ public class PlayerLogicHandler {
                         // 如果错码为0，表示扣钻石成功，可以增加挑战次数
                     }
                 } else {
-                    logger.error("竞技场扣除钻石失败",future.cause());
+                    log.error("竞技场扣除钻石失败",future.cause());
                     //向客户端返回错误码
                 }
             }

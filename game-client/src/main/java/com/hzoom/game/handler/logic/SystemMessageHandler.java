@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Base64Utils;
 
+import java.util.Date;
+
 @MessageHandler
 @Slf4j
 public class SystemMessageHandler {
@@ -38,7 +40,7 @@ public class SystemMessageHandler {
 
             //连接确认
             HeartbeatHandler heartbeatHandler = ctx.getChannel().pipeline().get(HeartbeatHandler.class);
-            heartbeatHandler.setConfirmSuccess(true);;
+            heartbeatHandler.setConfirmSuccess(true);
 
             log.info("连接认证成功,channelId:{}",ctx.getChannel().id().asShortText());
         } catch (Exception e) {
@@ -48,6 +50,6 @@ public class SystemMessageHandler {
 
     @MessageMapping(HeartbeatMsgResponse.class)
     public void heartbeatMsgResponse(HeartbeatMsgResponse response,GameClientChannelContext ctx){
-        log.info("服务器心跳返回，当前服务器时间：{}",response.getBodyObj().getServerTime());
+        log.info("服务器心跳返回，当前服务器时间：{}",new Date(response.getBodyObj().getServerTime()));
     }
 }

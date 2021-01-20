@@ -5,9 +5,12 @@ import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;
+import com.hzoom.game.utils.JWTUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * MessagePackage编码器
@@ -16,6 +19,8 @@ import io.netty.handler.codec.MessageToByteEncoder;
  */
 public class ServerEncodeHandler extends MessageToByteEncoder<MessagePackage> {
     private static final int MESSAGE_HEADER_LEN = 29;
+    @Setter
+    @Getter
     private String aesSecret;// 对称加密密钥
     private GatewayServerProperties serverProperties;
 
@@ -49,9 +54,5 @@ public class ServerEncodeHandler extends MessageToByteEncoder<MessagePackage> {
         if (body != null) {
             out.writeBytes(body);
         }
-    }
-
-    public void setAesSecret(String aesSecret) {
-        this.aesSecret = aesSecret;
     }
 }

@@ -4,10 +4,13 @@ import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
 import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.utils.JWTUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * MessagePackage解码器
@@ -15,11 +18,12 @@ import io.netty.util.ReferenceCountUtil;
  * + 版本号(int 4) + 是否压缩(byte 1) + body（变长）
  */
 public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
+    @Setter
+    @Getter
     private String aesSecret; //对称加密密钥
-
-    public void setAesSecret(String aesSecret) {
-        this.aesSecret = aesSecret;
-    }
+    @Setter
+    @Getter
+    private JWTUtil.TokenBody tokenBody;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -50,6 +54,9 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
             header.setServiceId(serviceId);
             header.setMessageSize(messageSize);
             header.setVersion(version);
+            if (tokenBody!=null){
+                header.setPlayerId(tokenBody.getPlayerId());
+            }
 
             MessagePackage messagePackage = new MessagePackage();
             messagePackage.setHeader(header);

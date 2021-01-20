@@ -29,26 +29,24 @@ public class GameClientInitService {
     @PostConstruct
     public void init() {
         DispatchMessageManager.scanGameMessages(applicationContext, 0, "com.hzoom");
-        this.selectGateway();
     }
 
-    private void selectGateway() {
+    public GameGatewayInfoResponse selectGateway(SelectGameGatewayParam param) {
+        GameGatewayInfoResponse gateGatewayMsg = null;
         if (gameClientProperties.isUseGameCenter()) {
-            SelectGameGatewayParam param = new SelectGameGatewayParam();
-            param.setOpenId("123456");
-            param.setPlayerId(123);
-            param.setUserId(123);
-            param.setZoneId("1");
-            GameGatewayInfoResponse gateGatewayMsg = this.selectGatewayInfoFromGameCenter(param);
+            gateGatewayMsg = this.selectGatewayInfoFromGameCenter(param);
             if (gateGatewayMsg != null) {
                 gameClientProperties.setDefaultGameGatewayHost(gateGatewayMsg.getIp());
                 gameClientProperties.setDefaultGameGatewayPort(gateGatewayMsg.getSocketPort());
                 gameClientProperties.setGatewayToken(gateGatewayMsg.getToken());
                 gameClientProperties.setRsaPrivateKey(gateGatewayMsg.getRsaPrivateKey());
             } else {
-                //todo
+               log.info("获取网关信息失败");
             }
+        }else {
+            log.error("未开启游戏大厅");
         }
+        return gateGatewayMsg;
     }
 
     private GameGatewayInfoResponse selectGatewayInfoFromGameCenter(SelectGameGatewayParam param) {

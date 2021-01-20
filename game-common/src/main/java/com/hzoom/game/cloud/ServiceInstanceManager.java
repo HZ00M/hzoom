@@ -1,12 +1,12 @@
 package com.hzoom.game.cloud;
 
-import com.hzoom.game.event.HeartbeatEvent;
 import com.hzoom.game.model.ServerInfo;
 import com.hzoom.game.stream.TopicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.event.HeartbeatEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -16,7 +16,7 @@ import java.util.*;
 
 @Component
 @Slf4j
-public class ServiceInstanceService {
+public class ServiceInstanceManager {
     @Autowired
     private DiscoveryClient discoveryClient;
     @Autowired

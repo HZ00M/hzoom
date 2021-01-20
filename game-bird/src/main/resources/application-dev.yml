@@ -1,0 +1,71 @@
+server:
+  port: 7001
+spring:
+  redis:
+    database: 0
+    host: 106.52.151.187
+    port: 6379
+    timeout: 3000
+    enable: true
+    jedis.pool:
+      max-active: 50
+      max-wait: 3000
+      max-idle: 50
+      min-idle: 10
+  rabbitmq:
+    host: 106.52.151.187
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: my_vhost
+  data:
+    mongodb:
+      host: 106.52.151.187
+      port: 27017
+      #      username: my-game
+      #      password: xxx123456
+      #      authentication-database: admin
+      database: hzoom
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848
+        service: game-logic
+        metadata:
+          serviceId: ${game.server.config.service-id}    # 服务的ServiceID，用于获取一组服务
+          serverId: ${game.server.config.server-id} # 服务的serverID，用于定位某一个具体的服务。
+          weight: 3         # 服务器负载权重
+
+    stream:
+      bindings:
+        business-game-message-topic:
+          #指定输入通道对应的主题名
+          destination: business-game-message-topic
+        gateway-game-message-topic:
+          destination: gateway-game-message-topic
+        rpc-request-game-message-topic:
+          destination: rpc-request-game-message-topic
+        rpc-response-game-message-topic:
+          destination: rpc-response-game-message-topic
+
+logging:
+  level:
+    com:
+      alibaba:
+        nacos:
+          client:
+            naming: warn
+game:
+  server:
+    config:
+      service-id: 101   #服务器中配置服务Id
+      server-id: 10101  #当前服务器的id
+      business-game-message-topic: business-game-message-topic-${game.server.config.server-id}
+      gateway-game-message-topic: gateway-game-message-topic
+  channel:
+    gateway-game-message-topic: gateway-game-message-topic
+    business-game-message-topic: business-game-message-topic
+    rpc-request-game-message-topic: rpc-request-game-message-topic
+    rpc-response-game-message-topic: rpc-response-game-message-topic
+    topic-group-id: ${game.server.config.server-id}
+

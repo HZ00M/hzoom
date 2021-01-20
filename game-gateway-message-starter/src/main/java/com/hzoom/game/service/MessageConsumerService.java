@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class GatewayMessageConsumerService {
+public class MessageConsumerService {
     @Autowired
     private GameChannelProperties gameChannelProperties;
     @Autowired
@@ -55,25 +55,23 @@ public class GatewayMessageConsumerService {
         workerGroup = new GameEventExecutorGroup(gameChannelProperties.getWorkerThreads());
     }
 
-    @StreamListener()
-    public void receive(String message){
-        log.info("StreamConsumer receive : "+message);
-    }
-
-    @StreamListener(target = "${game.channel.business-game-message-topic}" + "-" + "${game.server.config.server-id}")
-    public void consume(MessagePackage messagePackage) {
+    @StreamListener(value = "business-game-message-topic")
+    public void consumeGameMessage(byte[] payload) {
+        MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.REQUEST, messagePackage);
         messageEventDispatchService.fireReadMessage(messagePackage.getHeader().getPlayerId(), message);
     }
 
-    @StreamListener(target = "${game.channel.rpc-request-game-message-topic}" + "-" + "${game.server.config.server-id}")
-    public void consumeRPCRequestMessage(MessagePackage messagePackage) {
+    @StreamListener(value = "rpc-request-game-message-topic")
+    public void consumeRPCRequestMessage(byte[] payload) {
+        MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.RPC_REQUEST,messagePackage);
         messageEventDispatchService.fireReadRPCRequest(message);
     }
 
-    @StreamListener(target = "${game.channel.rpc-response-game-message-topic}" + "-" + "${game.server.config.server-id}")
-    public void consumeRPCResponseMessage(MessagePackage messagePackage) {
+    @StreamListener(value = "rpc-response-game-message-topic")
+    public void consumeRPCResponseMessage(byte[] payload) {
+        MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.RPC_RESPONSE, messagePackage);
         rpcMessageSendFactory.receiveResponse(message);
     }

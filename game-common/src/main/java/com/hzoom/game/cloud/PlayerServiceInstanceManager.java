@@ -24,7 +24,7 @@ public class PlayerServiceInstanceManager {
     @Autowired(required = false)
     private RedisService redisService;
     @Autowired
-    private ServiceInstanceService instanceService;
+    private ServiceInstanceManager instanceService;
     /**
      * 缓存PlayerID对应的所有的服务的实例的id,最外层的key是playerId，里面的Map的key是serviceId，value是serverId
      */

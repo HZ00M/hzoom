@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.event.HeartbeatEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -40,6 +42,11 @@ public class GameGatewayService {
                 return gameGatewayInfo;
             }
         });
+    }
+
+    @EventListener(HeartbeatEvent.class)
+    public void onApplicationEvent(HeartbeatEvent event){
+        refreshGatewayInfo();
     }
 
 

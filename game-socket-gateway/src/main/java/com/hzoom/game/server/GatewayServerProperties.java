@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "game.gateway.server.config")
 @Configuration
 public class GatewayServerProperties {
+    private String businessGameMessageTopic = "business-game-message-topic";
+    private String gatewayGameMessageTopic = "gateway-game-message-topic";
     /**
      * 服务器ID
      */

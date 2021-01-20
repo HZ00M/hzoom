@@ -29,11 +29,11 @@ public class DispatchGameMessageHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.info("连接断开，channelId {}",ctx.channel().id().asShortText());
+        log.info("{} 连接断开，channelId {}",this.getClass().getSimpleName(),ctx.channel().id().asShortText());
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("服务异常",cause);
+        log.error("{} 服务异常 {}",this.getClass().getSimpleName(),cause);
     }
 }

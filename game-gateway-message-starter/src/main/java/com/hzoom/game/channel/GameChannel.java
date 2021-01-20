@@ -8,6 +8,7 @@ import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.Promise;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 public class GameChannel {
     private volatile EventExecutor executor;// 此channel所属的线程
     private IMessageSendFactory messageSendFactory; // 发送消息的工厂类接口
+    @Getter
     private GameChannelPipeline channelPipeline;// 处理事件的链表
     private GameMessageEventDispatchService gameChannelService; // 事件分发管理器
     private volatile boolean registered; // 标记GameChannel是否注册成功

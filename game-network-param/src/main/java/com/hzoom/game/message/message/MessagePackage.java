@@ -3,6 +3,8 @@ package com.hzoom.game.message.message;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+import java.util.Arrays;
+
 public class MessagePackage implements IMessage{
     private final static int HEADER_FIX_LEN = 60;
     private Header header;
@@ -10,11 +12,6 @@ public class MessagePackage implements IMessage{
 
     public MessagePackage(){
     }
-    public MessagePackage(IMessage message){
-        this.header = message.getHeader();
-        this.body = message.body();
-    }
-
     public byte[] transportObject(){
         int initialCapacity = HEADER_FIX_LEN;
         if (body != null) {
@@ -44,14 +41,19 @@ public class MessagePackage implements IMessage{
         return value;
     }
 
+    public MessagePackage(IMessage message){
+        this.header = message.getHeader();
+        this.body = message.body();
+    }
+
     public static MessagePackage readMessagePackage(byte[] value) {
         ByteBuf byteBuf = Unpooled.wrappedBuffer(value);//直接使用byte[]包装为ByteBuf，减少一次数据复制
         int messageSize = byteBuf.readInt();//依次读取包头信息
         int toServerId = byteBuf.readInt();
         int fromServerId = byteBuf.readInt();
         int clientSeqId = byteBuf.readInt();
-        int messageId = byteBuf.readInt();
         int serviceId = byteBuf.readInt();
+        int messageId = byteBuf.readInt();
         int version = byteBuf.readInt();
         long clientSendTime = byteBuf.readLong();
         long serverSendTime = byteBuf.readLong();
@@ -138,4 +140,10 @@ public class MessagePackage implements IMessage{
         return header.getMessageType();
     }
 
+    @Override
+    public String toString() {
+        return "MessagePackage{" +
+                "header=" + header.toString() +
+                '}';
+    }
 }

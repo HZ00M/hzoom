@@ -10,6 +10,7 @@ spring:
       max-wait: 3000
       max-idle: 50
       min-idle: 10
+
 game:
   client:
     config:

@@ -14,7 +14,7 @@ public interface IMessage {
     MessageType getMessageType();
 
     @Data
-    class Header {
+    class Header implements Cloneable{
         private int messageSize;
         private long clientSendTime;
         private long serverSendTime;

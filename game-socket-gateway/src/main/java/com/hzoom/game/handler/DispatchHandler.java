@@ -1,7 +1,6 @@
 package com.hzoom.game.handler;
 
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
-import com.hzoom.game.config.TopicProperties;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.message.message.MessagePackage;
@@ -26,16 +25,14 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
     private GatewayServerProperties gatewayServerProperties;
     @Autowired
     private TopicService topicService;
-    @Autowired
-    private TopicProperties topicProperties;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         MessagePackage messagePackage = (MessagePackage)msg;
-        dispatchMessage(ctx,messagePackage);
+        dispatchMessage(ctx,messagePackage,gatewayServerProperties);
     }
 
-    public Promise dispatchMessage(ChannelHandlerContext ctx, MessagePackage messagePackage) {
+    public Promise dispatchMessage(ChannelHandlerContext ctx, MessagePackage messagePackage,GatewayServerProperties gatewayServerProperties) {
         Promise<Integer> promise = new DefaultPromise<>(ctx.executor());
         playerServiceInstanceManager.selectServerId(messagePackage.getHeader().getPlayerId(), messagePackage.getHeader().getServiceId(), promise)
                 .addListener((Future<Integer> future) -> {
@@ -44,7 +41,7 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
                         IMessage.Header header = messagePackage.getHeader();
                         header.setToServerId(toServerId);
                         header.setFromServerId(gatewayServerProperties.getServerId());
-                        String topic = topicProperties.getGameTopic();
+                        String topic = gatewayServerProperties.getBusinessGameMessageTopic();
                         topicService.sendMessage(messagePackage.transportObject(), topic);
                         log.info("发送到{}消息成功->{}",topic, messagePackage.getHeader());
                     } else {

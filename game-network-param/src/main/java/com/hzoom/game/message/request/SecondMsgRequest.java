@@ -5,7 +5,7 @@ import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessageMetadata;
 import lombok.Data;
 
-@MessageMetadata(messageId = 10002, serviceId = 1, messageType = IMessage.MessageType.REQUEST)
+@MessageMetadata(messageId = 10002, serviceId = 101, messageType = IMessage.MessageType.REQUEST)
 public class SecondMsgRequest extends AbstractJsonMessage<SecondMsgRequest.SecondRequestBody> {
 
     @Override

@@ -1,4 +1,4 @@
-package com.hzoom.game.common;
+package com.hzoom.game;
 
 import java.util.HashMap;
 import java.util.Map;

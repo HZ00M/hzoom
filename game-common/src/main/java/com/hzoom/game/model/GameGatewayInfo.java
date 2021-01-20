@@ -1,6 +1,5 @@
 package com.hzoom.game.model;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.cloud.client.ServiceInstance;
 

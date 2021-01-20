@@ -8,7 +8,7 @@ import com.hzoom.game.utils.JWTUtil;
 import com.hzoom.game.utils.NettyUtils;
 import com.hzoom.game.error.GatewaySocketError;
 import com.hzoom.game.utils.RSAUtils;
-import com.hzoom.game.common.GatewayMessageTypeEnum;
+import com.hzoom.game.GatewayMessageTypeEnum;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.ConnectStatusMsgRequest;
@@ -71,6 +71,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
                 ServerDecodeHandler serverDecodeHandler = ctx.pipeline().get(ServerDecodeHandler.class);
                 serverEncodeHandler.setAesSecret(aesSecretKey);
                 serverDecodeHandler.setAesSecret(aesSecretKey);
+                serverDecodeHandler.setTokenBody(tokenBody);
                 byte[] clientRsaPublicKey = getClientRsaPublicKey();
                 byte[] encryptAesKey = RSAUtils.encryptByPublicKey(aesSecretKey.getBytes(), clientRsaPublicKey);// 使用客户端的公钥加密对称加密密钥
 
@@ -81,6 +82,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
                 // 通知各个服务，某个用户连接成功
                 String ip = NettyUtils.getRemoteIP(ctx.channel());
                 broadcastConnectMsg(true, ctx.executor(), ip);
+//                ctx.pipeline().remove(this);
             }
         } else {
             if (!confirmsSuccess) {

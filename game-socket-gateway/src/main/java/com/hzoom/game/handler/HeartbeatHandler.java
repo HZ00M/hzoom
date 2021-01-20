@@ -1,6 +1,6 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.game.common.GatewayMessageTypeEnum;
+import com.hzoom.game.GatewayMessageTypeEnum;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.response.HeartbeatMsgResponse;
 import io.netty.channel.ChannelHandlerContext;
