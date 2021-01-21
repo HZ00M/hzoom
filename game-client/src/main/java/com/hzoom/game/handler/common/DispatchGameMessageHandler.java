@@ -24,7 +24,7 @@ public class DispatchGameMessageHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         IMessage message = (IMessage)msg;
         GameClientChannelContext context = new GameClientChannelContext(ctx.channel(),message);
-        dispatchMessageManager.callMethod(message,context);
+        dispatchMessageManager.callMethod(context,message);
     }
 
     @Override

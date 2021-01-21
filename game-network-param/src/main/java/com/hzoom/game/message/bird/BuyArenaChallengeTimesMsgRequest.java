@@ -12,6 +12,6 @@ public class BuyArenaChallengeTimesMsgRequest extends AbstractJsonMessage<BuyAre
 
     @Override
     protected Class<RequestBody> getBodyObjClass() {
-        return null;
+        return RequestBody.class;
     }
 }

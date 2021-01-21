@@ -19,7 +19,7 @@ public class PlayerService {
     private RedisService redisService;
 
     private String getNickNameKey(String zoneId, String nickName) {
-        return RedisKeyEnum.PLAYER_NICKNAME.getKey(zoneId + "_" + nickName);
+        return RedisKeyEnum.PLAYER_NICKNAME.getKey(zoneId , nickName);
     }
 
     private boolean saveNickNameIfAbsent(String zoneId, String nickName) {

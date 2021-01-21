@@ -11,6 +11,6 @@ public class GetArenaPlayerListMsgRequest extends AbstractJsonMessage<GetArenaPl
     }
     @Override
     protected Class<RequestBody> getBodyObjClass() {
-        return null;
+        return RequestBody.class;
     }
 }

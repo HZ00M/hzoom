@@ -59,7 +59,7 @@ public class DispatchMessageManager {
         }
     }
 
-    public void callMethod(IMessage message, IChannelContext ctx) {// 当收到网络消息之后，调用此方法。
+    public void callMethod( IChannelContext ctx,IMessage message) {// 当收到网络消息之后，调用此方法。
         String key = message.getClass().getName();
         DispatcherMapping dispatcherMapping = dispatcherMappingMap.get(key);
         if (dispatcherMapping!=null){

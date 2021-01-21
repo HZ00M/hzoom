@@ -1,6 +1,6 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.game.context.GatewayMessageContext;
+import com.hzoom.message.context.GatewayMessageContext;
 import com.hzoom.game.entity.manager.PlayerManager;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;

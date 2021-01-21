@@ -38,15 +38,15 @@ spring:
 
     stream:
       bindings:
-        business-game-message-topic:
-          #指定输入通道对应的主题名
-          destination: business-game-message-topic
-        gateway-game-message-topic:
-          destination: gateway-game-message-topic
-        rpc-request-game-message-topic:
-          destination: rpc-request-game-message-topic
-        rpc-response-game-message-topic:
-          destination: rpc-response-game-message-topic
+#        business-game-message-topic:
+#          #指定输入通道对应的主题名
+#          destination: business-game-message-topic
+        test:
+          destination: test1111
+#        rpc-request-game-message-topic:
+#          destination: rpc-request-game-message-topic
+#        rpc-response-game-message-topic:
+#          destination: rpc-response-game-message-topic
 
 logging:
   level:
@@ -60,12 +60,9 @@ game:
     config:
       service-id: 101   #服务器中配置服务Id
       server-id: 10101  #当前服务器的id
-      business-game-message-topic: business-game-message-topic-${game.server.config.server-id}
+      business-game-message-topic: business-game-message-topic
       gateway-game-message-topic: gateway-game-message-topic
-  channel:
-    gateway-game-message-topic: gateway-game-message-topic
-    business-game-message-topic: business-game-message-topic
-    rpc-request-game-message-topic: rpc-request-game-message-topic
-    rpc-response-game-message-topic: rpc-response-game-message-topic
-    topic-group-id: ${game.server.config.server-id}
+      rpc-request-game-message-topic: rpc-request-game-message-topic
+      rpc-response-game-message-topic: rpc-response-game-message-topic
+      topic-group-id: ${game.server.config.server-id}
 

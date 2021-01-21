@@ -5,6 +5,8 @@ import com.hzoom.game.client.GameClientInitService;
 import com.hzoom.game.config.GameClientProperties;
 import com.hzoom.game.http.request.SelectGameGatewayParam;
 import com.hzoom.game.http.response.GameGatewayInfoResponse;
+import com.hzoom.game.message.bird.BuyArenaChallengeTimesMsgRequest;
+import com.hzoom.game.message.bird.EnterGameMsgRequest;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.FirstMsgRequest;
@@ -88,13 +90,13 @@ public class GameClientCommand {
 //            request.setRequestBody(requestBody);
 //            gameClientBoot.getChannel().writeAndFlush(request);
 //        }
-//        if(messageId == 201) {//进入游戏请求
-//            EnterGameMsgRequest request = new EnterGameMsgRequest();
-//            gameClientBoot.getChannel().writeAndFlush(request);
-//        }
-//        if(messageId == 210) {
-//            BuyArenaChallengeTimesMsgRequest request = new BuyArenaChallengeTimesMsgRequest();
-//            gameClientBoot.getChannel().writeAndFlush(request);
-//        }
+        if(messageId == 201) {//进入游戏请求
+            EnterGameMsgRequest request = new EnterGameMsgRequest();
+            gameClientBoot.getChannel().writeAndFlush(request);
+        }
+        if(messageId == 202) {
+            BuyArenaChallengeTimesMsgRequest request = new BuyArenaChallengeTimesMsgRequest();
+            gameClientBoot.getChannel().writeAndFlush(request);
+        }
     }
 }

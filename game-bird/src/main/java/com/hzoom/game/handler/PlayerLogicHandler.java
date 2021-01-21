@@ -1,15 +1,15 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.game.context.GatewayMessageContext;
-import com.hzoom.game.context.UserEvent;
-import com.hzoom.game.context.UserEventContext;
+import com.hzoom.message.context.GatewayMessageContext;
+import com.hzoom.message.context.UserEvent;
+import com.hzoom.message.context.UserEventContext;
 import com.hzoom.game.entity.Player;
 import com.hzoom.game.entity.manager.PlayerManager;
 import com.hzoom.game.event.GetArenaPlayerEvent;
 import com.hzoom.game.event.GetPlayerInfoEvent;
 import com.hzoom.game.message.bird.*;
-import com.hzoom.game.message.bird.rpc.ConsumeDiamondMsgRequest;
-import com.hzoom.game.message.bird.rpc.ConsumeDiamondMsgResponse;
+import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCRequest;
+import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCResponse;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
 import com.hzoom.game.message.message.IMessage;
@@ -72,13 +72,13 @@ public class PlayerLogicHandler {
 
     @MessageMapping(BuyArenaChallengeTimesMsgRequest.class) // 接收客户端购买竞技场挑战次数的请求
     public void buyArenaChallengeTimes(BuyArenaChallengeTimesMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {
-        ConsumeDiamondMsgRequest consumeDiamondMsgRequest = new ConsumeDiamondMsgRequest();
+        ConsumeDiamondRPCRequest consumeDiamondRPCRequest = new ConsumeDiamondRPCRequest();
         Promise<IMessage> promise = ctx.newPromise();
         promise.addListener(new GenericFutureListener<Future<IMessage>>() {
             @Override
             public void operationComplete(Future<IMessage> future) throws Exception {
                 if (future.isSuccess()) {
-                    ConsumeDiamondMsgResponse rpcResponse = (ConsumeDiamondMsgResponse) future.get();
+                    ConsumeDiamondRPCResponse rpcResponse = (ConsumeDiamondRPCResponse) future.get();
                     if(rpcResponse.getHeader().getErrorCode() == 0) {
                         // 如果错码为0，表示扣钻石成功，可以增加挑战次数
                     }
@@ -88,7 +88,7 @@ public class PlayerLogicHandler {
                 }
             }
         });
-        ctx.sendRPCMessage(consumeDiamondMsgRequest, promise);
+        ctx.sendRPCMessage(consumeDiamondRPCRequest, promise);
     }
 
 
