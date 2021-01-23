@@ -7,6 +7,7 @@ import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +17,6 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 public class GatewayMessageManager{
-    @Autowired
-    private ChannelServerProperties channelServerProperties;
     private Map<Long, Channel> playerChannelMap = new HashMap<>();// playerId与Netty Channel的映射容器，这里使用的是HashMap，所以，对于Map的操作都要放在锁里面
     private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();// 读写锁,使用非公平锁
 

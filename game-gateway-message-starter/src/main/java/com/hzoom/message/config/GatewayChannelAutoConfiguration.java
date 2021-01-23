@@ -5,6 +5,7 @@ import com.hzoom.message.service.GatewayMessageManager;
 import com.hzoom.message.stream.GatewaySink;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -20,8 +21,10 @@ import java.util.Map;
 @Configuration
 @Slf4j
 @EnableBinding(GatewaySink.class)
+@EnableConfigurationProperties({ChannelServerProperties.class})
 public class GatewayChannelAutoConfiguration implements BeanPostProcessor{
 
+    @Autowired
     private ChannelServerProperties channelServerProperties;
 
     @Bean
@@ -36,12 +39,6 @@ public class GatewayChannelAutoConfiguration implements BeanPostProcessor{
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        if (bean instanceof ChannelServerProperties){
-            channelServerProperties = (ChannelServerProperties)bean;
-        }
-        if (bean instanceof TopicService){
-            log.info("TopicService");
-        }
         return bean;
     }
 
@@ -56,6 +53,7 @@ public class GatewayChannelAutoConfiguration implements BeanPostProcessor{
             gatewayBinderProperties.setGroup(channelServerProperties.getTopicGroupId());
             binders.put("gateway", gatewayBinderProperties);
         }
+
         return bean;
     }
 }

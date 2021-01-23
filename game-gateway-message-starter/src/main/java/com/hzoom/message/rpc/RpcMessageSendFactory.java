@@ -47,7 +47,7 @@ public class RpcMessageSendFactory {
                     if (f.isSuccess()) {
                         Integer toServerId = f.get();
                         String sendTopic = topicService.generateTopic(requestTopic, toServerId);
-                        topicService.sendMessage(messagePackage.transportObject(), requestTopic);
+                        topicService.sendMessage(messagePackage.transportObject(), sendTopic);
                         rpcCallbackManager.addCallback(message.getHeader().getClientSeqId(), promise);
                     } else {
                         log.error("获取目标服务实例ID出错", f.cause());
@@ -58,7 +58,7 @@ public class RpcMessageSendFactory {
     public void sendRPCResponse(IMessage message) {
         MessagePackage gameMessagePackage = new MessagePackage(message);
         String sendTopic = topicService.generateTopic(responseTopic, message.getHeader().getToServerId());
-        topicService.sendMessage(gameMessagePackage.transportObject(),responseTopic);
+        topicService.sendMessage(gameMessagePackage.transportObject(),sendTopic);
     }
 
     public void receiveResponse(IMessage gameMessage) {

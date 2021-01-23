@@ -14,7 +14,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 @Slf4j
 public class DispatchRPCEventManager {
     private Map<String, DispatcherMapping> userEventMethodCache = new HashMap<>();//数据缓存

@@ -21,7 +21,7 @@ public class GatewayMessageSendFactory implements IMessageSendFactory {
         int toServerId = gameMessagePackage.getHeader().getToServerId();
         // 动态创建游戏网关监听消息的topic
         String sendTopic = topicService.generateTopic(topic, toServerId);
-        topicService.sendMessage(gameMessagePackage.transportObject(), topic);
+        topicService.sendMessage(gameMessagePackage.transportObject(), sendTopic);
         log.info("send topic: {} , message: {}", topic, gameMessagePackage.toString());
         promise.setSuccess();
     }

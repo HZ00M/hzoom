@@ -45,8 +45,9 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
                         header.setToServerId(toServerId);
                         header.setFromServerId(channelServerProperties.getServerId());
                         String topic = channelServerProperties.getBusinessGameMessageTopic();
-                        topicService.sendMessage(messagePackage.transportObject(), topic);
-                        log.info("发送到{}消息成功->{}",topic, messagePackage.getHeader());
+                        String sendTopic = topicService.generateTopic(topic, toServerId);
+                        topicService.sendMessage(messagePackage.transportObject(), sendTopic);
+
                     } else {
                         log.error("消息发送失败", future.cause());
                     }

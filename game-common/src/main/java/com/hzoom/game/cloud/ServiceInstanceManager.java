@@ -19,8 +19,6 @@ import java.util.*;
 public class ServiceInstanceManager {
     @Autowired
     private DiscoveryClient discoveryClient;
-    @Autowired
-    private TopicService topicService;
 
     private Map<Integer, List<ServerInfo>> serverInfos; // serviceId对应的服务器集合，一个服务可能部署到多台服务器上面，实现负载均衡
 
@@ -105,8 +103,5 @@ public class ServiceInstanceManager {
         return Integer.parseInt(weight);
     }
 
-    public TopicService getTopicService() {
-        return topicService;
-    }
 
 }

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfiguration {
-    @Autowired
-    private ChannelServerProperties channelServerProperties;
+//    @Autowired
+//    private ChannelServerProperties channelServerProperties;
 
 }
