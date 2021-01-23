@@ -1,4 +1,4 @@
-package com.hzoom.game.stream;
+package com.hzoom.core.stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.binding.BinderAwareChannelResolver;

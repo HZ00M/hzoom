@@ -1,10 +1,11 @@
 package com.hzoom.game.handler;
 
+import com.hzoom.core.stream.TopicService;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.server.GatewayServerProperties;
+import com.hzoom.message.config.ChannelServerProperties;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -24,6 +25,8 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
     @Autowired
     private GatewayServerProperties gatewayServerProperties;
     @Autowired
+    private ChannelServerProperties channelServerProperties;
+    @Autowired
     private TopicService topicService;
 
     @Override
@@ -40,8 +43,8 @@ public class DispatchHandler extends ChannelInboundHandlerAdapter {
                         Integer toServerId = future.get();
                         IMessage.Header header = messagePackage.getHeader();
                         header.setToServerId(toServerId);
-                        header.setFromServerId(gatewayServerProperties.getServerId());
-                        String topic = gatewayServerProperties.getBusinessGameMessageTopic();
+                        header.setFromServerId(channelServerProperties.getServerId());
+                        String topic = channelServerProperties.getBusinessGameMessageTopic();
                         topicService.sendMessage(messagePackage.transportObject(), topic);
                         log.info("发送到{}消息成功->{}",topic, messagePackage.getHeader());
                     } else {

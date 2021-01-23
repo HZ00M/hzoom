@@ -5,15 +5,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@ConfigurationProperties(prefix = "game.gateway.server.config")
+@ConfigurationProperties(prefix = "game.gateway.config")
 @Configuration
 public class GatewayServerProperties {
-    private String businessGameMessageTopic = "business-game-message-topic";
-    private String gatewayGameMessageTopic = "gateway-game-message-topic";
-    /**
-     * 服务器ID
-     */
-    private int serverId;
+
     /**
      *  服务端口
      */

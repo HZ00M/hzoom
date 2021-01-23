@@ -35,17 +35,6 @@ spring:
           serviceId: ${game.server.config.service-id}    # 服务的ServiceID，用于获取一组服务
           serverId: ${game.server.config.server-id} # 服务的serverID，用于定位某一个具体的服务。
           weight: 1         # 服务器负载权重
-#    stream:
-#      bindings:
-#        business:
-#          #指定输入通道对应的主题名
-#          destination: business-game-message-topic-10102
-#        gateway-game-message-topic:
-#          destination: gateway-game-message-topic-10102
-#        rpc-request:
-#          destination: rpc-request-game-message-topic-10102
-#        rpc-response:
-#          destination: rpc-response-game-message-topic-10102
 
 logging:
   level:
@@ -56,7 +45,7 @@ logging:
             naming: warn
 
 game:
-  server:
+  topic:
     config:
       service-id: 102   #服务器中配置服务Id
       server-id: 10102  #当前服务器的id

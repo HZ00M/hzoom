@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
     @Autowired
-    private GameMessageManager messageService;
+    private GameMessageManager gameMessageManager;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -35,7 +35,7 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
             returnPackage.setBody(response.body());
             ctx.writeAndFlush(returnPackage);
         } else if (messageId == 10002) {
-            SecondMsgRequest request = (SecondMsgRequest) messageService.getRequestInstanceByMessageId(messageId);
+            SecondMsgRequest request = (SecondMsgRequest) gameMessageManager.getRequestInstanceByMessageId(messageId);
             request.read(gameMessagePackage.body());
             log.debug("收到request3:{}", request);
             SecondMsgResponse response = new SecondMsgResponse();

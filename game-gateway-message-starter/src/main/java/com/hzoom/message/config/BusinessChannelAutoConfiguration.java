@@ -1,32 +1,29 @@
 package com.hzoom.message.config;
 
+import com.hzoom.core.stream.TopicService;
 import com.hzoom.message.context.DispatchUserEventManager;
-import com.hzoom.message.service.MessageManager;
-import com.hzoom.message.stream.Sink;
+import com.hzoom.message.service.BusinessMessageManager;
+import com.hzoom.message.stream.BusinessSink;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.config.BindingProperties;
-import org.springframework.cloud.stream.config.BindingServiceProperties;
+import org.springframework.cloud.stream.config.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-
-@EnableConfigurationProperties({ChannelServerProperties.class})
 @Configuration
 @Slf4j
-@EnableBinding(Sink.class)
-public class ChannelAutoConfiguration implements BeanPostProcessor {
+@EnableBinding(BusinessSink.class)
+public class BusinessChannelAutoConfiguration implements BeanPostProcessor{
 
     private ChannelServerProperties channelServerProperties;
 
     @Bean
-    public MessageManager messageManager(){
-        return new MessageManager();
+    public BusinessMessageManager messageManager(){
+        return new BusinessMessageManager();
     }
 
     @Bean
@@ -34,11 +31,25 @@ public class ChannelAutoConfiguration implements BeanPostProcessor {
         return new DispatchUserEventManager();
     }
 
+    @Bean
+    public TopicService topicService(){
+        return new TopicService();
+    }
+
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof ChannelServerProperties){
             channelServerProperties = (ChannelServerProperties)bean;
         }
+        if (bean instanceof TopicService){
+            log.info("TopicService");
+        }
+        return bean;
+    }
+
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof BindingServiceProperties){
             BindingServiceProperties bindingServiceProperties = (BindingServiceProperties)bean;
             Map<String, BindingProperties> binders = bindingServiceProperties.getBindings();
@@ -60,5 +71,4 @@ public class ChannelAutoConfiguration implements BeanPostProcessor {
         }
         return bean;
     }
-
 }

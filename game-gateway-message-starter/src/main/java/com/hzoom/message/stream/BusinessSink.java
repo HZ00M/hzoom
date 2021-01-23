@@ -3,10 +3,13 @@ package com.hzoom.message.stream;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;
 
-public interface Sink {
+public interface BusinessSink {
+//    String test = "test";
     String business = "business";
     String rpcRequest = "rpc-request";
     String rpcResponse = "rpc-response";
+//    @Input(test)
+//    SubscribableChannel test();
     @Input(business)
     SubscribableChannel business();
     @Input(rpcRequest)

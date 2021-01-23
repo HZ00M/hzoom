@@ -3,7 +3,7 @@ package com.hzoom.message.rpc;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessagePackage;
-import com.hzoom.game.stream.TopicService;
+import com.hzoom.core.stream.TopicService;
 import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.EventExecutorGroup;
 import io.netty.util.concurrent.Future;

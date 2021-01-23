@@ -1,16 +1,19 @@
 package com.hzoom.game;
 
 import com.hzoom.game.server.GatewayServerBoot;
-import com.hzoom.game.stream.TopicDefine;
+import com.hzoom.message.annotation.StartChannelServer;
+import com.hzoom.message.config.ChannelServerProperties;
+import com.hzoom.message.enums.ChannelType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableBinding(value = {TopicDefine.class})
+@StartChannelServer(ChannelType.GATEWAY)
+@Import(ChannelServerProperties.class)
 public class GameSocketGatewayApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(GameSocketGatewayApplication.class, args);

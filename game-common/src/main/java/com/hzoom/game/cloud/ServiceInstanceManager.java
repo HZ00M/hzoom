@@ -1,7 +1,7 @@
 package com.hzoom.game.cloud;
 
+import com.hzoom.core.stream.TopicService;
 import com.hzoom.game.model.ServerInfo;
-import com.hzoom.game.stream.TopicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;

@@ -2,19 +2,19 @@ package com.hzoom.game.handler;
 
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.JWTUtil;
 import com.hzoom.game.utils.NettyUtils;
 import com.hzoom.game.error.GatewaySocketError;
 import com.hzoom.game.utils.RSAUtils;
-import com.hzoom.game.GatewayMessageTypeEnum;
+import com.hzoom.game.enums.GatewayMessageTypeEnum;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.ConnectStatusMsgRequest;
 import com.hzoom.game.message.response.ConfirmMsgResponse;
 import com.hzoom.game.server.GatewayServerProperties;
-import com.hzoom.game.server.PlayerChannelManager;
+import com.hzoom.message.service.GatewayMessageManager;
+import com.hzoom.core.stream.TopicService;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -31,17 +31,15 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ConfirmHandler extends ChannelInboundHandlerAdapter {
     private PlayerServiceInstanceManager playerServiceInstanceManager;
-    private PlayerChannelManager playerChannelManager;
-    private TopicService topicService;
+    private GatewayMessageManager gatewayMessageManager;
     private GatewayServerProperties gatewayServerProperties;
     private boolean confirmsSuccess = false;
     private ScheduledFuture<?> scheduledFuture;
 
-    public ConfirmHandler(PlayerServiceInstanceManager playerServiceInstanceManager, PlayerChannelManager playerChannelManager
-            , TopicService topicService, GatewayServerProperties gatewayServerProperties) {
+    public ConfirmHandler(PlayerServiceInstanceManager playerServiceInstanceManager, GatewayMessageManager gatewayMessageManager
+            ,  GatewayServerProperties gatewayServerProperties) {
         this.playerServiceInstanceManager = playerServiceInstanceManager;
-        this.playerChannelManager = playerChannelManager;
-        this.topicService = topicService;
+        this.gatewayMessageManager = gatewayMessageManager;
         this.gatewayServerProperties = gatewayServerProperties;
     }
 
@@ -64,7 +62,7 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
                 tokenBody = JWTUtil.getTokenBody(token);
                 confirmsSuccess = true;//标记认证成功
                 repeatConnect();
-                playerChannelManager.addChannel(tokenBody.getPlayerId(), ctx.channel());//加入channel管理
+                gatewayMessageManager.addChannel(tokenBody.getPlayerId(), ctx.channel());//加入channel管理
                 String aesSecretKey = AESUtils.createSecret(tokenBody.getUserId(), tokenBody.getZoneId());//生成此连接的AES密钥
                 // 将对称加密密钥分别设置到编码和解码的handler中
                 ServerEncodeHandler serverEncodeHandler = ctx.pipeline().get(ServerEncodeHandler.class);
@@ -126,14 +124,14 @@ public class ConfirmHandler extends ChannelInboundHandlerAdapter {
             scheduledFuture.cancel(true);
         }
         if (tokenBody != null) { // 连接断开之后，移除连接
-            playerChannelManager.removeChannel(tokenBody.getPlayerId(), ctx.channel());// 调用移除，否则出现内存泄漏的问题。
+            gatewayMessageManager.removeChannel(tokenBody.getPlayerId(), ctx.channel());// 调用移除，否则出现内存泄漏的问题。
         }
         ctx.fireChannelInactive();
     }
 
     private void repeatConnect() {
         if (tokenBody != null) {
-            Channel existChannel = playerChannelManager.getChannel(tokenBody.getPlayerId());
+            Channel existChannel = gatewayMessageManager.getChannel(tokenBody.getPlayerId());
             if (existChannel != null) {//关闭旧链接，保留新链接
                 ConfirmMsgResponse response = new ConfirmMsgResponse();
                 IMessage.Header header =  response.getHeader();

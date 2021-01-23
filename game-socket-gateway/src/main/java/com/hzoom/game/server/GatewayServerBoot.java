@@ -2,8 +2,9 @@ package com.hzoom.game.server;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
-import com.hzoom.game.stream.TopicService;
 import com.hzoom.game.handler.*;
+import com.hzoom.message.service.GatewayMessageManager;
+import com.hzoom.core.stream.TopicService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -23,13 +24,9 @@ public class GatewayServerBoot {
     @Autowired
     private PlayerServiceInstanceManager playerServiceInstanceManager;
     @Autowired
-    private PlayerChannelManager playerChannelManager;
-    @Autowired
-    private TopicService topicService;
+    private GatewayMessageManager gatewayMessageManager;
     @Autowired
     private DispatchHandler dispatchHandler;
-    @Autowired
-    private TestGameMessageHandler testGameMessageHandler;
 
     private RateLimiter globalRateLimiter;
     private NioEventLoopGroup bossGroup;
@@ -66,7 +63,7 @@ public class GatewayServerBoot {
                 ChannelPipeline pipeline = ch.pipeline();
                 pipeline.addLast("encoder",new ServerEncodeHandler(gatewayServerProperties))
                         .addLast("decode",new ServerDecodeHandler())
-                        .addLast("confirm",new ConfirmHandler(playerServiceInstanceManager,playerChannelManager,topicService,gatewayServerProperties))
+                        .addLast("confirm",new ConfirmHandler(playerServiceInstanceManager,gatewayMessageManager,gatewayServerProperties))
                         .addLast("requestLimit",new RequestRateLimiterHandler(globalRateLimiter,gatewayServerProperties.getRequestPerSecond()))
                         .addLast(new IdleStateHandler(gatewayServerProperties.getReaderIdleTimeSeconds(), gatewayServerProperties.getWriterIdleTimeSeconds(), gatewayServerProperties.getAllIdleTimeSeconds()))
                         .addLast("heartbeat",new HeartbeatHandler())

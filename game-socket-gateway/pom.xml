@@ -31,8 +31,14 @@
         </dependency>
         <dependency>
             <groupId>com.hzoom</groupId>
-            <artifactId>game-network-param</artifactId>
+            <artifactId>game-gateway-message-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.hzoom</groupId>
+                    <artifactId>game-mongo-dao</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

@@ -1,4 +1,4 @@
-package com.hzoom.game;
+package com.hzoom.game.enums;
 
 import lombok.Getter;
 

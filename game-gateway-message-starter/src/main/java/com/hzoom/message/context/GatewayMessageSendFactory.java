@@ -3,7 +3,7 @@ package com.hzoom.message.context;
 import com.hzoom.message.channel.GameChannelPromise;
 import com.hzoom.message.channel.IMessageSendFactory;
 import com.hzoom.game.message.message.MessagePackage;
-import com.hzoom.game.stream.TopicService;
+import com.hzoom.core.stream.TopicService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

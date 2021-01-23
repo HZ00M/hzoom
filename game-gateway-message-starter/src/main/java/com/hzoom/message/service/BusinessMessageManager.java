@@ -1,5 +1,6 @@
 package com.hzoom.message.service;
 
+import com.hzoom.core.stream.TopicService;
 import com.hzoom.message.channel.GameChannelInitializer;
 import com.hzoom.message.channel.GameMessageEventDispatchService;
 import com.hzoom.message.channel.IMessageSendFactory;
@@ -11,22 +12,19 @@ import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.message.IMessage;
 import com.hzoom.game.message.message.MessagePackage;
 import com.hzoom.message.rpc.RpcMessageSendFactory;
-import com.hzoom.game.stream.TopicService;
-import com.hzoom.message.stream.Sink;
+import com.hzoom.message.stream.BusinessSink;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
 import io.netty.util.concurrent.EventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
 
 /**
  *  用于接收网关消息，并分发消息到业务中。
  */
-@Service
 @Slf4j
-public class MessageManager {
+public class BusinessMessageManager {
     @Autowired
     private ChannelServerProperties channelServerProperties;
     @Autowired
@@ -55,7 +53,7 @@ public class MessageManager {
         messageEventDispatchService = new GameMessageEventDispatchService(applicationContext,workerGroup, messageSendFactory, rpcMessageSendFactory, gameChannelInitializer);
     }
 
-    @StreamListener(Sink.business)
+    @StreamListener(BusinessSink.business)
     public void consumeGameMessage(byte[] payload) {
         MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.REQUEST, messagePackage);
@@ -63,7 +61,7 @@ public class MessageManager {
         messageEventDispatchService.fireReadMessage(messagePackage.getHeader().getPlayerId(), message);
     }
 
-    @StreamListener(Sink.rpcRequest)
+    @StreamListener(BusinessSink.rpcRequest)
     public void consumeRPCRequestMessage(byte[] payload) {
         MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.RPC_REQUEST,messagePackage);
@@ -71,7 +69,7 @@ public class MessageManager {
         messageEventDispatchService.fireReadRPCRequest(message);
     }
 
-    @StreamListener(Sink.rpcResponse)
+    @StreamListener(BusinessSink.rpcResponse)
     public void consumeRPCResponseMessage(byte[] payload) {
         MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
         IMessage message = getMessage(IMessage.MessageType.RPC_RESPONSE, messagePackage);

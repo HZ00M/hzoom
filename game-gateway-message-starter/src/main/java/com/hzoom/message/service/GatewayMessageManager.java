@@ -1,8 +1,12 @@
-package com.hzoom.game.server;
+package com.hzoom.message.service;
 
+import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.message.config.ChannelServerProperties;
+import com.hzoom.message.stream.GatewaySink;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.StreamListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +14,22 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.BiConsumer;
 
-@Component
 @Slf4j
-public class PlayerChannelManager {
+public class GatewayMessageManager{
+    @Autowired
+    private ChannelServerProperties channelServerProperties;
     private Map<Long, Channel> playerChannelMap = new HashMap<>();// playerId与Netty Channel的映射容器，这里使用的是HashMap，所以，对于Map的操作都要放在锁里面
     private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();// 读写锁,使用非公平锁
+
+    @StreamListener(GatewaySink.gateway)
+    public void receive(byte[] payload) {
+        MessagePackage messagePackage = MessagePackage.readMessagePackage(payload);
+        long playerId = messagePackage.getHeader().getPlayerId();
+        Channel channel = getChannel(playerId);
+        if (channel != null) {
+            channel.writeAndFlush(messagePackage);
+        }
+    }
 
     public void addChannel(Long playerId, Channel channel) {
         writeLock(() -> playerChannelMap.put(playerId, channel));
@@ -67,4 +82,5 @@ public class PlayerChannelManager {
             lock.writeLock().unlock();
         }
     }
+
 }

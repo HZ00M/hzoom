@@ -56,7 +56,7 @@ logging:
           client:
             naming: warn
 game:
-  server:
+  topic:
     config:
       service-id: 101   #服务器中配置服务Id
       server-id: 10101  #当前服务器的id
