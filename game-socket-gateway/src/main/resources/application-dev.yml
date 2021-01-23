@@ -1,6 +1,5 @@
 server:
   port: 9999
-
 spring:
   cloud:
     nacos:
@@ -8,13 +7,7 @@ spring:
         server-addr: 192.168.1.201:8848
         metadata:
           weight: 2
-          socketPort : ${game.gateway.server.config.port}
-  rabbitmq:
-    host: 106.52.151.187
-    port: 5672
-    username: admin
-    password: admin
-    virtual-host: my_vhost
+          socketPort : ${game.gateway.config.port}
   redis:
     database: 0
     host: 106.52.151.187
@@ -26,6 +19,17 @@ spring:
       max-wait: 3000
       max-idle: 50
       min-idle: 10
+  rabbitmq:
+    host: 106.52.151.187
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: my_vhost
+  data:
+    mongodb:
+      host: 106.52.151.187
+      port: 27017
+      database: hzoom
 management:
   endpoints:
     web:
@@ -44,9 +48,12 @@ game:
       port: 6666  # 游戏网关的长连接端口，这里的数据是自定义配置。
       boss-thread-count: 1
       work-thread-count: 4
-#  topic:
-#    config:
-#      server-id: 1001
-#      business-game-message-topic: business-game-message-topic # 向游戏服务发送消息 的Topic前缀
-#      gateway-game-message-topic: gateway-game-message-topic #接收游戏服务响应消息的Topic
-#      topic-group-id: ${game.server.config.server-id}
+  topic:
+    config:
+      service-id: 111   #服务器中配置服务Id
+      server-id: 1001  #当前服务器的id
+      business-game-message-topic: business-game-message-topic
+      gateway-game-message-topic: gateway-game-message-topic
+      rpc-request-game-message-topic: rpc-request-game-message-topic
+      rpc-response-game-message-topic: rpc-response-game-message-topic
+      topic-group-id: ${game.server.config.server-id}

@@ -1,6 +1,15 @@
 server:
   port: 7001
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.201:8848
+        service: game-logic
+        metadata:
+          serviceId: ${game.topic.config.service-id}    # 服务的ServiceID，用于获取一组服务
+          serverId: ${game.topic.config.server-id} # 服务的serverID，用于定位某一个具体的服务。
+          weight: 3         # 服务器负载权重
   redis:
     database: 0
     host: 106.52.151.187
@@ -22,31 +31,8 @@ spring:
     mongodb:
       host: 106.52.151.187
       port: 27017
-      #      username: my-game
-      #      password: xxx123456
-      #      authentication-database: admin
       database: hzoom
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.1.201:8848
-        service: game-logic
-        metadata:
-          serviceId: ${game.server.config.service-id}    # 服务的ServiceID，用于获取一组服务
-          serverId: ${game.server.config.server-id} # 服务的serverID，用于定位某一个具体的服务。
-          weight: 3         # 服务器负载权重
 
-    stream:
-      bindings:
-#        business-game-message-topic:
-#          #指定输入通道对应的主题名
-#          destination: business-game-message-topic
-        test:
-          destination: test1111
-#        rpc-request-game-message-topic:
-#          destination: rpc-request-game-message-topic
-#        rpc-response-game-message-topic:
-#          destination: rpc-response-game-message-topic
 
 logging:
   level:

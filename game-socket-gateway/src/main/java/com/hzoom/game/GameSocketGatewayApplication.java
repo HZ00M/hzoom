@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @EnableDiscoveryClient
 @StartChannelServer(ChannelType.GATEWAY)
-@Import(ChannelServerProperties.class)
 public class GameSocketGatewayApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(GameSocketGatewayApplication.class, args);
