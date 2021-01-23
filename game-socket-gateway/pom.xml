@@ -17,22 +17,22 @@
             <groupId>com.hzoom</groupId>
             <artifactId>game-gateway-message-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>com.hzoom</groupId>-->
-<!--                    <artifactId>game-mongo-dao</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.springframework.boot</groupId>-->
-<!--                    <artifactId>spring-boot-starter-web</artifactId>-->
-<!--                    &lt;!&ndash;spring-boot-starter-webflux与spring-boot-starter-web只能选其一&ndash;&gt;-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.tomcat.embed</groupId>-->
-<!--                    <artifactId>tomcat-embed-core</artifactId>-->
-<!--                    &lt;!&ndash;gateway默认使用的是webFlux，而Tomcat使用的是netty&ndash;&gt;-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.hzoom</groupId>
+                    <artifactId>game-mongo-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <!--spring-boot-starter-webflux与spring-boot-starter-web只能选其一-->
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                    <!--gateway默认使用的是webFlux，而Tomcat使用的是netty-->
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>
