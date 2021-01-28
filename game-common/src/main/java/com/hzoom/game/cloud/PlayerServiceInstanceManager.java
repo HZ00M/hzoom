@@ -1,7 +1,9 @@
 package com.hzoom.game.cloud;
 
-import com.hzoom.game.event.GameChannelCloseEvent;
 import com.hzoom.core.redis.RedisService;
+import com.hzoom.game.error.GatewaySocketError;
+import com.hzoom.game.event.GameChannelCloseEvent;
+import com.hzoom.game.exception.ErrorException;
 import com.hzoom.game.model.ServerInfo;
 import io.netty.util.concurrent.DefaultEventExecutor;
 import io.netty.util.concurrent.EventExecutor;
@@ -66,6 +68,9 @@ public class PlayerServiceInstanceManager {
                     }
                     if (result == null) {// 如果Redis中没有缓存，或实例已失效，重新获取一个新的服务实例Id
                         result = selectServerIdAndSaveRedis(serviceId, playerId);
+                        if (result == null) {
+                            throw ErrorException.newBuilder(GatewaySocketError.NOT_INSTANCE).build();
+                        }
                         addLocalCache(playerId, serviceId, result);
                         promise.setSuccess(result);
                     }

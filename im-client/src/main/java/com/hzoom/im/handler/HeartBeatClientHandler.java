@@ -2,8 +2,8 @@ package com.hzoom.im.handler;
 
 import com.hzoom.im.bean.UserDTO;
 import com.hzoom.im.builder.HeartBeatMsgBuilder;
-import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.proto.ProtoMsg;
+import com.hzoom.im.session.ClientSession;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

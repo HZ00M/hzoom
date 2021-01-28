@@ -1,16 +1,16 @@
 package com.hzoom.message.service;
 
 import com.hzoom.core.stream.TopicService;
-import com.hzoom.message.channel.GameChannelInitializer;
-import com.hzoom.message.channel.GameMessageEventDispatchService;
-import com.hzoom.message.channel.IMessageSendFactory;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
 import com.hzoom.game.concurrent.GameEventExecutorGroup;
-import com.hzoom.message.config.ChannelServerProperties;
-import com.hzoom.message.context.GatewayMessageSendFactory;
 import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.message.common.MessagePackage;
+import com.hzoom.message.channel.GameChannelInitializer;
+import com.hzoom.message.channel.GameMessageEventDispatchService;
+import com.hzoom.message.channel.IMessageSendFactory;
+import com.hzoom.message.config.ChannelServerProperties;
+import com.hzoom.message.context.GatewayMessageSendFactory;
 import com.hzoom.message.rpc.RpcMessageSendFactory;
 import com.hzoom.message.stream.BusinessSink;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;

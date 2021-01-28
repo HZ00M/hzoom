@@ -1,11 +1,11 @@
 package com.hzoom.game.message;
 
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessageMetadata;
 import com.hzoom.game.message.dispatcher.DispatcherMapping;
 import com.hzoom.game.message.dispatcher.IChannelContext;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
-import com.hzoom.game.message.common.IMessage;
-import com.hzoom.game.message.common.MessageMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.springframework.beans.factory.annotation.Autowired;

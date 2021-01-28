@@ -2,8 +2,8 @@ package com.hzoom.im.builder;
 
 import com.hzoom.im.bean.ChatMsg;
 import com.hzoom.im.bean.UserDTO;
-import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.proto.ProtoMsg;
+import com.hzoom.im.session.ClientSession;
 
 public class ChatMsgBuilder extends Builder{
     private ChatMsg chatMsg;

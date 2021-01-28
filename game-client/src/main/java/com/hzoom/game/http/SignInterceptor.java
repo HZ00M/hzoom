@@ -2,9 +2,6 @@ package com.hzoom.game.http;
 
 import com.github.lianjiatech.retrofit.spring.boot.interceptor.BasePathMatchInterceptor;
 import com.hzoom.game.config.GameClientProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;

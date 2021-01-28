@@ -1,6 +1,5 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.message.context.GatewayMessageContext;
 import com.hzoom.game.entity.manager.PlayerManager;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
@@ -8,6 +7,7 @@ import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
 import com.hzoom.game.message.response.FirstMsgResponse;
 import com.hzoom.game.message.response.SecondMsgResponse;
+import com.hzoom.message.context.GatewayMessageContext;
 import lombok.extern.slf4j.Slf4j;
 
 @MessageHandler

@@ -1,7 +1,5 @@
 package com.hzoom.game.redis;
 
-import org.springframework.util.StringUtils;
-
 import java.time.Duration;
 
 public enum RedisKeyEnum {
@@ -25,7 +23,7 @@ public enum RedisKeyEnum {
     public String getKey(String ... ids) {
         StringBuilder builder = new StringBuilder(this.name());
         for (String id : ids) {
-            builder.append("_").append(id);
+            builder.append(":").append(id);
         }
         return builder.toString();
     }

@@ -2,9 +2,9 @@ package com.hzoom.game.handler;
 
 import com.hzoom.core.stream.TopicService;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
+import com.hzoom.game.config.GatewayServerProperties;
 import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.message.common.MessagePackage;
-import com.hzoom.game.config.GatewayServerProperties;
 import com.hzoom.message.config.ChannelServerProperties;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;

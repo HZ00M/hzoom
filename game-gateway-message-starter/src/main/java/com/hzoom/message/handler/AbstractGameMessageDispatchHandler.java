@@ -1,5 +1,7 @@
 package com.hzoom.message.handler;
 
+import com.hzoom.game.message.DispatchMessageManager;
+import com.hzoom.game.message.common.IMessage;
 import com.hzoom.message.channel.AbstractGameChannelHandlerContext;
 import com.hzoom.message.channel.GameChannelInboundHandler;
 import com.hzoom.message.channel.GameChannelPromise;
@@ -7,8 +9,6 @@ import com.hzoom.message.config.ChannelServerProperties;
 import com.hzoom.message.context.DispatchUserEventManager;
 import com.hzoom.message.context.GatewayMessageContext;
 import com.hzoom.message.context.UserEventContext;
-import com.hzoom.game.message.DispatchMessageManager;
-import com.hzoom.game.message.common.IMessage;
 import com.hzoom.message.rpc.DispatchRPCEventManager;
 import com.hzoom.message.rpc.RPCEventContext;
 import io.netty.util.concurrent.DefaultPromise;

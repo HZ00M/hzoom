@@ -1,6 +1,5 @@
 package com.hzoom.im.distributed;
 
-import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.utils.JsonUtil;

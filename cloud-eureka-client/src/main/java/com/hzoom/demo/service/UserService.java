@@ -1,7 +1,7 @@
 package com.hzoom.demo.service;
 
-import com.hzoom.demo.po.User;
 import com.hzoom.demo.mapper.UserMapper;
+import com.hzoom.demo.po.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ package com.hzoom.demo.activiti;
 import com.hzoom.demo.activiti.interceptor.TimeInterceptor;
 import com.hzoom.demo.activiti.invoker.MDCCommandInvoker;
 import com.hzoom.demo.activiti.listener.ProcessEventListener;
-import org.activiti.engine.*;
+import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.HistoryLevel;

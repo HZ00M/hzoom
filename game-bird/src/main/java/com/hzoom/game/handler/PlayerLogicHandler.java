@@ -1,8 +1,5 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.message.context.GatewayMessageContext;
-import com.hzoom.message.context.UserEvent;
-import com.hzoom.message.context.UserEventContext;
 import com.hzoom.game.entity.Player;
 import com.hzoom.game.entity.manager.PlayerManager;
 import com.hzoom.game.event.GetArenaPlayerEvent;
@@ -10,9 +7,12 @@ import com.hzoom.game.event.GetPlayerInfoEvent;
 import com.hzoom.game.message.bird.*;
 import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCRequest;
 import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCResponse;
+import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
-import com.hzoom.game.message.common.IMessage;
+import com.hzoom.message.context.GatewayMessageContext;
+import com.hzoom.message.context.UserEvent;
+import com.hzoom.message.context.UserEventContext;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Future;
@@ -20,7 +20,9 @@ import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.Promise;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @MessageHandler

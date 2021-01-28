@@ -1,7 +1,7 @@
 package com.hzoom.demo.activiti;
 
-import com.hzoom.demo.po.User;
 import com.hzoom.demo.mapper.UserMapper;
+import com.hzoom.demo.po.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Before;

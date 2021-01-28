@@ -1,10 +1,10 @@
 package com.hzoom.game.service;
 
-import com.hzoom.game.error.GameCenterError;
-import com.hzoom.game.exception.ErrorException;
 import com.hzoom.core.redis.RedisService;
 import com.hzoom.game.dao.PlayerDao;
 import com.hzoom.game.entity.Player;
+import com.hzoom.game.error.GameCenterError;
+import com.hzoom.game.exception.ErrorException;
 import com.hzoom.game.redis.RedisKeyEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +18,13 @@ public class PlayerService {
     @Autowired
     private RedisService redisService;
 
-    private String getNickNameKey(String zoneId, String nickName) {
-        return RedisKeyEnum.PLAYER_NICKNAME.getKey(zoneId , nickName);
+    private String getNickNameKey(String zoneId) {
+        return RedisKeyEnum.PLAYER_NICKNAME.getKey(zoneId);
     }
 
     private boolean saveNickNameIfAbsent(String zoneId, String nickName) {
-        String key = getNickNameKey(zoneId, nickName);
-        return redisService.setnx(key, "0");
+        String key = getNickNameKey(zoneId);
+        return redisService.hsetnx(key, nickName, "0");
     }
 
     private long getNextPlayerId(String zoneId) {
@@ -33,8 +33,8 @@ public class PlayerService {
     }
 
     private void updatePlayerIdForNickName(String zoneId, String nickName, long playerId) {
-        String key = getNickNameKey(zoneId, nickName);
-        redisService.set(key, String.valueOf(playerId));
+        String key = getNickNameKey(zoneId);
+        redisService.hset(key, nickName, playerId);
     }
 
     public Player createPlayer(String zoneId, String nickName) {

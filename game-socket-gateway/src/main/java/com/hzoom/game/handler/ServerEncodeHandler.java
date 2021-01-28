@@ -1,10 +1,10 @@
 package com.hzoom.game.handler;
 
+import com.hzoom.game.config.GatewayServerProperties;
 import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
-import com.hzoom.game.message.common.MessagePackage;
-import com.hzoom.game.config.GatewayServerProperties;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

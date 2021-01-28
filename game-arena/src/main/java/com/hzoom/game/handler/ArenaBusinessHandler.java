@@ -1,17 +1,17 @@
 package com.hzoom.game.handler;
 
-import com.hzoom.message.context.GatewayMessageContext;
-import com.hzoom.message.context.UserEvent;
-import com.hzoom.message.context.UserEventContext;
 import com.hzoom.game.entity.manager.ArenaManager;
 import com.hzoom.game.error.ArenaError;
 import com.hzoom.game.message.bird.BuyArenaChallengeTimesMsgRequest;
 import com.hzoom.game.message.bird.BuyArenaChallengeTimesMsgResponse;
 import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCRequest;
 import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCResponse;
+import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
-import com.hzoom.game.message.common.IMessage;
+import com.hzoom.message.context.GatewayMessageContext;
+import com.hzoom.message.context.UserEvent;
+import com.hzoom.message.context.UserEventContext;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Future;
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ArenaBusinessHandler {
     @UserEvent(IdleStateEvent.class)
     public void idleStateEvent(UserEventContext<ArenaManager> ctx, IdleStateEvent event, Promise<Object> promise) {
-        log.debug("收到空闲事件：{}", event.getClass().getName());
+        log.debug("idleStateEvent 收到空闲事件：{}", event.getClass().getName());
         ctx.getCtx().close();
     }
 

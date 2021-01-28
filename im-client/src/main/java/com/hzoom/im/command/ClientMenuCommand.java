@@ -2,6 +2,7 @@ package com.hzoom.im.command;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 
 @Data

@@ -1,7 +1,6 @@
 package com.hzoom.im.handler;
 
 import com.hzoom.core.concurrent.callbackTask.FutureTaskScheduler;
-import com.hzoom.im.distributed.Router;
 import com.hzoom.im.processor.ChatRedirectProcessor;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.session.LocalSession;

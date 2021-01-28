@@ -1,6 +1,5 @@
 package com.hzoom.im.distributed;
 
-import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.properties.ConstantsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;

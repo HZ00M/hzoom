@@ -1,7 +1,6 @@
 package com.hzoom.im.balance;
 
 import com.hzoom.core.zookeeper.ZKUtils;
-import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.utils.JsonUtil;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 

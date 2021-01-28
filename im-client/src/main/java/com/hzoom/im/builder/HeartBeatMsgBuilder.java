@@ -1,8 +1,8 @@
 package com.hzoom.im.builder;
 
 import com.hzoom.im.bean.UserDTO;
-import com.hzoom.im.session.ClientSession;
 import com.hzoom.im.proto.ProtoMsg;
+import com.hzoom.im.session.ClientSession;
 
 public class HeartBeatMsgBuilder extends Builder{
     private final UserDTO user;

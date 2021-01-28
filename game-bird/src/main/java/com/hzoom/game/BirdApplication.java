@@ -1,18 +1,16 @@
 package com.hzoom.game;
 
+import com.hzoom.game.dao.AsyncPlayerDao;
+import com.hzoom.game.handler.GameBusinessMessageDispatchHandler;
+import com.hzoom.game.message.DispatchMessageManager;
 import com.hzoom.message.annotation.StartChannelServer;
 import com.hzoom.message.config.ChannelServerProperties;
 import com.hzoom.message.context.DispatchUserEventManager;
-import com.hzoom.game.dao.AsyncPlayerDao;
-import com.hzoom.game.handler.GameBusinessMessageDispatchHandler;
 import com.hzoom.message.enums.ChannelType;
 import com.hzoom.message.handler.GameChannelIdleStateHandler;
-import com.hzoom.game.message.DispatchMessageManager;
 import com.hzoom.message.service.BusinessMessageManager;
-import com.hzoom.message.stream.BusinessSink;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 

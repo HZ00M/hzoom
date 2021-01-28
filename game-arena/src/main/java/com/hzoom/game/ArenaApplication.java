@@ -1,11 +1,11 @@
 package com.hzoom.game;
 
 import com.hzoom.game.channel.ArenaGatewayHandler;
+import com.hzoom.game.message.DispatchMessageManager;
 import com.hzoom.message.annotation.StartChannelServer;
 import com.hzoom.message.config.ChannelServerProperties;
 import com.hzoom.message.enums.ChannelType;
 import com.hzoom.message.handler.GameChannelIdleStateHandler;
-import com.hzoom.game.message.DispatchMessageManager;
 import com.hzoom.message.service.BusinessMessageManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

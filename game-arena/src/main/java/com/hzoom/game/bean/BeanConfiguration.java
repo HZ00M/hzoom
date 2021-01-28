@@ -1,9 +1,9 @@
 package com.hzoom.game.bean;
 
 import com.hzoom.game.concurrent.GameEventExecutorGroup;
-import com.hzoom.message.config.ChannelServerProperties;
 import com.hzoom.game.dao.ArenaDao;
 import com.hzoom.game.dao.AsyncArenaDao;
+import com.hzoom.message.config.ChannelServerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,19 +1,16 @@
 package com.hzoom.im.distributed;
 
-import com.hzoom.im.constants.ServerConstants;
 import com.hzoom.im.entity.ImNode;
 import com.hzoom.im.properties.ConstantsProperties;
 import com.hzoom.im.proto.ProtoMsg;
 import com.hzoom.im.protoBuilder.MsgBuilder;
 import com.hzoom.im.utils.JsonUtil;
 import com.hzoom.im.utils.ObjectUtil;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.PathChildrenCache;
 import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
-import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

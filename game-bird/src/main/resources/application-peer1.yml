@@ -45,7 +45,7 @@ game:
   topic:
     config:
       service-id: 101   #服务器中配置服务Id
-      server-id: 10101  #当前服务器的id
+      server-id: 1  #当前服务器的id
       business-game-message-topic: business-game-message-topic
       gateway-game-message-topic: gateway-game-message-topic
       rpc-request-game-message-topic: rpc-request-game-message-topic

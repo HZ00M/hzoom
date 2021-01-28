@@ -134,6 +134,21 @@ public class RedisService {
         }
     }
 
+    public Jedis getJedis() {
+        Jedis jedis = null;
+        boolean broken = false;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis;
+        } catch (JedisConnectionException e) {
+            //logger.error("Redis connection lost.", e);
+            broken = true;
+            throw e;
+        } finally {
+            closeResource(jedis, broken);
+        }
+    }
+
     /**
      * 执行无返回结果的action。
      */
@@ -509,6 +524,10 @@ public class RedisService {
         return execute((JedisAction<String>) jedis -> jedis.hget(key, field));
     }
 
+    public boolean hsetnx(final String key, final String field, final String value) {
+        return execute((JedisAction<Long>) jedis -> jedis.hsetnx(key, field, value)) > 0;
+    }
+
     public Map<String, String> hgetAll(final String key) {
         return execute((JedisAction<Map<String, String>>) jedis -> jedis.hgetAll(key));
     }
@@ -543,7 +562,7 @@ public class RedisService {
     public Long hset(final String key, final String field, final Object object, final int expireSecond) {
         String lua = "local num = redis.call('hset', KEYS[1],KEYS[2],ARGV[1]) if tonumber(num) ==1 then  redis.call('expire',KEYS[1],ARGV[2]) return 1 else return 0 end";
         Long result = execute((JedisAction<Long>) jedis ->
-             (Long) jedis.evalsha(jedis.scriptLoad(lua),Arrays.asList(key,field),Arrays.asList(JSON.toJSONString(object, features),expireSecond+""))
+                (Long) jedis.evalsha(jedis.scriptLoad(lua), Arrays.asList(key, field), Arrays.asList(JSON.toJSONString(object, features), expireSecond + ""))
         );
 
         return result;

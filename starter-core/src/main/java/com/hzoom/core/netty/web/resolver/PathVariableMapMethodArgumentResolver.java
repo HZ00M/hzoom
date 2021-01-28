@@ -1,7 +1,6 @@
 package com.hzoom.core.netty.web.resolver;
 
 import com.hzoom.core.netty.web.annotation.PathVariable;
-
 import io.netty.channel.Channel;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.CollectionUtils;
