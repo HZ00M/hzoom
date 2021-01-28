@@ -1,8 +1,8 @@
 package com.hzoom.game.message.response;
 
-import com.hzoom.game.message.message.AbstractJsonMessage;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessageMetadata;
+import com.hzoom.game.message.common.AbstractJsonMessage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessageMetadata;
 
 @MessageMetadata(messageId = 2, serviceId = 1, messageType = IMessage.MessageType.RESPONSE)
 public class HeartbeatMsgResponse extends AbstractJsonMessage<HeartbeatMsgResponse.ResponseBody> {

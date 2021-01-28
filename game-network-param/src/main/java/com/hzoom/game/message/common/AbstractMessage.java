@@ -1,4 +1,4 @@
-package com.hzoom.game.message.message;
+package com.hzoom.game.message.common;
 
 public abstract class AbstractMessage implements IMessage {
     private Header header;

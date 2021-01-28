@@ -1,4 +1,4 @@
-package com.hzoom.game.server;
+package com.hzoom.game.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

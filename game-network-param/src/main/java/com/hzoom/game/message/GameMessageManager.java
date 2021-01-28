@@ -1,12 +1,11 @@
 package com.hzoom.game.message;
 
-import com.hzoom.game.message.message.AbstractMessage;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessageMetadata;
+import com.hzoom.game.message.common.AbstractMessage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessageMetadata;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;

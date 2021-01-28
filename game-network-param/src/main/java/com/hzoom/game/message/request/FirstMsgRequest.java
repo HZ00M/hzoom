@@ -1,8 +1,8 @@
 package com.hzoom.game.message.request;
 
-import com.hzoom.game.message.message.AbstractMessage;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessageMetadata;
+import com.hzoom.game.message.common.AbstractMessage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessageMetadata;
 import lombok.Getter;
 import lombok.Setter;
 

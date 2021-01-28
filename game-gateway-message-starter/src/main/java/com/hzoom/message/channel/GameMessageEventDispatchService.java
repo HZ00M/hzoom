@@ -2,7 +2,7 @@ package com.hzoom.message.channel;
 
 import com.hzoom.game.concurrent.GameEventExecutorGroup;
 import com.hzoom.game.event.GameChannelCloseEvent;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import com.hzoom.message.rpc.RpcMessageSendFactory;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Promise;

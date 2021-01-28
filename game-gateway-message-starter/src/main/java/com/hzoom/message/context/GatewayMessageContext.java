@@ -2,7 +2,7 @@ package com.hzoom.message.context;
 
 import com.hzoom.message.channel.AbstractGameChannelHandlerContext;
 import com.hzoom.game.message.dispatcher.IChannelContext;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.Promise;

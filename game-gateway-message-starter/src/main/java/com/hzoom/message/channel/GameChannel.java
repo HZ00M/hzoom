@@ -1,8 +1,8 @@
 package com.hzoom.message.channel;
 
 import com.hzoom.message.config.ChannelServerProperties;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.message.rpc.RpcMessageSendFactory;
 import io.netty.util.concurrent.EventExecutor;
 import io.netty.util.concurrent.Future;

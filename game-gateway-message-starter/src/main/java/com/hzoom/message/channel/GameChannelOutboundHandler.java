@@ -1,6 +1,6 @@
 package com.hzoom.message.channel;
 
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.util.concurrent.Promise;
 
 public interface GameChannelOutboundHandler extends GameChannelHandler {

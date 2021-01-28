@@ -2,9 +2,9 @@ package com.hzoom.game.server;
 
 import com.google.common.util.concurrent.RateLimiter;
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
+import com.hzoom.game.config.GatewayServerProperties;
 import com.hzoom.game.handler.*;
 import com.hzoom.message.service.GatewayMessageManager;
-import com.hzoom.core.stream.TopicService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

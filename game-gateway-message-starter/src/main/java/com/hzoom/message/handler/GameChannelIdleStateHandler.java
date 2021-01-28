@@ -4,7 +4,7 @@ import com.hzoom.message.channel.AbstractGameChannelHandlerContext;
 import com.hzoom.message.channel.GameChannelInboundHandler;
 import com.hzoom.message.channel.GameChannelOutboundHandler;
 import com.hzoom.message.channel.GameChannelPromise;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.Promise;

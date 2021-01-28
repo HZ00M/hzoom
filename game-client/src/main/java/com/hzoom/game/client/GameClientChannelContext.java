@@ -1,12 +1,10 @@
 package com.hzoom.game.client;
 
 import com.hzoom.game.message.dispatcher.IChannelContext;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.channel.Channel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.net.InetSocketAddress;
 
 @Slf4j
 public class GameClientChannelContext implements IChannelContext {

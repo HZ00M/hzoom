@@ -2,7 +2,7 @@ package com.hzoom.message.rpc;
 
 import com.hzoom.message.channel.AbstractGameChannelHandlerContext;
 import com.hzoom.game.message.dispatcher.IChannelContext;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 
 public class RPCEventContext<T>  implements IChannelContext {
     private IMessage request;

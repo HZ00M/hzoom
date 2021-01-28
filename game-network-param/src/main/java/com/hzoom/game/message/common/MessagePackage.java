@@ -1,9 +1,7 @@
-package com.hzoom.game.message.message;
+package com.hzoom.game.message.common;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-
-import java.util.Arrays;
 
 public class MessagePackage implements IMessage{
     private final static int HEADER_FIX_LEN = 60;

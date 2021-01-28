@@ -1,8 +1,8 @@
 package com.hzoom.game.message.response;
 
-import com.hzoom.game.message.message.AbstractMessage;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessageMetadata;
+import com.hzoom.game.message.common.AbstractMessage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessageMetadata;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.Getter;

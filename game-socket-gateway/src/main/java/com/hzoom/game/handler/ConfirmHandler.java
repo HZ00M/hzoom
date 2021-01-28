@@ -1,20 +1,19 @@
 package com.hzoom.game.handler;
 
 import com.hzoom.game.cloud.PlayerServiceInstanceManager;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.JWTUtil;
 import com.hzoom.game.utils.NettyUtils;
 import com.hzoom.game.error.GatewaySocketError;
 import com.hzoom.game.utils.RSAUtils;
 import com.hzoom.game.enums.GatewayMessageTypeEnum;
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.ConnectStatusMsgRequest;
 import com.hzoom.game.message.response.ConfirmMsgResponse;
-import com.hzoom.game.server.GatewayServerProperties;
+import com.hzoom.game.config.GatewayServerProperties;
 import com.hzoom.message.service.GatewayMessageManager;
-import com.hzoom.core.stream.TopicService;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

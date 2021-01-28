@@ -1,7 +1,7 @@
 package com.hzoom.game.handler;
 
 import com.hzoom.game.message.GameMessageManager;
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
 import com.hzoom.game.message.response.FirstMsgResponse;

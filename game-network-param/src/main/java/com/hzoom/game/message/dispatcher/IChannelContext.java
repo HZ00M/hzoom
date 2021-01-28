@@ -1,6 +1,6 @@
 package com.hzoom.game.message.dispatcher;
 
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 
 public interface IChannelContext {
     void sendMessage(IMessage gameMessage);

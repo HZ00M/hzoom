@@ -1,13 +1,10 @@
 package com.hzoom.message.service;
 
-import com.hzoom.game.message.message.MessagePackage;
-import com.hzoom.message.config.ChannelServerProperties;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.message.stream.GatewaySink;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -2,7 +2,7 @@ package com.hzoom.message.rpc;
 
 import com.hzoom.game.error.GameRPCError;
 import com.hzoom.game.exception.ErrorException;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.util.concurrent.EventExecutorGroup;
 import io.netty.util.concurrent.Promise;
 

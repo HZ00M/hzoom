@@ -1,7 +1,7 @@
 package com.hzoom.game.handler.codec;
 
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.utils.AESUtils;
 import com.hzoom.game.utils.CompressUtil;
 import io.netty.buffer.ByteBuf;

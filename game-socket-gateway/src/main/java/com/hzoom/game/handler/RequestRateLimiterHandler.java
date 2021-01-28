@@ -1,21 +1,13 @@
 package com.hzoom.game.handler;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.RateLimiter;
-import com.hzoom.game.message.message.MessagePackage;
-import com.hzoom.game.server.GatewayServerProperties;
-import io.netty.channel.ChannelHandler;
+import com.hzoom.game.message.common.MessagePackage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class RequestRateLimiterHandler extends ChannelInboundHandlerAdapter {

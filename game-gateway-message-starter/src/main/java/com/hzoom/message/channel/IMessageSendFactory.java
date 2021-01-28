@@ -1,6 +1,6 @@
 package com.hzoom.message.channel;
 
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.MessagePackage;
 
 public interface IMessageSendFactory {
 

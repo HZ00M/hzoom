@@ -1,4 +1,4 @@
-package com.hzoom.game.message.message;
+package com.hzoom.game.message.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

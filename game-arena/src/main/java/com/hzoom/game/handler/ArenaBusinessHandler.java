@@ -11,7 +11,7 @@ import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCRequest;
 import com.hzoom.game.message.bird.rpc.ConsumeDiamondRPCResponse;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
-import com.hzoom.game.message.message.IMessage;
+import com.hzoom.game.message.common.IMessage;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.DefaultPromise;
 import io.netty.util.concurrent.Future;

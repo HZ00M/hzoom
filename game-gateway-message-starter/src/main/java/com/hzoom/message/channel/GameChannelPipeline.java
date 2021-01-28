@@ -1,8 +1,8 @@
 package com.hzoom.message.channel;
 
 import com.hzoom.game.concurrent.GameEventExecutorGroup;
-import com.hzoom.game.message.message.IMessage;
-import com.hzoom.game.message.message.MessagePackage;
+import com.hzoom.game.message.common.IMessage;
+import com.hzoom.game.message.common.MessagePackage;
 import io.netty.channel.*;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.EventExecutor;
