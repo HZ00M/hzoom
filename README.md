@@ -43,7 +43,7 @@ src/
 - cloud-zuul-service zuul服务发现中心
 ### 技术栈
 - springboot 2.x.x 
-- spring cloud Greenwich.SR2 
+- spring cloud eureka,spring cloud config,spring cloud zuul,spring cloud bus
 - elasticsearch7.x.x
 - netty websocket
 - jedis、redisson
@@ -55,7 +55,6 @@ src/
 - shardingsphere 分库分表
 - zookeeper 分布式计数器，节点监听器
 - docker、docker compose
-- webflux
 
 ### im-xxx模块（即时通讯）
 - im-client 模拟即时通讯客户端
@@ -76,7 +75,7 @@ src/
 ```
 ### 技术栈
 - springboot 2.x.x 
-- spring cloud Greenwich.SR2 
+- alibaba nacos config,alibaba nacos config discovery
 - netty websocket
 - jedis、redisson
 - curator
@@ -153,11 +152,13 @@ src/
 ```
 ### 技术栈
 - springboot 2.x.x 
-- spring cloud Greenwich.SR2 
+- spring shell
+- spring cloud gateway,spring cloud stream,spring cloud ribbon,
+  spring cloud nacos config,spring cloud nacos discovery
+- retrofit
 - netty websocket
 - jedis、redisson
 - mongo 
-- nacos注册中心和nacos配置中心
 - protobuf
 - docker、docker compose
 - webflux
