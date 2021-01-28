@@ -75,9 +75,19 @@ src/
         +- distributed zk分布式计数器，分布式节点，节点路由
         +- handler 服务器处理器，包含消息转发处理器，心跳包处理器，登入登出处理器，异常处理器等
         +- processor 消息处理器
-        +- server 聊天服务器
+        +- server 聊天服务器,消息转发
         +- session 本地session,远程session,session管理器
         +- user 分布式用户会话
       +- resource
 ```
+
+### game-xxx模块（分布式游戏框架）
+- game-center-server 游戏中心服务（rest服务中心）
+- game-client 游戏模拟客户端服务
+- game-common 游戏公共模块 （通用的异常 事件 工具类）
+- game-gateway-message-starter 游戏内rpc框架
+- game-mongo-dao mongo数据库公共项目
+- game-network-param http通讯服务
+- game-socket-gateway 长连接网关服务
+- game-web-gateway 短连接网关服务
     
