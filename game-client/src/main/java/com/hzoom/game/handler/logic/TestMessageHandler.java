@@ -1,6 +1,7 @@
 package com.hzoom.game.handler.logic;
 
 import com.hzoom.game.client.GameClientChannelContext;
+import com.hzoom.game.message.bird.GetPlayerByIdMsgResponse;
 import com.hzoom.game.message.dispatcher.MessageHandler;
 import com.hzoom.game.message.dispatcher.MessageMapping;
 import com.hzoom.game.message.response.FirstMsgResponse;
@@ -17,5 +18,10 @@ public class TestMessageHandler {
     @MessageMapping(SecondMsgResponse.class)
     public void secondMessage(SecondMsgResponse response,GameClientChannelContext ctx) {
         log.info("second msg response :{}",response.getBodyObj().getResult1());
+    }
+
+    @MessageMapping(GetPlayerByIdMsgResponse.class)
+    public void getPlayerByIdMsgResponse(GetPlayerByIdMsgResponse response,GameClientChannelContext ctx) {
+        log.info("getPlayerByIdMsgResponse msg response :{}",response.getBodyObj());
     }
 }

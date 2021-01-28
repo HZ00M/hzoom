@@ -1,6 +1,6 @@
 package com.hzoom.game.entity;
 
-import com.hzoom.game.http.response.GameGatewayInfoResponse;
+import com.hzoom.game.http.response.SelectGameGatewayResponse;
 import lombok.Data;
 
 @Data
@@ -10,6 +10,6 @@ public class ClientPlayerInfo {
     private long playerId;
     private String token;
     private long userId;
-    private GameGatewayInfoResponse gameGatewayInfoResponse;
+    private SelectGameGatewayResponse selectGameGatewayResponse;
 
 }

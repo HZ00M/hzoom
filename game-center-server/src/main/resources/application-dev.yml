@@ -11,9 +11,6 @@ spring:
     mongodb:
       host: 106.52.151.187
       port: 27017
-#      username: my-game
-#      password: xxx123456
-#      authentication-database: admin
       database: hzoom
   redis:
     database: 0

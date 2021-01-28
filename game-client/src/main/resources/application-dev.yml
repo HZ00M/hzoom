@@ -15,7 +15,7 @@ game:
   client:
     config:
       use-game-center: true
-      game-center-url: 'http://localhost:5003'
+      game-center-url: 'http://localhost:5000/game-center-server'
 retrofit:
   # 连接池配置
   pool:

@@ -11,20 +11,9 @@ import java.lang.annotation.*;
 @InterceptMark
 public @interface Sign {
     /**
-     * 密钥key
-     * 支持占位符形式配置。
-     *
-     * @return
+     * token
      */
-    String accessKeyId();
-
-    /**
-     * 密钥
-     * 支持占位符形式配置。
-     *
-     * @return
-     */
-    String accessKeySecret();
+    String token() default "";
 
     /**
      * 拦截器匹配路径

@@ -41,9 +41,9 @@ game-center-server:
 gateway:
   filter:
     whiteRequestUri:
-      - /request/10001
+      - /10001
       - /test/https
-      - /request/10003
+      - /10003
     user-request-rate-count: 100
     global-request-rate-count: 3000
     cache-user-max-count: 5000

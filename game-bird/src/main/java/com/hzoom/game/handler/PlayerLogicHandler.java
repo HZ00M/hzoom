@@ -33,25 +33,6 @@ public class PlayerLogicHandler {
         ctx.getCtx().close();
     }
 
-    @UserEvent(GetPlayerInfoEvent.class)
-    public void getPlayerInfoEvent(UserEventContext<PlayerManager> ctx, GetPlayerInfoEvent event, Promise<Object> promise) {
-        GetPlayerByIdMsgResponse response = new GetPlayerByIdMsgResponse();
-        Player player = ctx.getDataManager().getPlayer();
-        response.getBodyObj().setPlayerId(player.getPlayerId());
-        response.getBodyObj().setNickName(player.getNickName());
-        promise.setSuccess(response);
-    }
-
-    @MessageMapping(EnterGameMsgRequest.class)
-    public void enterGame(EnterGameMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {
-        log.info("接收到客户端进入游戏请求：{}", request.getHeader().getPlayerId());
-        EnterGameMsgResponse response = new EnterGameMsgResponse();
-        response.getBodyObj().setNickname("叶孤城");
-        response.getBodyObj().setPlayerId(1);
-        ctx.sendMessage(response);
-    }
-
-
     @MessageMapping(GetPlayerByIdMsgRequest.class)
     public void getPlayerById(GetPlayerByIdMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {
         long playerId = request.getBodyObj().getPlayerId();
@@ -69,6 +50,28 @@ public class PlayerLogicHandler {
             }
         });
     }
+
+    @UserEvent(GetPlayerInfoEvent.class)
+    public void getPlayerInfoEvent(UserEventContext<PlayerManager> ctx, GetPlayerInfoEvent event, Promise<Object> promise) {
+        GetPlayerByIdMsgResponse response = new GetPlayerByIdMsgResponse();
+        Player player = ctx.getDataManager().getPlayer();
+        response.getBodyObj().setPlayerId(player.getPlayerId());
+        response.getBodyObj().setNickName(player.getNickName());
+        promise.setSuccess(response);
+    }
+
+
+    @MessageMapping(EnterGameMsgRequest.class)
+    public void enterGame(EnterGameMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {
+        log.info("接收到客户端进入游戏请求：{}", request.getHeader().getPlayerId());
+        EnterGameMsgResponse response = new EnterGameMsgResponse();
+        response.getBodyObj().setNickname("叶孤城");
+        response.getBodyObj().setPlayerId(1);
+        ctx.sendMessage(response);
+    }
+
+
+
 
     @MessageMapping(BuyArenaChallengeTimesMsgRequest.class) // 接收客户端购买竞技场挑战次数的请求
     public void buyArenaChallengeTimes(BuyArenaChallengeTimesMsgRequest request, GatewayMessageContext<PlayerManager> ctx) {

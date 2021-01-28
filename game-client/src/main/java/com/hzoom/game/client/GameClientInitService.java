@@ -1,10 +1,10 @@
 package com.hzoom.game.client;
 
 import com.hzoom.game.config.GameClientProperties;
-import com.hzoom.game.http.HttpApi;
+import com.hzoom.game.http.GameCenterApi;
 import com.hzoom.game.http.common.BaseResponse;
 import com.hzoom.game.http.request.SelectGameGatewayParam;
-import com.hzoom.game.http.response.GameGatewayInfoResponse;
+import com.hzoom.game.http.response.SelectGameGatewayResponse;
 import com.hzoom.game.message.DispatchMessageManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,15 @@ public class GameClientInitService {
     @Autowired
     private ApplicationContext applicationContext;
     @Autowired
-    private HttpApi httpApi;
+    private GameCenterApi gameCenterApi;
 
     @PostConstruct
     public void init() {
         DispatchMessageManager.scanGameMessages(applicationContext, 0, "com.hzoom");
     }
 
-    public GameGatewayInfoResponse selectGateway(SelectGameGatewayParam param) {
-        GameGatewayInfoResponse gateGatewayMsg = null;
+    public SelectGameGatewayResponse selectGateway(SelectGameGatewayParam param) {
+        SelectGameGatewayResponse gateGatewayMsg = null;
         if (gameClientProperties.isUseGameCenter()) {
             gateGatewayMsg = this.selectGatewayInfoFromGameCenter(param);
             if (gateGatewayMsg != null) {
@@ -49,8 +49,8 @@ public class GameClientInitService {
         return gateGatewayMsg;
     }
 
-    private GameGatewayInfoResponse selectGatewayInfoFromGameCenter(SelectGameGatewayParam param) {
-        BaseResponse<GameGatewayInfoResponse> response = httpApi.selectGatewayInfoFromGameCenter(param);
+    private SelectGameGatewayResponse selectGatewayInfoFromGameCenter(SelectGameGatewayParam param) {
+        BaseResponse<SelectGameGatewayResponse> response = gameCenterApi.selectGatewayInfoFromGameCenter(param);
         if (response.getCode()==0){
             return response.getData();
         }else {

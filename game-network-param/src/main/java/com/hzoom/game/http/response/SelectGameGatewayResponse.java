@@ -3,7 +3,7 @@ package com.hzoom.game.http.response;
 import lombok.Data;
 
 @Data
-public class GameGatewayInfoResponse {
+public class SelectGameGatewayResponse {
     private int id;
     private String ip;
     private int socketPort;

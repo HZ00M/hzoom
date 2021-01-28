@@ -5,7 +5,7 @@ import com.hzoom.game.error.IError;
 import com.hzoom.game.exception.ErrorException;
 import com.hzoom.game.exception.TokenException;
 import com.hzoom.game.http.request.SelectGameGatewayParam;
-import com.hzoom.game.http.response.GameGatewayInfoResponse;
+import com.hzoom.game.http.response.SelectGameGatewayResponse;
 import com.hzoom.game.model.GameGatewayInfo;
 import com.hzoom.game.service.GameGatewayService;
 import com.hzoom.game.utils.JWTUtil;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/request")
+@RequestMapping
 @Slf4j
 public class UserController {
     @Autowired
@@ -59,7 +59,7 @@ public class UserController {
     }
 
     @PostMapping(GameCenterMapping.CREATE_PLAYER)
-    public BaseResponse<ZonePlayerInfo> createPlayer(@RequestBody CreatePlayerParam param, HttpServletRequest request){
+     BaseResponse<ZonePlayerInfo> createPlayer(@RequestBody CreatePlayerParam param, HttpServletRequest request){
         param.checkParam();
         String token = request.getHeader("token");
         if (token==null){
@@ -89,7 +89,7 @@ public class UserController {
         param.checkParam();
         long playerId = param.getPlayerId();
         GameGatewayInfo gameGatewayInfo = gameGatewayService.selectGameGatewayInfoByPlayerId(playerId);
-        GameGatewayInfoResponse response = new GameGatewayInfoResponse();
+        SelectGameGatewayResponse response = new SelectGameGatewayResponse();
         response.setId(gameGatewayInfo.getId());
         response.setIp(gameGatewayInfo.getIp());
         response.setHttpPort(gameGatewayInfo.getHttpPort());
@@ -105,7 +105,7 @@ public class UserController {
         String privateKey = Base64Utils.encodeToString(privateKeyBytes);
         response.setRsaPrivateKey(privateKey);
         log.debug("player {} 获取游戏网关信息成功：{}", playerId, response);
-        BaseResponse<GameGatewayInfoResponse> responseEntity = new BaseResponse(response);
+        BaseResponse<SelectGameGatewayResponse> responseEntity = new BaseResponse(response);
         return responseEntity;
     }
 }

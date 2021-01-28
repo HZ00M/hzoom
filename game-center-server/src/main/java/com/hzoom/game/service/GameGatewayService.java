@@ -52,7 +52,7 @@ public class GameGatewayService {
 
     private void refreshGatewayInfo() {
         List<ServiceInstance> gameGatewayServiceInstances = discoveryClient.getInstances("game-socket-gateway");
-        log.info("GameGatewayService 抓取游戏网管配置成功 {}", gameGatewayServiceInstances);
+        log.debug("GameGatewayService 抓取游戏网管配置成功 {}", gameGatewayServiceInstances);
         List<GameGatewayInfo> initGameGatewayInfos = new ArrayList<>();
         for (ServiceInstance instance : gameGatewayServiceInstances) {
             int weight = getInstanceWeight(instance);

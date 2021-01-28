@@ -8,10 +8,12 @@ import com.hzoom.game.message.message.IMessage;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.concurrent.Promise;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class GameChannelIdleStateHandler implements GameChannelInboundHandler, GameChannelOutboundHandler {
     private static final long MIN_TIMEOUT_NANOS = TimeUnit.MILLISECONDS.toNanos(1);// 延迟事件的延迟时间的最小值
     private final long readerIdleTimeNanos;// 读取消息的空闲时间，单位纳秒
@@ -94,6 +96,7 @@ public class GameChannelIdleStateHandler implements GameChannelInboundHandler, G
 
     @Override
     public void close(AbstractGameChannelHandlerContext ctx, GameChannelPromise promise) {
+        destroy();
         ctx.close(promise);
     }
 
@@ -104,6 +107,7 @@ public class GameChannelIdleStateHandler implements GameChannelInboundHandler, G
 
 
     private void initialize(AbstractGameChannelHandlerContext ctx) {
+        log.info("GameChannelIdleStateHandler initialize() invoke!");
         switch (state) {
             case 1:
             case 2:
@@ -244,6 +248,7 @@ public class GameChannelIdleStateHandler implements GameChannelInboundHandler, G
     }
 
     private void destroy() {    // 销毁定时事件任务
+        log.info("GameChannelIdleStateHandler destroy() invoke!");
         state = 2;
         if (readerIdleTimeout != null) {
             readerIdleTimeout.cancel(false);

@@ -22,10 +22,16 @@ public class GameClientProperties {
      * 默认提供的游戏网关地址:localhost
      */
     private String defaultGameGatewayHost = "localhost";
+
     /**
-     * 网关认证需要的token
+     * socket网关认证需要的token
      */
     private String gatewayToken;
+
+    /**
+     * web网关认证需要的token
+     */
+    private String webToken = "";
     /**
      * 默认提供的游戏网关的端口:6001
      */
