@@ -137,7 +137,7 @@ public class GameClientCommand implements ApplicationContextAware {
             GameProtoMsg.FirstBodyRequest.Builder bodyBuilder = GameProtoMsg.FirstBodyRequest.newBuilder();
             GameProtoMsg.FirstBodyRequest firstBody = bodyBuilder.setValue1("value1").setValue2(2).setValue3(3L).build();
             thirdMsgRequest.setRequest(firstBody);
-            gameClientBoot.getChannel().writeAndFlush(firstBody);
+            gameClientBoot.getChannel().writeAndFlush(thirdMsgRequest);
         }
         if (messageId == 201) {//进入游戏请求
             EnterGameMsgRequest request = new EnterGameMsgRequest();

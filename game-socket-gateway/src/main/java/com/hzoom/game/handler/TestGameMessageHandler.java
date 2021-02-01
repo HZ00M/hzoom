@@ -7,6 +7,8 @@ import com.hzoom.game.message.request.SecondMsgRequest;
 import com.hzoom.game.message.request.ThirdMsgRequest;
 import com.hzoom.game.message.response.FirstMsgResponse;
 import com.hzoom.game.message.response.SecondMsgResponse;
+import com.hzoom.game.message.response.ThirdMsgResponse;
+import com.hzoom.game.proto.GameProtoMsg;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -50,7 +52,10 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
             ThirdMsgRequest request = (ThirdMsgRequest) gameMessageManager.getRequestInstanceByMessageId(messageId);
             request.read(gameMessagePackage.body());
             log.info("ThirdMsgRequest：{}",request.getRequest().getValue1(),request.getRequest().getValue2(),request.getRequest().getValue3());
-
+            ThirdMsgResponse response  = new ThirdMsgResponse();
+            GameProtoMsg.FirstBodyResponse firstBodyResponse = GameProtoMsg.FirstBodyResponse.newBuilder().setValue1("第一个protoBuf消息").build();
+            response.setResponse(firstBodyResponse);
+            ctx.writeAndFlush(response);
         }
     }
 }

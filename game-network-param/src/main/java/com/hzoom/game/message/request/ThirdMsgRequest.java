@@ -8,7 +8,7 @@ import com.hzoom.game.proto.GameProtoMsg;
 import lombok.Getter;
 import lombok.Setter;
 
-@MessageMetadata(messageId = 10003, serviceId = 1, messageType = IMessage.MessageType.REQUEST)
+@MessageMetadata(messageId = 10003, serviceId = 101, messageType = IMessage.MessageType.REQUEST)
 public class ThirdMsgRequest extends AbstractMessage {
     @Setter
     @Getter

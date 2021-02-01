@@ -27,9 +27,6 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (!(msg instanceof IMessage)) {
-            super.channelRead(ctx,msg);
-        }
         ByteBuf byteBuf = (ByteBuf) msg;
         try {
             int messageSize = byteBuf.readInt();

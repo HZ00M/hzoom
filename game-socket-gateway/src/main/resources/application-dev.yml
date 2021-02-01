@@ -50,8 +50,8 @@ game:
       work-thread-count: 4
   topic:
     config:
-      service-id: 111   #服务器中配置服务Id
-      server-id: 1001  #当前服务器的id
+      service-id: 1   #服务器中配置服务Id
+      server-id: 1  #当前服务器的id
       business-game-message-topic: business-game-message-topic
       gateway-game-message-topic: gateway-game-message-topic
       rpc-request-game-message-topic: rpc-request-game-message-topic
