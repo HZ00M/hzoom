@@ -1,0 +1,49 @@
+syntax = "proto3";
+package com.hzoom.game.proto;
+
+/*消息类型枚举*/
+enum MessageType{
+  REQUEST = 0;        //客户端请求消息
+  RESPONSE = 1;      //客户端响应消息
+  RPC_REQUEST = 2;    //RPC请求消息
+  RPC_RESPONSE = 3;    //RPC响应消息
+}
+
+message Header{
+  uint64 messageSize = 1;
+  uint64 clientSendTime = 2;
+  uint64 serverSendTime = 3;
+  int32 clientSeqId = 4;
+  int32 version = 5;
+  int32 errorCode = 6;
+  int32 fromServerId = 7;
+  int32 toServerId = 8;
+  uint64 playerId = 9;
+
+  int32 messageId = 10;
+  int32 serviceId = 11;
+  MessageType messageType = 12;
+}
+
+/*消息类型*/
+enum Type{
+  FIRST_BODY_REQUEST = 0;
+  FIRST_BODY_RESPONSE = 1;
+}
+
+message FirstBodyRequest{
+  string value1 = 1;
+  int32 value2 = 2;
+  int64 value3 = 3;
+}
+
+message FirstBodyResponse{
+  string value1 = 1;
+}
+
+message Message{
+  Header header = 1;
+  Type type = 2;
+  FirstBodyRequest firstBodyRequest = 3;
+  FirstBodyResponse firstBodyResponse = 4;
+}

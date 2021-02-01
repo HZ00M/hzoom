@@ -27,6 +27,9 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (!(msg instanceof IMessage)) {
+            super.channelRead(ctx,msg);
+        }
         ByteBuf byteBuf = (ByteBuf) msg;
         try {
             int messageSize = byteBuf.readInt();
@@ -54,7 +57,7 @@ public class ServerDecodeHandler extends ChannelInboundHandlerAdapter {
             header.setServiceId(serviceId);
             header.setMessageSize(messageSize);
             header.setVersion(version);
-            if (tokenBody!=null){
+            if (tokenBody != null) {
                 header.setPlayerId(tokenBody.getPlayerId());
             }
 

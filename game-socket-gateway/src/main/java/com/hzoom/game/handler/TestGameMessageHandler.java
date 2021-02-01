@@ -4,6 +4,7 @@ import com.hzoom.game.message.GameMessageManager;
 import com.hzoom.game.message.common.MessagePackage;
 import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
+import com.hzoom.game.message.request.ThirdMsgRequest;
 import com.hzoom.game.message.response.FirstMsgResponse;
 import com.hzoom.game.message.response.SecondMsgResponse;
 import io.netty.channel.ChannelHandler;
@@ -27,7 +28,7 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
         if (messageId == 10001) {
             FirstMsgRequest request = new FirstMsgRequest();
             request.read(gameMessagePackage.body());
-            log.debug("接收到客户端消息：{}", request.getValue());
+            log.info("接收到客户端消息：{}", request.getValue());
             FirstMsgResponse response = new FirstMsgResponse();
             response.setServerTime(System.currentTimeMillis());
             MessagePackage returnPackage = new MessagePackage();
@@ -37,7 +38,7 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
         } else if (messageId == 10002) {
             SecondMsgRequest request = (SecondMsgRequest) gameMessageManager.getRequestInstanceByMessageId(messageId);
             request.read(gameMessagePackage.body());
-            log.debug("收到request3:{}", request);
+            log.info("SecondMsgRequest:{}", request);
             SecondMsgResponse response = new SecondMsgResponse();
             response.getBodyObj().setResult1(System.currentTimeMillis());
             response.getBodyObj().setResult2("服务器回复");
@@ -45,6 +46,11 @@ public class TestGameMessageHandler extends ChannelInboundHandlerAdapter {
             returnPackage.setHeader(response.getHeader());
             returnPackage.setBody(response.body());
             ctx.writeAndFlush(returnPackage);
-        } 
+        } else if (messageId == 10003){
+            ThirdMsgRequest request = (ThirdMsgRequest) gameMessageManager.getRequestInstanceByMessageId(messageId);
+            request.read(gameMessagePackage.body());
+            log.info("ThirdMsgRequest：{}",request.getRequest().getValue1(),request.getRequest().getValue2(),request.getRequest().getValue3());
+
+        }
     }
 }

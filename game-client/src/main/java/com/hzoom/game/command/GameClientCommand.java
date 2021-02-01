@@ -18,6 +18,8 @@ import com.hzoom.game.message.common.IMessage;
 import com.hzoom.game.message.request.ConfirmMsgRequest;
 import com.hzoom.game.message.request.FirstMsgRequest;
 import com.hzoom.game.message.request.SecondMsgRequest;
+import com.hzoom.game.message.request.ThirdMsgRequest;
+import com.hzoom.game.proto.GameProtoMsg;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,10 @@ public class GameClientCommand implements ApplicationContextAware {
     private GameCenterApi gameCenterApi;
 
     private ApplicationContext applicationContext;
+
     @ShellMethod("登录，格式：login [openId] [sdkToken]")
-    public void login(@ShellOption(defaultValue = "") String openId,@ShellOption(defaultValue = "") String sdkToken) {
-        if (openId.isEmpty()||sdkToken.isEmpty()){
+    public void login(@ShellOption(defaultValue = "") String openId, @ShellOption(defaultValue = "") String sdkToken) {
+        if (openId.isEmpty() || sdkToken.isEmpty()) {
             log.error("缺少登录参数");
             return;
         }
@@ -58,7 +61,7 @@ public class GameClientCommand implements ApplicationContextAware {
     }
 
     @ShellMethod("创建角色，格式：create  [nikeName] [zoneId]")
-    public void create(@ShellOption(defaultValue = "") String nikeName,  @ShellOption(defaultValue = "1") String zoneId) {
+    public void create(@ShellOption(defaultValue = "") String nikeName, @ShellOption(defaultValue = "1") String zoneId) {
         if (nikeName.isEmpty()) {
             log.error("请输入nikeName创建角色");
             return;
@@ -108,7 +111,7 @@ public class GameClientCommand implements ApplicationContextAware {
     }
 
     @ShellMethod("发送测试消息，格式：send 消息号 参数")
-    public void send(int messageId,@ShellOption(defaultValue = "0")String... param) {
+    public void send(int messageId, @ShellOption(defaultValue = "0") String... param) {
         if (messageId == 1) {//发送认证请求
             ConfirmMsgRequest request = new ConfirmMsgRequest();
             request.getBodyObj().setToken(gameClientProperties.getGatewayToken());
@@ -129,21 +132,22 @@ public class GameClientCommand implements ApplicationContextAware {
             request.getBodyObj().setValue3("System.currentTimeMillis()");
             gameClientBoot.getChannel().writeAndFlush(request);
         }
-//        if(messageId == 10003) {
-//            ThirdMsgRequest request = new ThirdMsgRequest();
-//            ThirdMsgRequestBody requestBody = ThirdMsgRequestBody.newBuilder().setValue1("我是Protocol Buffer序列化的").setValue2(System.currentTimeMillis()).build();
-//            request.setRequestBody(requestBody);
-//            gameClientBoot.getChannel().writeAndFlush(request);
-//        }
-        if(messageId == 201) {//进入游戏请求
+        if (messageId == 10003) {
+            ThirdMsgRequest thirdMsgRequest = new ThirdMsgRequest();
+            GameProtoMsg.FirstBodyRequest.Builder bodyBuilder = GameProtoMsg.FirstBodyRequest.newBuilder();
+            GameProtoMsg.FirstBodyRequest firstBody = bodyBuilder.setValue1("value1").setValue2(2).setValue3(3L).build();
+            thirdMsgRequest.setRequest(firstBody);
+            gameClientBoot.getChannel().writeAndFlush(firstBody);
+        }
+        if (messageId == 201) {//进入游戏请求
             EnterGameMsgRequest request = new EnterGameMsgRequest();
             gameClientBoot.getChannel().writeAndFlush(request);
         }
-        if(messageId == 210) {//购买次数请求
+        if (messageId == 210) {//购买次数请求
             BuyArenaChallengeTimesMsgRequest request = new BuyArenaChallengeTimesMsgRequest();
             gameClientBoot.getChannel().writeAndFlush(request);
         }
-        if (messageId == 202){//获取玩家信息请求
+        if (messageId == 202) {//获取玩家信息请求
             GetPlayerByIdMsgRequest request = new GetPlayerByIdMsgRequest();
             request.getBodyObj().setPlayerId(Integer.valueOf(param[0]));
             gameClientBoot.getChannel().writeAndFlush(request);
