@@ -2,4 +2,4 @@ spring:
   application:
     name: game-bird
   profiles:
-    active: peer2
+    active: peer1

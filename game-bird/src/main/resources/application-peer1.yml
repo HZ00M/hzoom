@@ -36,11 +36,8 @@ spring:
 
 logging:
   level:
-    com:
-      alibaba:
-        nacos:
-          client:
-            naming: warn
+    org.springframework.data.mongodb.core.MongoTemplate: debug
+    com.alibaba.nacos.client.naming: warn
 game:
   topic:
     config:
