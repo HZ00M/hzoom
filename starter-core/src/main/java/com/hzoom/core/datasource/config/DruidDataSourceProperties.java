@@ -8,5 +8,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "datasource")
 @Data
 public class DruidDataSourceProperties {
+    private String master;
+
     private Map<String,DruidProperties> map;
 }

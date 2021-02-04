@@ -62,7 +62,7 @@ public class DataSourceAutoConfigure {
     }
 
     public Map<Object, Object>  getDataSources() throws BeansException {
-        Set<Map.Entry<String, DruidProperties>> entries = dataSourceProperties.getDatasource().entrySet();
+        Set<Map.Entry<String, DruidProperties>> entries = dataSourceProperties.getMap().entrySet();
         Map<Object, Object> dataSources = new HashMap();
         for (Map.Entry<String, DruidProperties> datasourceEntry : entries) {
             String name = datasourceEntry.getKey();

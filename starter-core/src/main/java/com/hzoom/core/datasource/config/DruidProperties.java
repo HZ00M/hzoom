@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Data
 public class DruidProperties {
-    @Value("${datasource.type}")
     private DataSourceType type;
 
     @Value("${spring.datasource.druid.initialSize}")
