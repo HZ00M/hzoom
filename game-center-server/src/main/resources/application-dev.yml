@@ -28,3 +28,26 @@ management:
     web:
       exposure:
         include: '*'
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+datasource:
+  map:
+    master:
+      cloud0:
+        url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+        username: root
+        password: 123
+      cloud1:
+        url: jdbc:mysql://106.52.151.187:3306/cloud1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+        username: root
+        password: 123
+    slave:
+      cloud2:
+        url: jdbc:mysql://106.52.151.187:3306/cloud2?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+        username: root
+        password: 123

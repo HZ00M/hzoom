@@ -30,6 +30,7 @@
         <module>game-bird</module>
         <module>game-gateway-message-starter</module>
         <module>game-arena</module>
+        <module>game-mysql-dao</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
