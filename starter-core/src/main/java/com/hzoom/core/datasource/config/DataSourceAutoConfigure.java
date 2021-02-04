@@ -51,7 +51,7 @@ public class DataSourceAutoConfigure {
          */
         //配置多数据源
         Map<Object, Object> datasouces = getDataSources();
-        DynamicDataSource dynamicDataSource = new DynamicDataSource((DataSource)datasouces.get("master"), datasouces);
+        DynamicDataSource dynamicDataSource = new DynamicDataSource((DataSource)datasouces.get(dataSourceProperties.getMaster()), datasouces);
         return dynamicDataSource;
     }
 
