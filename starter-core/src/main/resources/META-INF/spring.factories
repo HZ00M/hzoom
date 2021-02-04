@@ -5,4 +5,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.hzoom.core.redis.RedissonClientAutoConfigure,\
   com.hzoom.core.es.config.EsAutoConfigure,\
   com.hzoom.core.netty.web.autoconfigure.NettyWebSocketAutoConfigure,\
-  com.hzoom.core.zookeeper.ZKAutoConfigure
+  com.hzoom.core.zookeeper.ZKAutoConfigure,\
+  com.hzoom.core.datasource.DataSourceAutoConfigure
