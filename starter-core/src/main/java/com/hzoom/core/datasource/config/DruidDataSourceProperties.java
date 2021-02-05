@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Map;
 
-@ConfigurationProperties(prefix = "datasource")
+@ConfigurationProperties(prefix = "spring.datasource")
 @Data
 public class DruidDataSourceProperties {
     private String master;

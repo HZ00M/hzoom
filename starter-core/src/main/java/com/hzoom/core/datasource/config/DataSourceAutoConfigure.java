@@ -7,6 +7,7 @@ import com.hzoom.core.datasource.DynamicDataSource;
 import com.hzoom.core.datasource.DynamicDataSourceTransactionManager;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
@@ -21,6 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,7 +30,7 @@ import java.util.Set;
 @EnableConfigurationProperties({DruidDataSourceProperties.class})
 @ConditionalOnClass
 @ConditionalOnProperty(
-        prefix = "datasource",
+        prefix = "spring.datasource",
         name = {"enable"},
         havingValue = "true",
         matchIfMissing = false
@@ -73,5 +75,6 @@ public class DataSourceAutoConfigure {
         }
         return dataSources;
     }
+
 
 }
