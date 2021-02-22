@@ -7,13 +7,8 @@ import com.hzoom.core.datasource.DynamicDataSource;
 import com.hzoom.core.datasource.DynamicDataSourceTransactionManager;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +17,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,7 +39,7 @@ public class DataSourceAutoConfigure {
      * @return
      */
     @Primary
-    @Bean(name = "defaultDatasource")
+    @Bean
     public DataSource defaultDatasource() {
 
         /**
@@ -64,17 +58,52 @@ public class DataSourceAutoConfigure {
     }
 
     public Map<Object, Object>  getDataSources() throws BeansException {
-        Set<Map.Entry<String, DruidProperties>> entries = dataSourceProperties.getMap().entrySet();
+        Set<Map.Entry<String, SourceProperties>> entries = dataSourceProperties.getMap().entrySet();
         Map<Object, Object> dataSources = new HashMap();
-        for (Map.Entry<String, DruidProperties> datasourceEntry : entries) {
+        DruidProperties druidProperties = dataSourceProperties.getDruid();
+        for (Map.Entry<String, SourceProperties> datasourceEntry : entries) {
             String name = datasourceEntry.getKey();
-            DruidProperties druidProperties = datasourceEntry.getValue();
+            SourceProperties DataSourceProperties = datasourceEntry.getValue();
             DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-            DruidDataSource wrapper = druidProperties.wrapper(dataSource);
-            dataSources.put(name+"-"+druidProperties.getType(),wrapper);
+            DruidDataSource wrapper = wrapper(dataSource,druidProperties,DataSourceProperties);
+            dataSources.put(name+"-"+DataSourceProperties.getDataSourceType(),wrapper);
         }
         return dataSources;
     }
 
+    public DruidDataSource wrapper(DruidDataSource datasource, DruidProperties druidProperties, SourceProperties sourceProperties)
+    {
+        /** 配置初始化大小、最小、最大 */
+        datasource.setDriverClassName(dataSourceProperties.getDriverClassName());
+        datasource.setInitialSize(druidProperties.getInitialSize());
+        datasource.setMaxActive(druidProperties.getMaxActive());
+        datasource.setMinIdle(druidProperties.getMinIdle());
 
+        /** 配置获取连接等待超时的时间 */
+        datasource.setMaxWait(druidProperties.getMaxWait());
+
+        /** 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 */
+        datasource.setTimeBetweenEvictionRunsMillis(druidProperties.getTimeBetweenEvictionRunsMillis());
+
+        /** 配置一个连接在池中最小、最大生存的时间，单位是毫秒 */
+        datasource.setMinEvictableIdleTimeMillis(druidProperties.getMinEvictableIdleTimeMillis());
+        datasource.setMaxEvictableIdleTimeMillis(druidProperties.getMaxEvictableIdleTimeMillis());
+
+        /**
+         * 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+         */
+        datasource.setValidationQuery(druidProperties.getValidationQuery());
+        /** 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 */
+        datasource.setTestWhileIdle(druidProperties.isTestWhileIdle());
+        /** 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 */
+        datasource.setTestOnBorrow(druidProperties.isTestOnBorrow());
+        /** 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 */
+        datasource.setTestOnReturn(druidProperties.isTestOnReturn());
+
+        datasource.setUrl(sourceProperties.getUrl());
+        datasource.setUsername(sourceProperties.getUsername());
+        datasource.setPassword(sourceProperties.getPassword());
+
+        return datasource;
+    }
 }

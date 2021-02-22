@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@ConfigurationProperties("spring.datasource.druid")
 public class DataSouceConfig  {
 
     @Autowired

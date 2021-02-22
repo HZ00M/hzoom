@@ -3,6 +3,8 @@ server:
 
 
 spring:
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
   cloud:
     nacos:
       discovery:
@@ -10,24 +12,24 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    master: cloud0
+    master: cloud0-WRITE
     enable: true
     map:
       cloud0:
         url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
-        type: write
+        dataSourceType: write
       cloud1:
         url: jdbc:mysql://106.52.151.187:3306/cloud1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
-        type: write
+        dataSourceType: write
       cloud2:
         url: jdbc:mysql://106.52.151.187:3306/cloud2?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
-        type: read
+        dataSourceType: read
     druid:
       # 初始连接数
       initialSize: 5
