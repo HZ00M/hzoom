@@ -2,6 +2,8 @@ package com.hzoom.core.datasource;
 
 import com.hzoom.core.datasource.enums.DataSourceType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
 @Slf4j
 public class DynamicDataSourceContextHolder {
@@ -11,8 +13,11 @@ public class DynamicDataSourceContextHolder {
      */
     private static final ThreadLocal<String> NAME_CONTEXT_HOLDER = new ThreadLocal<>();
     private static final ThreadLocal<DataSourceType> TYPE_CONTEXT_HOLDER = new ThreadLocal<>();
-    private static final String DEFAULT_DB_NAME = "master";
+    private static String DEFAULT_DB_NAME = "";
 
+    public static void setDefaultDbName(String defaultDbName){
+        DEFAULT_DB_NAME = defaultDbName;
+    }
     /**
      * 设置数据源的名称
      */

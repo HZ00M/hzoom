@@ -12,23 +12,32 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    master: cloud0-WRITE
+    master: cloud0
     enable: true
     map:
       cloud0:
         url: jdbc:mysql://106.52.151.187:3306/cloud?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
+        databaseName: cloud
         dataSourceType: write
       cloud1:
         url: jdbc:mysql://106.52.151.187:3306/cloud1?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
-        dataSourceType: write
+        databaseName: cloud
+        dataSourceType: read
       cloud2:
         url: jdbc:mysql://106.52.151.187:3306/cloud2?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
         username: root
         password: 123
+        databaseName: cloud2
+        dataSourceType: write
+      cloud3:
+        url: jdbc:mysql://106.52.151.187:3306/cloud3?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+        username: root
+        password: 123
+        databaseName: cloud2
         dataSourceType: read
     druid:
       # 初始连接数

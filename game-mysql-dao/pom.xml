@@ -11,12 +11,13 @@
 
     <artifactId>game-mysql-dao</artifactId>
     <properties>
-        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <velocity.version>2.1</velocity.version>
         <freemarker.version>2.3.29</freemarker.version>
         <ibeetl.version>3.0.13.RELEASE</ibeetl.version>
     </properties>
     <dependencies>
+
         <dependency>
             <groupId>com.hzoom</groupId>
             <artifactId>game-common</artifactId>

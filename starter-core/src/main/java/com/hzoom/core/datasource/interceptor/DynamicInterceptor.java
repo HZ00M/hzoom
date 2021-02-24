@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
         })
 })
 @Slf4j
-@Component
 public class DynamicInterceptor implements Interceptor {
     private static final String REGEX = ".*insert\\u0020.*|.*delete\\u0020.*|.*update\\u0020.*";
     private static final Map<String, DataSourceType> cacheMap = new ConcurrentHashMap<>();

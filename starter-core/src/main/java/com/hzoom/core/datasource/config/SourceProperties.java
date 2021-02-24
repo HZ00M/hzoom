@@ -7,5 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 public class SourceProperties extends DataSourceProperties {
+    private String databaseName;
     private DataSourceType dataSourceType = DataSourceType.AUTO;
 }

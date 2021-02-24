@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author hzoom
- * @since 2021-02-04
+ * @since 2021-02-23
  */
 @Service
 public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements TUserService {
+
 }

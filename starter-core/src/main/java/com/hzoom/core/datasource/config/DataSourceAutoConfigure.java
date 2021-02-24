@@ -4,7 +4,10 @@ package com.hzoom.core.datasource.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.hzoom.core.datasource.DynamicDataSource;
+import com.hzoom.core.datasource.DynamicDataSourceContextHolder;
 import com.hzoom.core.datasource.DynamicDataSourceTransactionManager;
+import com.hzoom.core.datasource.aspect.DataSourceAspect;
+import com.hzoom.core.datasource.interceptor.DynamicInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -47,6 +50,7 @@ public class DataSourceAutoConfigure {
          */
         //配置多数据源
         Map<Object, Object> datasouces = getDataSources();
+        DynamicDataSourceContextHolder.setDefaultDbName(dataSourceProperties.getMap().get(dataSourceProperties.getMaster()).getDatabaseName());
         DynamicDataSource dynamicDataSource = new DynamicDataSource((DataSource)datasouces.get(dataSourceProperties.getMaster()), datasouces);
         return dynamicDataSource;
     }
@@ -62,11 +66,11 @@ public class DataSourceAutoConfigure {
         Map<Object, Object> dataSources = new HashMap();
         DruidProperties druidProperties = dataSourceProperties.getDruid();
         for (Map.Entry<String, SourceProperties> datasourceEntry : entries) {
-            String name = datasourceEntry.getKey();
+            String databaseName = datasourceEntry.getValue().getDatabaseName();
             SourceProperties DataSourceProperties = datasourceEntry.getValue();
             DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
             DruidDataSource wrapper = wrapper(dataSource,druidProperties,DataSourceProperties);
-            dataSources.put(name+"-"+DataSourceProperties.getDataSourceType(),wrapper);
+            dataSources.put(databaseName+"-"+DataSourceProperties.getDataSourceType(),wrapper);
         }
         return dataSources;
     }
@@ -105,5 +109,14 @@ public class DataSourceAutoConfigure {
         datasource.setPassword(sourceProperties.getPassword());
 
         return datasource;
+    }
+
+    @Bean
+    public DynamicInterceptor dynamicInterceptor(){
+        return new DynamicInterceptor();
+    }
+    @Bean
+    public DataSourceAspect dataSourceAspect(){
+        return new DataSourceAspect();
     }
 }

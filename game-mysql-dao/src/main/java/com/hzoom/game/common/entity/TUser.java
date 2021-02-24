@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author hzoom
- * @since 2021-02-04
+ * @since 2021-02-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,7 +29,7 @@ public class TUser implements Serializable {
 
     private String password;
 
-    private String nickName;
+    private String nickname;
 
 
 }

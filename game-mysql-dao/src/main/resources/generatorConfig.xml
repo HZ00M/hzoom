@@ -48,17 +48,17 @@
         </javaClientGenerator>
 
         <!-- 指定数据库表,有多少表就指定多少下面的标签，schema写实体类的名称，tableName写表名,domainObjectName写实体类的名称 -->
-<!--        <table schema="User" tableName="t_user" domainObjectName="User">-->
-<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-<!--        </table>-->
-
-        <table schema="Transaction" tableName="TCC_TRANSACTION" domainObjectName="Transaction"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false" >
-
-            <!--以下为添加内容 -->
-            <columnOverride column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table schema="User" tableName="t_user" domainObjectName="User">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+<!--        <table schema="Transaction" tableName="TCC_TRANSACTION" domainObjectName="Transaction"-->
+<!--               enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false" >-->
+
+<!--            &lt;!&ndash;以下为添加内容 &ndash;&gt;-->
+<!--            <columnOverride column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR" />-->
+<!--        </table>-->
     </context>
 </generatorConfiguration>
