@@ -43,10 +43,10 @@
     </appender>
 
     <!-- project default level -->
-    <logger name="src" level="DEBUG"/>
+    <logger name="src" level="INFO"/>
 
     <!-- 日志输出级别 常用的日志级别按照从高到低依次为：ERROR、WARN、INFO、DEBUG。 -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>
